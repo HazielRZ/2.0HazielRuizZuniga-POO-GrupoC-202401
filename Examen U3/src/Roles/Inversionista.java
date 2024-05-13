@@ -16,19 +16,6 @@ public class Inversionista {
         this.id = id;
     }
 
-    public void fondoBancoMadero() {
-        System.out.println("Ingrese el fondo que proveerá al banco de Madero: ");
-        double fondoMadero = solicitarCantidad();
-        System.out.println("Este movimiento se realizó en la fecha: " + fechaCreacion);
-        System.out.println("Gracias por invertir en la sucursal Madero.");
-    }
-
-    public void fondoBancoAcueducto() {
-        System.out.println("Ingrese el fondo que proveerá al banco de Acueducto: ");
-        double fondoAcueducto = solicitarCantidad();
-        System.out.println("Este movimiento se realizó en la fecha: " + fechaCreacion);
-        System.out.println("Gracias por invertir en la sucursal Acueducto.");
-    }
 
     private double solicitarCantidad() {
         while (true) {

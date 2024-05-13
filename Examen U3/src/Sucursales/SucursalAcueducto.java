@@ -3,12 +3,17 @@ package Sucursales;
 public class SucursalAcueducto extends Sucursales {
     private int numeroEmpleados;
 
-    public SucursalAcueducto(String gerente, String nombre, String apellido, String id, int numeroEmpleados) {
-        super(gerente, nombre, apellido, id);
+    public SucursalAcueducto(String nombre, String direccion, String telefono, Gerente gerente, int numeroEmpleados) {
+        super(nombre, direccion, telefono, gerente);
         this.numeroEmpleados = numeroEmpleados;
     }
 
-    // Métodos específicos de la Sucursal1
+    // Métodos específicos de la Sucursal Acueducto
+    @Override
+    public void invertir() {
+        super.invertir();
+        System.out.println("Gracias por invertir en la sucursal Acueducto.");
+    }
     public int getNumeroEmpleados() {
         return numeroEmpleados;
     }
