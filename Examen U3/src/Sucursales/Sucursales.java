@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public abstract class Sucursales {
     public static SolicitudTarjetaCredito[] listaSolicitudes;
-    private final int id;
+    protected final int id;
     protected static String nombre;
     private String direccion;
     private String telefono;

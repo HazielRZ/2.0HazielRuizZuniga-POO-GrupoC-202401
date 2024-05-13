@@ -8,7 +8,8 @@ import java.util.Scanner;
 
 
 public class Gerente extends Empleado {
-    private Date fechaCreacion = new Date(), fecha;
+    private Date fechaCreacion = new Date();
+    private Date fecha = new Date();
 
     public Gerente(Date fecha, String capturista, String gerente, String ejecutivoVentas, int id) {
         super(fecha, capturista, gerente, ejecutivoVentas, id);

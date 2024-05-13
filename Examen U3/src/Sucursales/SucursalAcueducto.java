@@ -1,23 +1,26 @@
 package Sucursales;
 
 import Roles.Gerente;
+import utils.IDManager;
+
+import java.util.Date;
 
 public class SucursalAcueducto extends Sucursales {
     private int numeroEmpleados;
+    private static final Gerente gerente2 = new Gerente(new Date(), "EDER", "", "", IDManager.generarIDEmpleado());
 
-    public SucursalAcueducto(String sucursalAcueducto, String s, String number, Gerente gerente, int i) {
-        // Asignar valores predeterminados
-        super(1,nombre, "Dirección predeterminada", "Teléfono predeterminado", null);
-        this.numeroEmpleados = 0;
+    public SucursalAcueducto(int id, String nombre, String direccion, String telefono) {
+        super(id, nombre, direccion, telefono, gerente2);
+
     }
 
-
-    // Métodos específicos de la Sucursal Acueducto
+    // Métodos específicos de la Sucursal Madero
 
     public static void invertir() {
         invertir(); // Llamada al método invertir de la clase base
         System.out.println("Gracias por invertir en la sucursal Acueducto.");
     }
+
     public int getNumeroEmpleados() {
         return numeroEmpleados;
     }

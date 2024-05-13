@@ -1,13 +1,17 @@
 package Sucursales;
 
 import Roles.Gerente;
+import utils.IDManager;
+
+import java.util.Date;
 
 public class SucursalMadero extends Sucursales {
     private int numeroEmpleados;
+    private static final Gerente gerente2 = new Gerente(new Date(), "EDER", "", "", IDManager.generarIDEmpleado());
 
-    public SucursalMadero(String sucursalMadero, String s, String number, Gerente gerente, int i) {
-        // Asignar valores predeterminados
-        super(2,nombre, "Dirección predeterminada", "Teléfono predeterminado", null); // Suponiendo que no hay gerente inicialmente
+    public SucursalMadero(int id, String nombre, String direccion, String telefono) {
+        super(id, nombre, direccion, telefono, gerente2);
+
     }
 
     // Métodos específicos de la Sucursal Madero
@@ -16,6 +20,7 @@ public class SucursalMadero extends Sucursales {
         invertir(); // Llamada al método invertir de la clase base
         System.out.println("Gracias por invertir en la sucursal Madero.");
     }
+
     public int getNumeroEmpleados() {
         return numeroEmpleados;
     }

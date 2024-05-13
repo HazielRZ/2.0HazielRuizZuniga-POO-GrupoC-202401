@@ -21,6 +21,8 @@ public class SistemaBancario {
 
     public static void main(String[] args) {
         cargarDatos();
+
+
         sucursal = seleccionarSucursal();
         if (sucursal == null) {
             System.out.println("No se pudo seleccionar una sucursal. Saliendo del programa.");
@@ -42,12 +44,10 @@ public class SistemaBancario {
         switch (opcion) {
             case 1:
                 Gerente gerente1 = new Gerente(new Date(), "JUAN", "", "", IDManager.generarIDEmpleado());
-                gerente1.registrarGerente();
-                return new SucursalAcueducto("Sucursal Acueducto", "Dirección 1", "123456789",  gerente1, 10);
+                return new SucursalAcueducto(1, "Acueducto", "123456789", "44324234");
             case 2:
                 Gerente gerente2 = new Gerente(new Date(), "EDER", "", "", IDManager.generarIDEmpleado());
-                gerente2.registrarGerente();
-                return new SucursalMadero("Sucursal Madero", "Dirección 2", "987654321", gerente2, 8);
+                return new SucursalMadero(3, "MAdero", "987654321", "234234324");
             default:
                 System.out.println("Opción inválida.");
                 return null; // Devuelve null en caso de opción inválida
