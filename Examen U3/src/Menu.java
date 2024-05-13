@@ -1,7 +1,7 @@
 import Roles.*;
 import Sucursales.Sucursales;
 import Tarjeta.SolicitudTarjetaCredito;
-
+import Tarjeta.TipoTarjeta;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,6 +11,7 @@ public class Menu {
     private static Cliente cliente;
     private static Empleado empleado;
     private static Inversionista inversionista;
+    static TipoTarjeta tipoTarjeta;
 
     public static void mostrarMenuCliente() {
         while (true) {
@@ -256,7 +257,7 @@ public class Menu {
                     GestorUsuarios.buscarClientePorID();
                     break;
                 case 5:
-                    SolicitudTarjetaCredito.solicitarTarjetaCredito();
+                    SolicitudTarjetaCredito.solicitarTarjetaCredito(cliente, tipoTarjeta);
                     break;
                 case 6:
                     System.out.println("Saliendo del menú para Ejecutivo de Cuenta.");

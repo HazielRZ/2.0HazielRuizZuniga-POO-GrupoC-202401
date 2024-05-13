@@ -1,4 +1,6 @@
 package Roles;
+import Tarjeta.SolicitudTarjetaCredito;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -48,11 +50,9 @@ public class EjecutivoCuenta extends Empleado{
             }
         }
     }
-    public void solicitarTarjetaCredito(){
 
-    }
 
-    public class Persona {
+    public static class Persona {
         private String nombre;
         private String apellido;
 

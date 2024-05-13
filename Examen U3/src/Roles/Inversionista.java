@@ -11,7 +11,7 @@ public class Inversionista {
     private final Date fechaCreacion = new Date();
 
     private  String nombre;
-    private int id;
+    private final int id;
 
     public Inversionista(String nombre, String id) {
         this.nombre = nombre;
