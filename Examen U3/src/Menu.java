@@ -1,6 +1,4 @@
-import Roles.Cliente;
-import Roles.Gerente;
-import Roles.Inversionista;
+import Roles.*;
 import Sucursales.Sucursales;
 import Tarjeta.SolicitudTarjetaCredito;
 
@@ -10,6 +8,9 @@ import java.util.Scanner;
 
 public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
+    private static Cliente cliente;
+    private static Empleado empleado;
+    private static Inversionista inversionista;
 
     public static void mostrarMenuCliente() {
         while (true) {
@@ -54,7 +55,7 @@ public class Menu {
             case GERENTE:
                 mostrarMenuGerente((Gerente) empleado);
                 break;
-            case EJECUTIVOCUENTA:
+            case EJECUTIVO_CUENTA:
                 mostrarMenuEjecutivoCuenta();
                 break;
             case CAPTURISTA:
@@ -135,22 +136,136 @@ public class Menu {
         }
     }
     private static void mostrarMenuCapturista() {
-        System.out.println("=== Menú para Capturista ===");
-        System.out.println("1. Registrar nuevo ejecutivo de cuenta");
-        System.out.println("2. Modificar datos de un ejecutivo de cuenta");
-        System.out.println("3. Eliminar ejecutivo de cuenta");
-        System.out.println("4. Buscar ejecutivo de cuenta");
-        System.out.println("5. Salir");
+        while (true) {
+            System.out.println("=== Menú para Capturista ===");
+            System.out.println("1. Registrar nuevo ejecutivo de cuenta");
+            System.out.println("2. Modificar datos de un ejecutivo de cuenta");
+            System.out.println("3. Eliminar ejecutivo de cuenta");
+            System.out.println("4. Buscar ejecutivo de cuenta");
+            System.out.println("5. Salir");
+            System.out.print("Ingrese su opción: ");
+
+            int opcion = leerOpcion();
+
+            switch (opcion) {
+                case 1:
+                    registrarNuevoEjecutivoCuenta();
+                    break;
+                case 2:
+                    modificarDatosEjecutivoCuenta();
+                    break;
+                case 3:
+                    eliminarEjecutivoCuenta();
+                    break;
+                case 4:
+                    buscarEjecutivoCuenta();
+                    break;
+                case 5:
+                    System.out.println("Saliendo del menú para Capturista.");
+                    return;
+                default:
+                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+                    break;
+            }
+        }
+    }
+
+    private static void buscarEjecutivoCuenta() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del ejecutivo de cuenta: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el apellido del ejecutivo de cuenta: ");
+        String apellido = scanner.nextLine();
+        Capturista.EjecutivoCuenta ejecutivo = Capturista.buscarEjecutivo(nombre, apellido);
+        if (ejecutivo != null) {
+            System.out.println("Ejecutivo de cuenta encontrado: " + ejecutivo);
+        } else {
+            System.out.println("No se encontró ningún ejecutivo de cuenta con ese nombre y apellido.");
+        }
+    }
+
+    private static void eliminarEjecutivoCuenta() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del ejecutivo de cuenta: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el apellido del ejecutivo de cuenta: ");
+        String apellido = scanner.nextLine();
+        Capturista.EjecutivoCuenta ejecutivo = Capturista.buscarEjecutivo(nombre, apellido);
+        if (ejecutivo != null) {
+            Capturista.eliminarEjecutivo(ejecutivo);
+        } else {
+            System.out.println("No se encontró ningún ejecutivo de cuenta con ese nombre y apellido.");
+        }
+    }
+
+    private static void modificarDatosEjecutivoCuenta() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del ejecutivo de cuenta que desea modificar: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el apellido del ejecutivo de cuenta que desea modificar: ");
+        String apellido = scanner.nextLine();
+        Capturista.EjecutivoCuenta ejecutivo = Capturista.buscarEjecutivo(nombre, apellido);
+        if (ejecutivo != null) {
+            System.out.print("Ingrese el nuevo nombre del ejecutivo de cuenta: ");
+            String nuevoNombre = scanner.nextLine();
+            System.out.print("Ingrese el nuevo apellido del ejecutivo de cuenta: ");
+            String nuevoApellido = scanner.nextLine();
+            System.out.print("Ingrese el nuevo correo del ejecutivo de cuenta: ");
+            String nuevoCorreo = scanner.nextLine();
+            Capturista.modificarDatos(ejecutivo, nuevoNombre, nuevoApellido, nuevoCorreo);
+        } else {
+            System.out.println("No se encontró ningún ejecutivo de cuenta con ese nombre y apellido.");
+        }
+    }
+
+    private static void registrarNuevoEjecutivoCuenta() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del nuevo ejecutivo de cuenta: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el apellido del nuevo ejecutivo de cuenta: ");
+        String apellido = scanner.nextLine();
+        System.out.print("Ingrese el correo del nuevo ejecutivo de cuenta: ");
+        String correo = scanner.nextLine();
+        Capturista.agregarEjecutivo(nombre, apellido, correo);
     }
 
     private static void mostrarMenuEjecutivoCuenta() {
-        System.out.println("=== Menú para Ejecutivo de Cuenta ===");
-        System.out.println("1. Registrar nuevo cliente");
-        System.out.println("2. Modificar datos de un cliente");
-        System.out.println("3. Eliminar cliente");
-        System.out.println("4. Buscar cliente");
-        System.out.println("5. Solicitar tarjeta de crédito para un cliente");
-        System.out.println("6. Salir");
+        while (true) {
+            System.out.println("=== Menú para Ejecutivo de Cuenta ===");
+            System.out.println("1. Registrar nuevo cliente");
+            System.out.println("2. Modificar datos de un cliente");
+            System.out.println("3. Eliminar cliente");
+            System.out.println("4. Buscar cliente");
+            System.out.println("5. Solicitar tarjeta de crédito para un cliente");
+            System.out.println("6. Salir");
+            System.out.print("Ingrese su opción: ");
+
+            int opcion = leerOpcion();
+
+            switch (opcion) {
+                case 1:
+                    registrarNuevoCliente();
+                    break;
+                case 2:
+                    modificarDatosCliente();
+                    break;
+                case 3:
+                    eliminarCliente();
+                    break;
+                case 4:
+                    GestorUsuarios.buscarClientePorID();
+                    break;
+                case 5:
+                    SolicitudTarjetaCredito.solicitarTarjetaCredito();
+                    break;
+                case 6:
+                    System.out.println("Saliendo del menú para Ejecutivo de Cuenta.");
+                    return;
+                default:
+                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+                    break;
+            }
+        }
     }
     private static void mostrarMenuOperacionesClientes() {
         while (true) {
@@ -225,11 +340,12 @@ public class Menu {
     }
 
     private static void modificarDatosInversionista() {
-        Inversionista.modificarDatos();
+       Inversionista.modificarDatos(inversionista);
+
     }
 
     private static void eliminarInversionista() {
-       Inversionista.eliminarInversionista();
+        Inversionista.eliminarInversionista(inversionista);
     }
 
     private static void invertir() {
@@ -246,7 +362,7 @@ public class Menu {
                 opcionValida = true;
             } catch (InputMismatchException e) {
                 System.out.println("Error: Por favor, ingrese un número válido.");
-                scanner.nextLine(); // Limpiar el buffer de entrada
+                scanner.nextLine(); // Limpiar el buffer
             }
         }
 

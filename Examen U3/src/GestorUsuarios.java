@@ -1,21 +1,21 @@
 import Roles.Cliente;
 import Roles.Empleado;
 import Roles.Inversionista;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestorUsuarios {
     // Listas privadas para almacenar clientes, empleados e inversionistas
     private static List<Cliente> clientes;
-    private final List<Empleado> empleados;
-    private final List<Inversionista> inversionistas;
+    private List<Empleado> empleados;
+    private  List<Inversionista> inversionistas;
 
     // Constructor para inicializar las listas
     public GestorUsuarios() {
-        this.clientes = new ArrayList<>();
-        this.empleados = new ArrayList<>();
-        this.inversionistas = new ArrayList<>();
+
+    }
+
+    public static void buscarClientePorID() {
     }
 
     // Métodos para agregar usuarios
@@ -50,9 +50,9 @@ public class GestorUsuarios {
         return null; // Si no se encuentra el empleado
     }
 
-    public Inversionista buscarInversionistaPorId(String id) {
+    public Inversionista buscarInversionistaPorId(int id) {
         for (Inversionista inversionista : inversionistas) {
-            if (inversionista.getId().equals(id)) {
+            if (inversionista.getId() == id) {
                 return inversionista;
             }
         }

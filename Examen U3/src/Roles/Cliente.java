@@ -14,7 +14,7 @@ public class Cliente {
     private TarjetaDebito tarjetaDebito;
 
     public Cliente(int id, String nombre, String apellido, String RFC, String Bdate, String estado, String ciudad, String CURP, String direccion, String sucursalRegistro, String fechaRegistro, String contraseña) {
-        this.id = id;
+        this.id = IDManager.generarIDCliente();
         this.nombre = nombre;
         this.apellido = apellido;
         this.RFC = RFC;

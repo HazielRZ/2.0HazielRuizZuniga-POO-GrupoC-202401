@@ -5,15 +5,17 @@ import Roles.Gerente;
 public class SucursalAcueducto extends Sucursales {
     private int numeroEmpleados;
 
-    public SucursalAcueducto(String nombre, String direccion, String telefono, Gerente gerente, int numeroEmpleados) {
-        super(nombre, direccion, telefono, gerente);
-        this.numeroEmpleados = numeroEmpleados;
+    public SucursalAcueducto(String sucursalAcueducto, String s, String number, Gerente gerente, int i) {
+        // Asignar valores predeterminados
+        super(1,nombre, "Dirección predeterminada", "Teléfono predeterminado", null);
+        this.numeroEmpleados = 0;
     }
 
+
     // Métodos específicos de la Sucursal Acueducto
-    @Override
-    public void invertir() {
-        super.invertir();
+
+    public static void invertir() {
+        invertir(); // Llamada al método invertir de la clase base
         System.out.println("Gracias por invertir en la sucursal Acueducto.");
     }
     public int getNumeroEmpleados() {

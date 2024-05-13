@@ -1,9 +1,15 @@
 import Roles.Cliente;
 import Roles.Empleado;
+import Roles.Gerente;
 import Roles.Inversionista;
 import utils.ControlAcceso;
 import utils.FileManager;
+import Sucursales.Sucursales;
+import Sucursales.SucursalAcueducto;
+import Sucursales.SucursalMadero;
+import utils.IDManager;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,14 +17,45 @@ public class SistemaBancario {
     private static final Scanner scanner = new Scanner(System.in);
     private static List<Empleado> empleados;
     private static List<Inversionista> inversionistas;
-    private static GestorUsuarios gestorUsuarios;
+    private static Sucursales sucursal;
 
     public static void main(String[] args) {
         cargarDatos();
+        sucursal = seleccionarSucursal();
+        if (sucursal == null) {
+            System.out.println("No se pudo seleccionar una sucursal. Saliendo del programa.");
+            return;
+        }
         mostrarMenuInicio();
         guardarDatos();
         ControlAcceso.inicializarCredenciales();
     }
+    private static Sucursales seleccionarSucursal() {
+        System.out.println("Por favor, seleccione una sucursal:");
+        System.out.println("1. Sucursal Acueducto");
+        System.out.println("2. Sucursal Madero");
+        System.out.print("Ingrese su opción: ");
+
+        int opcion = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer de entrada
+
+        switch (opcion) {
+            case 1:
+                Gerente gerente1 = new Gerente(new Date(), "JUAN", "", "", IDManager.generarIDEmpleado());
+                gerente1.registrarGerente();
+                return new SucursalAcueducto("Sucursal Acueducto", "Dirección 1", "123456789",  gerente1, 10);
+            case 2:
+                Gerente gerente2 = new Gerente(new Date(), "EDER", "", "", IDManager.generarIDEmpleado());
+                gerente2.registrarGerente();
+                return new SucursalMadero("Sucursal Madero", "Dirección 2", "987654321", gerente2, 8);
+            default:
+                System.out.println("Opción inválida.");
+                return null; // Devuelve null en caso de opción inválida
+        }
+    }
+
+
+
 
     private static void cargarDatos() {
         // Cargar datos del archivo al iniciar el programa
@@ -27,7 +64,7 @@ public class SistemaBancario {
         inversionistas = FileManager.cargarLista(FileManager.INVERSIONISTAS_FILE);
 
         // Inicializar el gestor de usuarios y agregar los usuarios cargados
-        gestorUsuarios = new GestorUsuarios();
+        GestorUsuarios gestorUsuarios = new GestorUsuarios();
         for (Cliente cliente : clientes) {
             gestorUsuarios.agregarCliente(cliente);
         }

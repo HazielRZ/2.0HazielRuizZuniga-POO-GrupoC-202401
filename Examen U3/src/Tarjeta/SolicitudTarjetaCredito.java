@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SolicitudTarjetaCredito {
-    private Cliente solicitarTarjetaCredito;
+    private static Cliente solicitarTarjetaCredito;
     private TipoTarjeta tipoTarjeta;
     private Solicitud status;
     LocalDateTime fechaDeSolicitud;
@@ -42,7 +42,7 @@ public class SolicitudTarjetaCredito {
         this.status = status;
     }
 
-    public Cliente solicitarTarjetaCredito() {
+    public static Cliente solicitarTarjetaCredito() {
         return solicitarTarjetaCredito;
     }
 

@@ -1,5 +1,7 @@
 package Roles;
 
+import utils.IDManager;
+
 import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
@@ -8,12 +10,12 @@ public class Inversionista {
     private static final Scanner scanner = new Scanner(System.in);
     private final Date fechaCreacion = new Date();
 
-    private String nombre;
-    private final String id;
+    private  String nombre;
+    private int id;
 
     public Inversionista(String nombre, String id) {
         this.nombre = nombre;
-        this.id = id;
+        this.id =  IDManager.generarIDInversionista();
     }
 
 
@@ -27,14 +29,8 @@ public class Inversionista {
         }
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public String getId() {
-        return id;
-    }
-    public void setNombre(String nombre) {
+    public  void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -44,6 +40,13 @@ public class Inversionista {
         if (!(o instanceof Inversionista)) return false;
         Inversionista that = (Inversionista) o;
         return Objects.equals(id, that.id);
+    }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -70,23 +73,21 @@ public class Inversionista {
         System.out.println("¡Inversionista registrado correctamente!");
     }
 
-    public void modificarDatos() {
+    public static void modificarDatos(Inversionista inversionista) {
         System.out.println("Modificación de datos de un inversionista:");
-        System.out.println("Nombre actual: " + nombre);
+        System.out.println("Nombre actual: " + inversionista.getNombre());
         System.out.print("Ingrese el nuevo nombre: ");
         String nuevoNombre = scanner.nextLine();
-        setNombre(nuevoNombre);
+        inversionista.setNombre(nuevoNombre);
         System.out.println("Datos modificados correctamente.");
     }
 
-    public static void eliminarInversionista() {
+    public static void eliminarInversionista(Inversionista inversionista) {
         System.out.println("Eliminar inversionista:");
-        System.out.print("Ingrese el ID del inversionista que desea eliminar: ");
-        String id = scanner.nextLine();
-
+        System.out.println("Nombre: " + inversionista.getNombre());
+        System.out.println("ID: " + inversionista.getId());
         System.out.println("Inversionista eliminado correctamente.");
     }
-
 
 }
 
