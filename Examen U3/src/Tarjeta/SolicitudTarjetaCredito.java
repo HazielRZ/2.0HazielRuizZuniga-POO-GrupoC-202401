@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class SolicitudTarjetaCredito {
     private Cliente solicitarTarjetaCredito;
-    private TipoTarjetaDeCredito type;
-    private TipoTarjeta type1;
+    private TipoTarjeta tipoTarjeta;
     private Solicitud status;
     LocalDateTime fechaDeSolicitud;
     int idSolicitud ;
@@ -16,9 +15,10 @@ public class SolicitudTarjetaCredito {
 
     static ArrayList<SolicitudTarjetaCredito> listaSolicitudes;
 
-    public SolicitudTarjetaCredito(Cliente clienteSolicitando, TipoTarjetaDeCredito TipoTarjeta, Solicitud status, LocalDateTime fechaDeSolicitud) {
-        this.clienteSolicitando = clienteSolicitando;
-        this.TipoTarjeta = TipoTarjeta;
+
+    public SolicitudTarjetaCredito(Cliente clienteSolicitando, TipoTarjeta tipoTarjeta, Solicitud status, LocalDateTime fechaDeSolicitud) {
+        this.solicitarTarjetaCredito = clienteSolicitando;
+        this.tipoTarjeta = tipoTarjeta;
         this.status = status;
         this.fechaDeSolicitud = fechaDeSolicitud;
         this.idSolicitud = ID_SOLICITUD;
@@ -46,10 +46,12 @@ public class SolicitudTarjetaCredito {
         return solicitarTarjetaCredito;
     }
 
-    public TipoTarjetaDeCredito getTipoTarjeta() {
-        return TipoTarjeta;
+    public TipoTarjeta getTipoTarjeta() {
+        return tipoTarjeta;
     }
-
+    public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
+        this.tipoTarjeta = tipoTarjeta;
+    }
     public Solicitud getStatus() {
         return status;
     }

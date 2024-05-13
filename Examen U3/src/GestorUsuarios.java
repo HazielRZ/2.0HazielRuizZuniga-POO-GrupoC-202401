@@ -50,13 +50,13 @@ public class GestorUsuarios {
         return null; // Si no se encuentra el empleado
     }
 
-    public Inversionista buscarInversionistaPorId(int id) {
+    public Inversionista buscarInversionistaPorId(String id) {
         for (Inversionista inversionista : inversionistas) {
-            if (inversionista.getId() == id) {
+            if (inversionista.getId().equals(id)) {
                 return inversionista;
             }
         }
-        return null; // Si no se encuentra el inversionista
+        return null; // Retornar null si no se encuentra ningún inversionista con el ID dado
     }
 
     // Métodos para obtener la lista de clientes, empleados e inversionistas

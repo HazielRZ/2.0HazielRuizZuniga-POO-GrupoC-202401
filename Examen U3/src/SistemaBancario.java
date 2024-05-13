@@ -42,7 +42,7 @@ public class SistemaBancario {
     private static void guardarDatos() {
         // Guardar datos en el archivo al finalizar el programa
         FileManager.guardarLista(empleados, FileManager.EMPLEADOS_FILE);
-        FileManager.guardarLista(gestorUsuarios.getClientes(), FileManager.CLIENTES_FILE);
+        FileManager.guardarLista(GestorUsuarios.getClientes(), FileManager.CLIENTES_FILE);
         FileManager.guardarLista(inversionistas, FileManager.INVERSIONISTAS_FILE);
     }
 
@@ -90,12 +90,12 @@ public class SistemaBancario {
     private static void iniciarSesionCliente() {
         System.out.println("Iniciar sesión como cliente");
         System.out.print("Ingrese su ID: ");
-        String idCliente = scanner.nextLine();
+        int idCliente = scanner.nextInt();
         System.out.print("Ingrese su contraseña: ");
         String contraseña = scanner.nextLine();
 
         if (ControlAcceso.autenticarCliente(idCliente, contraseña)) {
-            Cliente cliente = gestorUsuarios.buscarClientePorId(idCliente);
+            Cliente cliente = gestorUsuarios.buscarClientePorID(idCliente);
             if (cliente != null) {
                 System.out.println("Inicio de sesión exitoso.");
 

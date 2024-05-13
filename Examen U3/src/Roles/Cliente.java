@@ -81,7 +81,7 @@ public class Cliente {
         System.out.println("Clabe interbancaria: " + tarjetaDebito.getClabeInterbancaria());
     }
 
-    public void solicitarTarjetaCredito() {
+    public static void solicitarTarjetaCredito() {
         // Lógica para solicitar tarjeta de crédito
         // Primero, verifica si el cliente cumple con los requisitos para solicitar una tarjeta de crédito
         // Si cumple, puedes generar una nueva tarjeta de crédito y asociarla al cliente

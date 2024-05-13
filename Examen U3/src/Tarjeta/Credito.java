@@ -1,30 +1,33 @@
 package Tarjeta;
+
+import Roles.Cliente;
+
 import java.time.LocalDate;
 import java.util.Random;
 
 public class Credito {
     private String numeroTarjeta;
-    private int CVV;
-    private String clabeInterbancaria;
-    private double saldo;
-    private LocalDate fechaDeVencimiento;
-    private LocalDate fechaDeCreacion;
+    private final int CVV;
+    private final String clabeInterbancaria;
+    private final double saldo;
+    private final LocalDate fechaDeVencimiento;
+    private final LocalDate fechaDeCreacion;
     private double creditoMaximo;
     private double creditoMinimo;
-    private TipoTarjetaDeCredito type;
+    private TipoTarjeta tipoTarjeta;
 
     public Credito(String numeroTarjeta, int CVV, String clabeInterbancaria, double saldo,
-                   LocalDate fechaDeVencimiento, LocalDate fechaDeCreacion, TipoTarjetaDeCredito tipoTarjeta) {
+                   LocalDate fechaDeVencimiento, LocalDate fechaDeCreacion, TipoTarjeta tipoTarjeta) {
         this.numeroTarjeta = numeroTarjeta;
         this.CVV = CVV;
         this.clabeInterbancaria = clabeInterbancaria;
         this.saldo = saldo;
         this.fechaDeVencimiento = fechaDeVencimiento;
         this.fechaDeCreacion = fechaDeCreacion;
-        this.numeroTarjeta = TipoTarjeta;
+        this.tipoTarjeta = tipoTarjeta;
     }
 
-    public static Credito crearTarjetaCredito(TipoTarjetaDeCredito TipoTarjeta, Usuario usuario) {
+    public static Credito crearTarjetaCredito(TipoTarjeta tipoTarjeta, Cliente usuario) {
         Random random = new Random();
         String numeroTarjeta = generarNumeroAleatorio(16, random);
         String clabeInterbancaria = generarNumeroAleatorio(18, random);
@@ -33,7 +36,7 @@ public class Credito {
         LocalDate fechaDeVencimiento = LocalDate.now().plusYears(5); // La fecha de vencimiento es 5 años después de la creación
         LocalDate fechaDeCreacion = LocalDate.now(); // La fecha de creación es la fecha actual
 
-        return new Credito(numeroTarjeta, CVV, clabeInterbancaria, saldoInicial, fechaDeVencimiento, fechaDeCreacion, TipoTarjeta);
+        return new Credito(numeroTarjeta, CVV, clabeInterbancaria, saldoInicial, fechaDeVencimiento, fechaDeCreacion, tipoTarjeta);
     }
 
     private static String generarNumeroAleatorio(int longitud, Random random) {

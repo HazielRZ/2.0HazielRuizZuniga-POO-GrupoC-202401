@@ -1,10 +1,15 @@
 package Sucursales;
+import Roles.Empleado;
+import Roles.Gerente;
+import Tarjeta.SolicitudTarjetaCredito;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Sucursales {
+    public static SolicitudTarjetaCredito[] listaSolicitudes;
     private String nombre;
     private String direccion;
     private String telefono;

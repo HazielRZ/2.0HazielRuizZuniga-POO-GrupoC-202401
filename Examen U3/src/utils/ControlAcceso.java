@@ -24,7 +24,7 @@ public class ControlAcceso {
         return credencialesEmpleados.containsKey(id) && credencialesEmpleados.get(id).equals(contraseña);
     }
 
-    public static boolean autenticarCliente(String id, String contraseña) {
+    public static boolean autenticarCliente(int id, String contraseña) {
         return credencialesClientes.containsKey(id) && credencialesClientes.get(id).equals(contraseña);
     }
 

@@ -1,5 +1,7 @@
 package Sucursales;
 
+import Roles.Gerente;
+
 public class SucursalAcueducto extends Sucursales {
     private int numeroEmpleados;
 

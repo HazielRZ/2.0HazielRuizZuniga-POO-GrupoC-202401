@@ -6,4 +6,8 @@ public class Empleado {
 
         return id;
     }
+
+    public String getNombreCompleto() {
+        return null;
+    }
 }
