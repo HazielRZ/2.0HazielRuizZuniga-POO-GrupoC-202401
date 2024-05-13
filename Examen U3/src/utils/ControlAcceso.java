@@ -13,7 +13,7 @@ public class ControlAcceso {
     private static final Map<String, String> sucursalesEmpleados = new HashMap<>();
     private static final Map<String, String> sucursalesClientes = new HashMap<>();
 
-    // Método para inicializar las credenciales de empleados y clientes
+    //  inicializar las credenciales de empleados y clientes
     public static void inicializarCredenciales() {
         credencialesEmpleados.put("id_empleado_1", "contraseña_1");
         credencialesEmpleados.put("id_empleado_2", "contraseña_2");

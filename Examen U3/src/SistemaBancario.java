@@ -1,6 +1,5 @@
 import Roles.*;
 import utils.ControlAcceso;
-import utils.FileManager;
 import Sucursales.Sucursales;
 import Sucursales.SucursalAcueducto;
 import Sucursales.SucursalMadero;
@@ -15,16 +14,12 @@ public class SistemaBancario {
     private static Sucursales sucursal;
 
     public static void main(String[] args) {
-        cargarDatos();
-
-
         sucursal = seleccionarSucursal();
         if (sucursal == null) {
             System.out.println("No se pudo seleccionar una sucursal. Saliendo del programa.");
             return;
         }
         mostrarMenuInicio();
-        guardarDatos();
         ControlAcceso.inicializarCredenciales();
     }
     private static Sucursales seleccionarSucursal() {
@@ -50,34 +45,6 @@ public class SistemaBancario {
     }
 
 
-
-
-    private static void cargarDatos() {
-        // Cargar datos del archivo al iniciar el programa
-        empleados = FileManager.cargarLista(FileManager.EMPLEADOS_FILE);
-        List<Cliente> clientes = FileManager.cargarLista(FileManager.CLIENTES_FILE);
-        inversionistas = FileManager.cargarLista(FileManager.INVERSIONISTAS_FILE);
-        GestorUsuarios gestorUsuarios = new GestorUsuarios();
-        for (Cliente cliente : clientes) {
-            gestorUsuarios.agregarCliente(cliente);
-        }
-        for (Empleado empleado : empleados) {
-            gestorUsuarios.agregarEmpleado(empleado);
-            if (empleado instanceof Gerente) {
-
-            }
-        }
-        for (Inversionista inversionista : inversionistas) {
-            gestorUsuarios.agregarInversionista(inversionista);
-        }
-    }
-
-    private static void guardarDatos() {
-        // Guardar datos en el archivo al finalizar el programa
-        FileManager.guardarLista(empleados, FileManager.EMPLEADOS_FILE);
-        FileManager.guardarLista(GestorUsuarios.getClientes(), FileManager.CLIENTES_FILE);
-        FileManager.guardarLista(inversionistas, FileManager.INVERSIONISTAS_FILE);
-    }
 
     private static void mostrarMenuInicio() {
         while (true) {
