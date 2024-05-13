@@ -52,19 +52,13 @@ public class Menu {
     }
 
     public static void mostrarMenuEmpleado() {
-        switch (empleado.getRol()) {
-            case GERENTE:
-                mostrarMenuGerente((Gerente) empleado);
-                break;
-            case EJECUTIVO_CUENTA:
-                mostrarMenuEjecutivoCuenta();
-                break;
-            case CAPTURISTA:
-                mostrarMenuCapturista();
-                break;
-            default:
-                System.out.println("Rol de empleado no reconocido.");
-                break;
+        Roles rol = empleado.getRole();
+        String menu = Roles.getMenuForRole(rol);
+        if (menu != null) {
+            System.out.println("Mostrando menú para: " + rol);
+            System.out.println(menu);
+        } else {
+            System.out.println("Rol de empleado no reconocido.");
         }
     }
 

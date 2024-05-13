@@ -1,15 +1,18 @@
 package Roles;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Capturista extends Empleado{
+public class Capturista extends Empleado {
     private static List<EjecutivoCuenta> ejecutivos;
 
-    public Capturista(List<EjecutivoCuenta> ejecutivos) {
-        Capturista.ejecutivos = ejecutivos;
+    public Capturista(int id,Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+                      String direccion, String sucursal, double salario, String RFC, String contraseña) {
+        super(id,Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC, contraseña);
+        ejecutivos = new ArrayList<>();
     }
 
-    public static void  agregarEjecutivo(String nombre, String apellido, String correo) {
+    public static void agregarEjecutivo(String nombre, String apellido, String correo) {
         ejecutivos.add(new EjecutivoCuenta(nombre, apellido, correo));
         System.out.println("Ejecutivo de cuenta agregado: " + nombre + " " + apellido);
     }
@@ -35,7 +38,7 @@ public class Capturista extends Empleado{
         System.out.println("Ejecutivo de cuenta eliminado: " + ejecutivo.getNombre() + " " + ejecutivo.getApellido());
     }
 
-    public static void mostrarEjecutivos() {
+    public void mostrarEjecutivos() {
         if (ejecutivos.isEmpty()) {
             System.out.println("No hay ejecutivos de cuenta registrados.");
         } else {
@@ -58,26 +61,24 @@ public class Capturista extends Empleado{
             this.correo = correo;
         }
 
-        //getters and Setters
-
         public String getNombre() {
             return nombre;
-        }
-
-        public String getApellido() {
-            return apellido;
-        }
-
-        public String getCorreo() {
-            return correo;
         }
 
         public void setNombre(String nombre) {
             this.nombre = nombre;
         }
 
+        public String getApellido() {
+            return apellido;
+        }
+
         public void setApellido(String apellido) {
             this.apellido = apellido;
+        }
+
+        public String getCorreo() {
+            return correo;
         }
 
         public void setCorreo(String correo) {

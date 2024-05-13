@@ -7,15 +7,17 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-public class Gerente extends Empleado {
-    private Date fechaCreacion = new Date();
-    private Date fecha = new Date();
+    public class Gerente extends Empleado {
+        private Date fechaCreacion = new Date();
+        private static Date fecha = new Date();
+        private static Scanner scanner = new Scanner(System.in);
 
-    public Gerente(Date fecha, String capturista, String gerente, String ejecutivoVentas, int id) {
-        super(fecha, capturista, gerente, ejecutivoVentas, id);
-    }
+        public Gerente(int id,Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+                       String direccion, String sucursal, double salario, String RFC, String contraseña) {
+            super(id,Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC,contraseña);
+        }
 
-    public void registrarGerente() {
+    public static void registrarGerente() {
         System.out.println("registraremos un nuevo gerente: ");
         System.out.println("Ingrese el nombre: ");
         String nombreGerente = scanner.nextLine();
@@ -31,8 +33,6 @@ public class Gerente extends Empleado {
         String direccion = scanner.nextLine();
         System.out.println("ingrese sucursal a la que pertenece: ");
         String sucursal = scanner.nextLine();
-        System.out.println("ingrese su rol: ");
-        String rol = scanner.nextLine();
         System.out.println("ingrese su salario: ");
         double salario = scanner.nextDouble();
         System.out.println("La fecha de registro es: ");
@@ -66,45 +66,6 @@ public class Gerente extends Empleado {
         this.scanner = scanner;
     }
 
-    public Random getRandom() {
-        return random;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    public StringBuilder getNumerosAleatorios() {
-        return numerosAleatorios;
-    }
-
-    public void setNumerosAleatorios(StringBuilder numerosAleatorios) {
-        this.numerosAleatorios = numerosAleatorios;
-    }
-
-    public String getCapturista() {
-        return capturista;
-    }
-
-    public void setCapturista(String capturista) {
-        this.capturista = capturista;
-    }
-
-    public String getGerente() {
-        return gerente;
-    }
-
-    public void setGerente(String gerente) {
-        this.gerente = gerente;
-    }
-
-    public String getEjecutivoVentas() {
-        return ejecutivoVentas;
-    }
-
-    public void setEjecutivoVentas(String ejecutivoVentas) {
-        this.ejecutivoVentas = ejecutivoVentas;
-    }
 
     public int getId() {
         return id;

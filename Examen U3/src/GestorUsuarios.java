@@ -7,12 +7,12 @@ import java.util.List;
 public class GestorUsuarios {
     // Listas privadas para almacenar clientes, empleados e inversionistas
     private static List<Cliente> clientes;
-    private List<Empleado> empleados;
+    private static List<Empleado> empleados;
     private  List<Inversionista> inversionistas;
 
     // Constructor para inicializar las listas
     public GestorUsuarios() {
-
+        empleados = new ArrayList<>();
     }
 
     public static void buscarClientePorID() {
@@ -41,7 +41,7 @@ public class GestorUsuarios {
         return null; // Si no se encuentra el cliente
     }
 
-    public Empleado buscarEmpleadoPorId(int id) {
+    public static Empleado buscarEmpleadoPorId(int id) {
         for (Empleado empleado : empleados) {
             if (empleado.getId() == id) {
                 return empleado;

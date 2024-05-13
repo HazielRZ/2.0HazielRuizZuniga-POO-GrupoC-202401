@@ -1,13 +1,22 @@
 package Roles;
 
 public enum Roles {
-    GERENTE,
-    CAPTURISTA,
-    EJECUTIVO_CUENTA,
-    INVERSIONISTA;
+    GERENTE("Menu del Gerente"),
+    CAPTURISTA("Menu del Capturista"),
+    EJECUTIVO_CUENTA("Menu del Ejecutivo de Cuenta"),
+    INVERSIONISTA("Menu del Inversionista");
 
+    private final String menu;
 
-    public String getRol() {
-        return this.name(); // Devuelve el nombre del rol
+    Roles(String menu) {
+        this.menu = menu;
+    }
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public static String getMenuForRole(Roles rol) {
+        return rol.getMenu();
     }
 }

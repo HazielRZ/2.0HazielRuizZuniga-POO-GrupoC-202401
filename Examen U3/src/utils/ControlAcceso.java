@@ -1,6 +1,9 @@
 package utils;
 
+import Roles.Empleado;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ControlAcceso {
@@ -20,8 +23,9 @@ public class ControlAcceso {
     }
 
     // Métodos para autenticar empleados y clientes
-    public static boolean autenticarEmpleado(String id, String contraseña) {
-        return credencialesEmpleados.containsKey(id) && credencialesEmpleados.get(id).equals(contraseña);
+    public static boolean autenticarEmpleado(int id, String contraseña) {
+        String idString = "id_empleado_" + id; // Concatenar el prefijo "id_empleado_" para obtener la clave correcta
+        return credencialesEmpleados.containsKey(idString) && credencialesEmpleados.get(idString).equals(contraseña);
     }
 
     public static boolean autenticarCliente(int id, String contraseña) {
@@ -36,7 +40,9 @@ public class ControlAcceso {
     public static void asignarSucursalCliente(String idCliente, String sucursal) {
         sucursalesClientes.put(idCliente, sucursal);
     }
-
+    public static String obtenerContraseñaEmpleado(String idEmpleado) {
+        return credencialesEmpleados.get(idEmpleado);
+    }
     public static String obtenerSucursalEmpleado(String idEmpleado) {
         return sucursalesEmpleados.get(idEmpleado);
     }
@@ -44,4 +50,16 @@ public class ControlAcceso {
     public static String obtenerSucursalCliente(String idCliente) {
         return sucursalesClientes.get(idCliente);
     }
+    public void agregarEmpleado(Empleado empleado) {
+        empleados.add(empleado);
+    }
+
+    public void removerEmpleado(Empleado empleado) {
+        empleados.remove(empleado);
+    }
+
+    public List<Empleado> getEmpleados() {
+        return empleados;
+    }
+
 }

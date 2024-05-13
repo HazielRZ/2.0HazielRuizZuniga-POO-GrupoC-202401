@@ -1,19 +1,16 @@
 package Roles;
-import Tarjeta.SolicitudTarjetaCredito;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EjecutivoCuenta extends Empleado{
+public class EjecutivoCuenta extends Empleado {
     private ArrayList<Persona> personas;
 
-    public EjecutivoCuenta(Date fecha, String capturista, String gerente, String ejecutivoVentas, int id) {
-        super(fecha, capturista, gerente, ejecutivoVentas,id);
+    public EjecutivoCuenta(int id,Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+                           String direccion, String sucursal, double salario, String RFC, String contraseña) {
+        super(id,Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC,contraseña);
         personas = new ArrayList<>();
-
     }
-
-
 
     public void registrarCliente(String nombre, String apellido) {
         personas.add(new Persona(nombre, apellido));
@@ -51,7 +48,6 @@ public class EjecutivoCuenta extends Empleado{
         }
     }
 
-
     public static class Persona {
         private String nombre;
         private String apellido;
@@ -82,5 +78,4 @@ public class EjecutivoCuenta extends Empleado{
             return nombre + " " + apellido;
         }
     }
-
 }

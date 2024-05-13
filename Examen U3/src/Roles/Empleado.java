@@ -1,97 +1,112 @@
 package Roles;
 import utils.IDManager;
-import java.util.Scanner;
-import java.util.Random;
-import java.util.Date;
+
 public class Empleado {
-    private Date fechaCreacion = new Date(), fecha;
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
-    StringBuilder numerosAleatorios = new StringBuilder();
-    private Roles rol;
-    String capturista, gerente, ejecutivoVentas;
-    int id;
+    protected int id;
+    private String nombre;
+    private String apellido;
 
-    public Empleado(Date fecha, String capturista, String gerente, String ejecutivoVentas, int id) {
-        this.fecha = fecha;
-        this.capturista = capturista;
-        this.gerente = gerente;
-        this.ejecutivoVentas = ejecutivoVentas;
+    private String añoNacimiento;
+    private String ciudad;
+    private String estado;
+    private String direccion;
+    private String sucursal;
+    private double salario;
+    private String RFC;
+    private final Roles rol;
+    private String contraseña;
+
+
+
+    public Empleado(int id,Roles rol,String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+                    String direccion, String sucursal, double salario, String RFC, String contraseña) {
         this.id = IDManager.generarIDEmpleado();
-        this.fechaCreacion = fechaCreacion;
-
+        this.rol = rol;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.añoNacimiento = añoNacimiento;
+        this.ciudad = ciudad;
+        this.estado = estado;
+        this.direccion = direccion;
+        this.sucursal = sucursal;
+        this.salario = salario;
+        this.RFC = RFC;
+        this.contraseña = contraseña;
     }
 
-    public Empleado() {
-    }
-
-
-    public Roles getRol(){
+    public Roles getRole() {
         return rol;
     }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public Scanner getScanner() {
-        return scanner;
+    public String getAñoNacimiento() {
+        return añoNacimiento;
     }
 
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+    public void setAñoNacimiento(String añoNacimiento) {
+        this.añoNacimiento = añoNacimiento;
     }
 
-    public Random getRandom() {
-        return random;
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setRandom(Random random) {
-        this.random = random;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
-    public StringBuilder getNumerosAleatorios() {
-        return numerosAleatorios;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setNumerosAleatorios(StringBuilder numerosAleatorios) {
-        this.numerosAleatorios = numerosAleatorios;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public String getCapturista() {
-        return capturista;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setCapturista(String capturista) {
-        this.capturista = capturista;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getGerente() {
-        return gerente;
+    public String getSucursal() {
+        return sucursal;
     }
 
-    public void setGerente(String gerente) {
-        this.gerente = gerente;
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
     }
 
-    public String getEjecutivoVentas() {
-        return ejecutivoVentas;
+    public double getSalario() {
+        return salario;
     }
 
-    public void setEjecutivoVentas(String ejecutivoVentas) {
-        this.ejecutivoVentas = ejecutivoVentas;
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public String getRFC() {
+        return RFC;
+    }
+
+    public void setRFC(String RFC) {
+        this.RFC = RFC;
     }
 
     public int getId() {
@@ -101,5 +116,14 @@ public class Empleado {
     public void setId(int id) {
         this.id = id;
     }
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+
 
 }

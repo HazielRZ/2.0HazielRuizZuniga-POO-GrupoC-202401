@@ -14,7 +14,7 @@ public abstract class Sucursales {
     protected static String nombre;
     private String direccion;
     private String telefono;
-    private Gerente gerente;
+    protected Gerente gerente;
     private List<Empleado> empleados;
     private static double fondo;
 
@@ -56,17 +56,6 @@ public abstract class Sucursales {
 
 
     // Métodos para gestionar empleados
-    public void agregarEmpleado(Empleado empleado) {
-        empleados.add(empleado);
-    }
-
-    public void removerEmpleado(Empleado empleado) {
-        empleados.remove(empleado);
-    }
-
-    public List<Empleado> getEmpleados() {
-        return empleados;
-    }
 
 
     // Métodos para mostrar información detallada de la sucursal
@@ -74,11 +63,11 @@ public abstract class Sucursales {
         System.out.println("Nombre: " + nombre);
         System.out.println("Dirección: " + direccion);
         System.out.println("Teléfono: " + telefono);
-        System.out.println("Gerente: " + gerente.getCapturista());
+        System.out.println("Gerente: " + gerente.getNombre());
 
         System.out.println("Empleados:");
         for (Empleado empleado : empleados) {
-            System.out.println("- " + empleado.getCapturista());
+            System.out.println("- " + empleado.getNombre());
         }
 
         System.out.println("Fondo: $" + obtenerFondo());

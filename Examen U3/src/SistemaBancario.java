@@ -1,15 +1,10 @@
-import Roles.Cliente;
-import Roles.Empleado;
-import Roles.Gerente;
-import Roles.Inversionista;
+import Roles.*;
 import utils.ControlAcceso;
 import utils.FileManager;
 import Sucursales.Sucursales;
 import Sucursales.SucursalAcueducto;
 import Sucursales.SucursalMadero;
-import utils.IDManager;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,11 +38,11 @@ public class SistemaBancario {
 
         switch (opcion) {
             case 1:
-                Gerente gerente1 = new Gerente(new Date(), "JUAN", "", "", IDManager.generarIDEmpleado());
-                return new SucursalAcueducto(1, "Acueducto", "123456789", "44324234");
+                Gerente gerente1 = new Gerente(1, Roles.GERENTE,"JUAN", "", "","","","","1",23423423,"", "123" );
+                return new SucursalAcueducto(1, "Acueducto", "123456789", "44324234", gerente1);
             case 2:
-                Gerente gerente2 = new Gerente(new Date(), "EDER", "", "", IDManager.generarIDEmpleado());
-                return new SucursalMadero(3, "MAdero", "987654321", "234234324");
+                Gerente gerente2 = new Gerente(2,Roles.GERENTE, "EDER", "", "", "","","","2",2348723,"", "123");
+                return new SucursalMadero(2, "MAdero", "987654321", "234234324", gerente2);
             default:
                 System.out.println("Opción inválida.");
                 return null; // Devuelve null en caso de opción inválida
@@ -62,14 +57,15 @@ public class SistemaBancario {
         empleados = FileManager.cargarLista(FileManager.EMPLEADOS_FILE);
         List<Cliente> clientes = FileManager.cargarLista(FileManager.CLIENTES_FILE);
         inversionistas = FileManager.cargarLista(FileManager.INVERSIONISTAS_FILE);
-
-        // Inicializar el gestor de usuarios y agregar los usuarios cargados
         GestorUsuarios gestorUsuarios = new GestorUsuarios();
         for (Cliente cliente : clientes) {
             gestorUsuarios.agregarCliente(cliente);
         }
         for (Empleado empleado : empleados) {
             gestorUsuarios.agregarEmpleado(empleado);
+            if (empleado instanceof Gerente) {
+
+            }
         }
         for (Inversionista inversionista : inversionistas) {
             gestorUsuarios.agregarInversionista(inversionista);
@@ -109,17 +105,26 @@ public class SistemaBancario {
         }
     }
 
-    private static void iniciarSesionEmpleado() {
+    public static void iniciarSesionEmpleado() {
         System.out.println("Iniciar sesión como empleado");
         System.out.print("Ingrese su ID: ");
-        String idEmpleado = scanner.nextLine();
-        System.out.print("Ingrese su contraseña: ");
-        String contraseña = scanner.nextLine();
+        int idEmpleado = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea pendiente
 
-        if (ControlAcceso.autenticarEmpleado(idEmpleado, contraseña)) {
-            Menu.mostrarMenuEmpleado();
+        // Obtener la contraseña del empleado
+        Empleado empleado = GestorUsuarios.buscarEmpleadoPorId(idEmpleado);
+        if (empleado != null) {
+            System.out.print("Ingrese su contraseña: ");
+            String contraseña = scanner.nextLine().trim(); // Eliminar espacios en blanco adicionales
+
+            // Verificar la contraseña
+            if (contraseña.equals(empleado.getContraseña())) {
+                Menu.mostrarMenuEmpleado();
+            } else {
+                System.out.println("Credenciales incorrectas. Por favor, inténtelo de nuevo.");
+            }
         } else {
-            System.out.println("Credenciales incorrectas. Por favor, inténtelo de nuevo.");
+            System.out.println("Empleado no encontrado. Por favor, inténtelo de nuevo.");
         }
     }
 
