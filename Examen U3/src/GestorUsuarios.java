@@ -8,8 +8,8 @@ import java.util.List;
 public class GestorUsuarios {
     // Listas privadas para almacenar clientes, empleados e inversionistas
     private static List<Cliente> clientes;
-    private List<Empleado> empleados;
-    private List<Inversionista> inversionistas;
+    private final List<Empleado> empleados;
+    private final List<Inversionista> inversionistas;
 
     // Constructor para inicializar las listas
     public GestorUsuarios() {

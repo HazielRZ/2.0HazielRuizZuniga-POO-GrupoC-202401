@@ -80,8 +80,7 @@ public class SistemaBancario {
         String contraseña = scanner.nextLine();
 
         if (ControlAcceso.autenticarEmpleado(idEmpleado, contraseña)) {
-            // Lógica para mostrar el menú de empleado
-            // Por ejemplo: mostrarMenuEmpleado(idEmpleado);
+            Menu.mostrarMenuEmpleado();
         } else {
             System.out.println("Credenciales incorrectas. Por favor, inténtelo de nuevo.");
         }
@@ -95,7 +94,7 @@ public class SistemaBancario {
         String contraseña = scanner.nextLine();
 
         if (ControlAcceso.autenticarCliente(idCliente, contraseña)) {
-            Cliente cliente = gestorUsuarios.buscarClientePorID(idCliente);
+            Cliente cliente = GestorUsuarios.buscarClientePorID(idCliente);
             if (cliente != null) {
                 System.out.println("Inicio de sesión exitoso.");
 

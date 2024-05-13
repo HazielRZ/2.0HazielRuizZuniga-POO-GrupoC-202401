@@ -10,12 +10,12 @@ import java.util.Scanner;
 
 public class Sucursales {
     public static SolicitudTarjetaCredito[] listaSolicitudes;
-    private String nombre;
+    private static String nombre;
     private String direccion;
     private String telefono;
     private Gerente gerente;
     private List<Empleado> empleados;
-    private double fondo;
+    private static double fondo;
 
     public Sucursales(String nombre, String direccion, String telefono, Gerente gerente) {
         this.nombre = nombre;
@@ -27,7 +27,7 @@ public class Sucursales {
     }
 
     // Método para realizar una inversión en la sucursal
-    public void invertir() {
+    public static void invertir() {
         System.out.println("Ingrese el fondo que proveerá al banco de " + nombre + ": ");
         double cantidad = solicitarCantidad();
         fondo += cantidad;
@@ -36,7 +36,7 @@ public class Sucursales {
     }
 
     // Método para solicitar una cantidad al usuario
-    private double solicitarCantidad() {
+    private static double solicitarCantidad() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {

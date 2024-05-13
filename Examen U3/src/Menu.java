@@ -1,13 +1,15 @@
 import Roles.Cliente;
-import Roles.Empleado;
-import Roles.GestorUsuarios;
-import Sucursales.Gerente;
+import Roles.Gerente;
+import Roles.Inversionista;
+import Sucursales.Sucursales;
+import Tarjeta.SolicitudTarjetaCredito;
+
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void mostrarMenuCliente() {
         while (true) {
@@ -24,13 +26,13 @@ public class Menu {
 
             switch (opcion) {
                 case 1:
-                    // Lógica para ver las tarjetas del cliente
+                    SolicitudTarjetaCredito.mostrarListaSolicitudes();
                     break;
                 case 2:
-                    // Lógica para solicitar tarjeta de débito
+                    System.out.println("No disponible por el momento");
                     break;
                 case 3:
-                    // Lógica para solicitar tarjeta de crédito
+                    Cliente.solicitarTarjetaCredito();
                     break;
                 case 0:
                     System.out.println("Saliendo del menú cliente.");
@@ -47,12 +49,12 @@ public class Menu {
         return true; // Por ahora siempre retorna true
     }
 
-    public static void mostrarMenuEmpleado(Empleado empleado) {
+    public static void mostrarMenuEmpleado() {
         switch (empleado.getRol()) {
             case GERENTE:
                 mostrarMenuGerente((Gerente) empleado);
                 break;
-            case EJECUTIVO_CUENTA:
+            case EJECUTIVOCUENTA:
                 mostrarMenuEjecutivoCuenta();
                 break;
             case CAPTURISTA:
@@ -83,7 +85,7 @@ public class Menu {
                     // Lógica para realizar operaciones con empleados
                     break;
                 case 3:
-                    // Lógica para realizar operaciones con inversionistas
+                    mostrarMenuOperacionesInversionistas();
                     break;
                 case 0:
                     System.out.println("Saliendo del menú de Gerente.");
@@ -94,15 +96,62 @@ public class Menu {
             }
         }
     }
+    private static void mostrarMenuOperacionesInversionistas() {
+        while (true) {
+            System.out.println("Menú de Operaciones con Inversionistas");
+            System.out.println("1. Registrar nuevo inversionista");
+            System.out.println("2. Modificar datos de inversionista");
+            System.out.println("3. Eliminar inversionista");
+            System.out.println("4. Ver lista de inversionistas");
+            System.out.println("5. Invertir");
+            System.out.println("0. Salir");
+            System.out.print("Ingrese su opción: ");
+
+            int opcion = leerOpcion();
+
+            switch (opcion) {
+                case 1:
+                    registrarNuevoInversionista();
+                    break;
+                case 2:
+                    modificarDatosInversionista();
+                    break;
+                case 3:
+                    eliminarInversionista();
+                    break;
+                case 4:
+                    // Lógica para mostrar la lista de inversionistas
+                    break;
+                case 5:
+                    invertir();
+                    break;
+                case 0:
+                    System.out.println("Saliendo del menú de Operaciones con Inversionistas.");
+                    return;
+                default:
+                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+                    break;
+            }
+        }
+    }
+    private static void mostrarMenuCapturista() {
+        System.out.println("=== Menú para Capturista ===");
+        System.out.println("1. Registrar nuevo ejecutivo de cuenta");
+        System.out.println("2. Modificar datos de un ejecutivo de cuenta");
+        System.out.println("3. Eliminar ejecutivo de cuenta");
+        System.out.println("4. Buscar ejecutivo de cuenta");
+        System.out.println("5. Salir");
+    }
 
     private static void mostrarMenuEjecutivoCuenta() {
-        // Implementación del menú para Ejecutivo de Cuenta
+        System.out.println("=== Menú para Ejecutivo de Cuenta ===");
+        System.out.println("1. Registrar nuevo cliente");
+        System.out.println("2. Modificar datos de un cliente");
+        System.out.println("3. Eliminar cliente");
+        System.out.println("4. Buscar cliente");
+        System.out.println("5. Solicitar tarjeta de crédito para un cliente");
+        System.out.println("6. Salir");
     }
-
-    private static void mostrarMenuCapturista() {
-        // Implementación del menú para Capturista
-    }
-
     private static void mostrarMenuOperacionesClientes() {
         while (true) {
             System.out.println("Menú de Operaciones con Clientes");
@@ -127,7 +176,7 @@ public class Menu {
                     eliminarCliente();
                     break;
                 case 4:
-                    // Lógica para ver las tarjetas del cliente
+                    SolicitudTarjetaCredito.mostrarListaSolicitudes();
                     break;
                 case 5:
                     // Lógica para solicitar tarjeta de crédito
@@ -170,6 +219,21 @@ public class Menu {
         } else {
             System.out.println("No se encontró ningún cliente con el ID proporcionado.");
         }
+    }
+    private static void registrarNuevoInversionista() {
+        Inversionista.registrarNuevoInversionista();
+    }
+
+    private static void modificarDatosInversionista() {
+        Inversionista.modificarDatos();
+    }
+
+    private static void eliminarInversionista() {
+       Inversionista.eliminarInversionista();
+    }
+
+    private static void invertir() {
+        Sucursales.invertir();
     }
 
     private static int leerOpcion() {
