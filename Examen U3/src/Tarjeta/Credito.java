@@ -6,15 +6,15 @@ import java.time.LocalDate;
 import java.util.Random;
 
 public class Credito {
-    private String numeroTarjeta;
     private final int CVV;
     private final String clabeInterbancaria;
     private final double saldo;
     private final LocalDate fechaDeVencimiento;
     private final LocalDate fechaDeCreacion;
+    private final String numeroTarjeta;
     private double creditoMaximo;
     private double creditoMinimo;
-    private TipoTarjeta tipoTarjeta;
+    private final TipoTarjeta tipoTarjeta;
 
     public Credito(String numeroTarjeta, int CVV, String clabeInterbancaria, double saldo,
                    LocalDate fechaDeVencimiento, LocalDate fechaDeCreacion, TipoTarjeta tipoTarjeta) {

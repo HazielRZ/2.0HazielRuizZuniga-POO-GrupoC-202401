@@ -5,8 +5,8 @@ import Roles.Gerente;
 public class SucursalMadero extends Sucursales {
     private int numeroEmpleados;
 
-    public SucursalMadero(int id, String nombre, String direccion, String telefono, Gerente gerente) {
-        super(id, nombre, direccion, telefono, gerente);
+    public SucursalMadero(int id, String nombre, String direccion, String telefono) {
+        super(id, nombre, direccion, telefono);
         this.numeroEmpleados = 0; // Inicializa el número de empleados a 0
     }
 

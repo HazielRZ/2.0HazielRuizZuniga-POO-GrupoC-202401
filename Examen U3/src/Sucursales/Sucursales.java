@@ -1,8 +1,9 @@
 package Sucursales;
+
 import Roles.Empleado;
 import Roles.Gerente;
 import Tarjeta.SolicitudTarjetaCredito;
-
+import Roles.Roles;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,20 +11,20 @@ import java.util.Scanner;
 
 public abstract class Sucursales {
     public static SolicitudTarjetaCredito[] listaSolicitudes;
-    protected final int id;
     protected static String nombre;
-    private String direccion;
-    private String telefono;
-    protected Gerente gerente;
-    private List<Empleado> empleados;
     private static double fondo;
+    protected final int id;
 
-    public Sucursales(int id, String nombre, String direccion, String telefono, Gerente gerente) {
+    private final String direccion;
+    private final String telefono;
+    private final List<Empleado> empleados;
+
+    public Sucursales(int id, String nombre, String direccion, String telefono) {
         this.id = id;
         Sucursales.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.gerente = gerente;
+
         this.empleados = new ArrayList<>();
         fondo = 0.0;
     }
@@ -55,7 +56,14 @@ public abstract class Sucursales {
     }
 
 
-    // Métodos para gestionar empleados
+    public static Sucursales crearSucursalAcueducto() {
+
+        return new SucursalAcueducto(1, "Acueducto", "123456789", "44324234");
+    }
+
+    public static Sucursales crearSucursalMadero() {
+return new SucursalMadero(2, "Madero", "987654321", "234234324");
+    }
 
 
     // Métodos para mostrar información detallada de la sucursal
@@ -63,7 +71,7 @@ public abstract class Sucursales {
         System.out.println("Nombre: " + nombre);
         System.out.println("Dirección: " + direccion);
         System.out.println("Teléfono: " + telefono);
-        System.out.println("Gerente: " + gerente.getNombre());
+
 
         System.out.println("Empleados:");
         for (Empleado empleado : empleados) {

@@ -17,6 +17,7 @@ public class IDManager {
     public static int generarIDInversionista() {
         return ++ultimoIDInversionista;
     }
+
     public static int generarIDSucursal() {
         return ++ultimoIDSucursal;
     }

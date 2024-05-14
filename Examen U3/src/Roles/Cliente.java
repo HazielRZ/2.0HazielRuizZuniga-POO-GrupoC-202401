@@ -8,10 +8,19 @@ import java.util.Scanner;
 public class Cliente {
     private static final Scanner scanner = new Scanner(System.in);
 
-    private int id;
-    private String nombre, apellido, RFC, Bdate, estado, ciudad, CURP, direccion, sucursalRegistro, fechaRegistro;
+    private final int id;
+    private String nombre;
+    private String apellido;
+    private String RFC;
+    private String Bdate;
+    private String estado;
+    private String ciudad;
+    private final String CURP;
+    private String direccion;
+    private String sucursalRegistro;
+    private final String fechaRegistro;
     private String contraseña;
-    private TarjetaDebito tarjetaDebito;
+    private final TarjetaDebito tarjetaDebito;
 
     public Cliente(int id, String nombre, String apellido, String RFC, String Bdate, String estado, String ciudad, String CURP, String direccion, String sucursalRegistro, String fechaRegistro, String contraseña) {
         this.id = IDManager.generarIDCliente();
@@ -55,6 +64,13 @@ public class Cliente {
         return new Cliente(id, nombre, apellido, RFC, fechaNacimiento, estado, ciudad, "", direccion, sucursal, "", contraseña);
     }
 
+    public static void solicitarTarjetaCredito() {
+        // Lógica para solicitar tarjeta de crédito
+        // Primero, verifica si el cliente cumple con los requisitos para solicitar una tarjeta de crédito
+        // Si cumple, puedes generar una nueva tarjeta de crédito y asociarla al cliente
+        System.out.println("Tarjeta de crédito solicitada correctamente.");
+    }
+
     public void modificarDatosCliente() {
         System.out.println("Modificar datos del cliente:");
         System.out.print("Nuevo nombre: ");
@@ -79,13 +95,6 @@ public class Cliente {
     public void verTarjetasCliente() {
         System.out.println("Número de tarjeta de débito: " + tarjetaDebito.getNumeroTarjeta());
         System.out.println("Clabe interbancaria: " + tarjetaDebito.getClabeInterbancaria());
-    }
-
-    public static void solicitarTarjetaCredito() {
-        // Lógica para solicitar tarjeta de crédito
-        // Primero, verifica si el cliente cumple con los requisitos para solicitar una tarjeta de crédito
-        // Si cumple, puedes generar una nueva tarjeta de crédito y asociarla al cliente
-        System.out.println("Tarjeta de crédito solicitada correctamente.");
     }
 
     // Getters y setters

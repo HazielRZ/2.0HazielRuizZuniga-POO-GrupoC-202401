@@ -1,8 +1,10 @@
 package utils;
-import Roles.Roles;
+
 import Roles.Empleado;
-import java.util.List;
+import Roles.Roles;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ControlAcceso {
@@ -17,7 +19,7 @@ public class ControlAcceso {
             if (rol == Roles.GERENTE || rol == Roles.CAPTURISTA || rol == Roles.EJECUTIVO_CUENTA) {
                 credencialesEmpleados.put(empleado.getId(), empleado.getContraseña());
                 sucursalesEmpleados.put(empleado.getId(), empleado.getSucursal());
-            } else  {
+            } else {
                 credencialesClientes.put(empleado.getId(), empleado.getContraseña());
                 sucursalesClientes.put(empleado.getId(), empleado.getSucursal());
             }

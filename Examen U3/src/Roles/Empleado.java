@@ -1,11 +1,12 @@
 package Roles;
+
 import utils.IDManager;
 
 public class Empleado {
+    private final Roles rol;
     protected int id;
     private String nombre;
     private String apellido;
-
     private String añoNacimiento;
     private String ciudad;
     private String estado;
@@ -13,12 +14,10 @@ public class Empleado {
     private String sucursal;
     private double salario;
     private String RFC;
-    private final Roles rol;
     private String contraseña;
 
 
-
-    public Empleado(int id,Roles rol,String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+    public Empleado(int id, Roles rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
                     String direccion, String sucursal, double salario, String RFC, String contraseña) {
         this.id = IDManager.generarIDEmpleado();
         this.rol = rol;
@@ -37,6 +36,7 @@ public class Empleado {
     public Roles getRole() {
         return rol;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -116,6 +116,7 @@ public class Empleado {
     public void setId(int id) {
         this.id = id;
     }
+
     public String getContraseña() {
         return contraseña;
     }
@@ -123,7 +124,6 @@ public class Empleado {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
 
 
 }

@@ -1,14 +1,13 @@
 package Roles;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EjecutivoCuenta extends Empleado {
-    private ArrayList<Persona> personas;
+    private final ArrayList<Persona> personas;
 
-    public EjecutivoCuenta(int id,Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+    public EjecutivoCuenta(int id, Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
                            String direccion, String sucursal, double salario, String RFC, String contraseña) {
-        super(id,Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC,contraseña);
+        super(id, Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC, contraseña);
         personas = new ArrayList<>();
     }
 
@@ -61,12 +60,12 @@ public class EjecutivoCuenta extends Empleado {
             return nombre;
         }
 
-        public String getApellido() {
-            return apellido;
-        }
-
         public void setNombre(String nombre) {
             this.nombre = nombre;
+        }
+
+        public String getApellido() {
+            return apellido;
         }
 
         public void setApellido(String apellido) {

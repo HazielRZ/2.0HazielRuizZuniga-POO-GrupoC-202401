@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
+    static TipoTarjeta tipoTarjeta;
     private static Cliente cliente;
     private static Empleado empleado;
     private static Inversionista inversionista;
-    static TipoTarjeta tipoTarjeta;
 
     public static void mostrarMenuCliente() {
         while (true) {
@@ -92,6 +92,7 @@ public class Menu {
             }
         }
     }
+
     private static void mostrarMenuOperacionesInversionistas() {
         while (true) {
             System.out.println("Menú de Operaciones con Inversionistas");
@@ -130,6 +131,7 @@ public class Menu {
             }
         }
     }
+
     private static void mostrarMenuCapturista() {
         while (true) {
             System.out.println("=== Menú para Capturista ===");
@@ -262,6 +264,7 @@ public class Menu {
             }
         }
     }
+
     private static void mostrarMenuOperacionesClientes() {
         while (true) {
             System.out.println("Menú de Operaciones con Clientes");
@@ -321,7 +324,7 @@ public class Menu {
 
     private static void eliminarCliente() {
         System.out.println("Ingrese el ID del cliente que desea eliminar:");
-         int id = scanner.nextInt();
+        int id = scanner.nextInt();
         Cliente clienteAEliminar = GestorUsuarios.buscarClientePorID(id);
         if (clienteAEliminar != null) {
             GestorUsuarios.getClientes().remove(clienteAEliminar);
@@ -330,12 +333,13 @@ public class Menu {
             System.out.println("No se encontró ningún cliente con el ID proporcionado.");
         }
     }
+
     private static void registrarNuevoInversionista() {
         Inversionista.registrarNuevoInversionista();
     }
 
     private static void modificarDatosInversionista() {
-       Inversionista.modificarDatos(inversionista);
+        Inversionista.modificarDatos(inversionista);
 
     }
 

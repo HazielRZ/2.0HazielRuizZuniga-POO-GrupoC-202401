@@ -9,58 +9,14 @@ import java.util.Scanner;
 public class Inversionista {
     private static final Scanner scanner = new Scanner(System.in);
     private final Date fechaCreacion = new Date();
-
-    private  String nombre;
     private final int id;
+    private String nombre;
 
     public Inversionista(String nombre, String id) {
         this.nombre = nombre;
-        this.id =  IDManager.generarIDInversionista();
+        this.id = IDManager.generarIDInversionista();
     }
 
-
-    private double solicitarCantidad() {
-        while (true) {
-            try {
-                return Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Ingrese un número válido.");
-            }
-        }
-    }
-
-
-    public  void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Inversionista)) return false;
-        Inversionista that = (Inversionista) o;
-        return Objects.equals(id, that.id);
-    }
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Inversionista{" +
-                "nombre='" + nombre + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
     public static void registrarNuevoInversionista() {
         System.out.println("Registro de un nuevo inversionista:");
         System.out.print("Ingrese el nombre del inversionista: ");
@@ -87,6 +43,48 @@ public class Inversionista {
         System.out.println("Nombre: " + inversionista.getNombre());
         System.out.println("ID: " + inversionista.getId());
         System.out.println("Inversionista eliminado correctamente.");
+    }
+
+    private double solicitarCantidad() {
+        while (true) {
+            try {
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Ingrese un número válido.");
+            }
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Inversionista that)) return false;
+        return Objects.equals(id, that.id);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Inversionista{" +
+                "nombre='" + nombre + '\'' +
+                ", id='" + id + '\'' +
+                '}';
     }
 
 }

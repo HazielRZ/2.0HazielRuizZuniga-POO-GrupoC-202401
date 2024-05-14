@@ -1,11 +1,14 @@
 package utils;
-import Roles.Empleado;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 public class FileManager {
 
     public static final String EMPLEADOS_FILE = "empleados.json";
@@ -14,7 +17,7 @@ public class FileManager {
 
     private static final Gson gson = new GsonBuilder().create();
 
-    public static <T> List<T> cargarLista(String nombreArchivo, Class<T> clase) {
+    public static <T> List<T> cargarLista(String nombreArchivo, Class<T> clase) throws IOException {
         List<T> lista = new ArrayList<>();
         try (Reader reader = new FileReader(nombreArchivo)) {
             T[] array = gson.fromJson(reader, (Class<T[]>) Array.newInstance(clase, 0).getClass());
@@ -24,10 +27,9 @@ public class FileManager {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Archivo '" + nombreArchivo + "' no encontrado.");
+            throw new FileNotFoundException("Archivo '" + nombreArchivo + "' no encontrado.");
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo '" + nombreArchivo + "'.");
-            e.printStackTrace();
+            throw new IOException("Error al leer el archivo '" + nombreArchivo + "'.", e);
         }
         return lista;
     }
@@ -43,6 +45,7 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
     public static boolean existeArchivo(String nombreArchivo) {
         File archivo = new File(nombreArchivo);
         boolean existe = archivo.exists();

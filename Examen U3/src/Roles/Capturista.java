@@ -6,9 +6,9 @@ import java.util.List;
 public class Capturista extends Empleado {
     private static List<EjecutivoCuenta> ejecutivos;
 
-    public Capturista(int id,Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+    public Capturista(int id, Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
                       String direccion, String sucursal, double salario, String RFC, String contraseña) {
-        super(id,Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC, contraseña);
+        super(id, Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC, contraseña);
         ejecutivos = new ArrayList<>();
     }
 

@@ -1,7 +1,7 @@
 package Tarjeta;
 
-public enum Solicitud  {
+public enum Solicitud {
     PENDIENTE,
     APROBADA,
-    RECHAZADA;
+    RECHAZADA
 }

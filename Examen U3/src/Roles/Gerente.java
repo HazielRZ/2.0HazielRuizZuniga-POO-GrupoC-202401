@@ -4,15 +4,15 @@ import java.util.Date;
 import java.util.Scanner;
 
 
-    public class Gerente extends Empleado {
-        private Date fechaCreacion = new Date();
-        private static Date fecha = new Date();
-        private static Scanner scanner = new Scanner(System.in);
+public class Gerente extends Empleado {
+    private static Date fecha = new Date();
+    private static Scanner scanner = new Scanner(System.in);
+    private Date fechaCreacion = new Date();
 
-        public Gerente(int id,Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
-                       String direccion, String sucursal, double salario, String RFC, String contraseña) {
-            super(id,Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC,contraseña);
-        }
+    public Gerente(int id, Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
+                   String direccion, String sucursal, double salario, String RFC, String contraseña) {
+        super(id, Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC, contraseña);
+    }
 
     public static void registrarGerente() {
         System.out.println("registraremos un nuevo gerente: ");
@@ -52,7 +52,7 @@ import java.util.Scanner;
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        Gerente.fecha = fecha;
     }
 
     public Scanner getScanner() {
@@ -60,7 +60,7 @@ import java.util.Scanner;
     }
 
     public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+        Gerente.scanner = scanner;
     }
 
 

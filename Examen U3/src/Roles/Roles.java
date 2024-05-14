@@ -12,11 +12,11 @@ public enum Roles {
         this.menu = menu;
     }
 
-    public String getMenu() {
-        return menu;
-    }
-
     public static String getMenuForRole(Roles rol) {
         return rol.getMenu();
+    }
+
+    public String getMenu() {
+        return menu;
     }
 }

@@ -1,4 +1,5 @@
 package Tarjeta;
+
 import Roles.Cliente;
 import Sucursales.Sucursales;
 
@@ -6,15 +7,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SolicitudTarjetaCredito {
+    static Cliente cliente;
+    static ArrayList<SolicitudTarjetaCredito> listaSolicitudes;
     private static Cliente solicitarTarjetaCredito;
     private static TipoTarjeta tipoTarjeta;
-    private Solicitud status;
-    LocalDateTime fechaDeSolicitud;
-    int idSolicitud ;
     private static int ID_SOLICITUD;
-    static Cliente cliente;
-
-    static ArrayList<SolicitudTarjetaCredito> listaSolicitudes;
+    LocalDateTime fechaDeSolicitud;
+    int idSolicitud;
+    private Solicitud status;
 
 
     public SolicitudTarjetaCredito(Cliente clienteSolicitando, TipoTarjeta tipoTarjeta, Solicitud status, LocalDateTime fechaDeSolicitud) {
@@ -25,7 +25,8 @@ public class SolicitudTarjetaCredito {
         this.idSolicitud = ID_SOLICITUD;
         ID_SOLICITUD++;
     }
-    public static void mostrarListaSolicitudes(){
+
+    public static void mostrarListaSolicitudes() {
         for (SolicitudTarjetaCredito solicitud : Sucursales.listaSolicitudes) {
             System.out.println("\nID de Solicitud: " + solicitud.getIdSolicitud());
             System.out.println("Usuario: " + solicitarTarjetaCredito(cliente, tipoTarjeta).getNombre());
@@ -44,28 +45,30 @@ public class SolicitudTarjetaCredito {
         SolicitudTarjetaCredito.solicitarTarjetaCredito = solicitarTarjetaCredito;
     }
 
-    public int getIdSolicitud() {
-        return idSolicitud;
-    }
-
-    public void setStatus(Solicitud status) {
-        this.status = status;
-    }
-
-    public static Cliente solicitarTarjetaCredito(Cliente cliente, TipoTarjeta tipoTarjeta)  {
+    public static Cliente solicitarTarjetaCredito(Cliente cliente, TipoTarjeta tipoTarjeta) {
         SolicitudTarjetaCredito nuevaSolicitud = new SolicitudTarjetaCredito(cliente, tipoTarjeta, Solicitud.PENDIENTE, LocalDateTime.now());
         listaSolicitudes.add(nuevaSolicitud);
         return cliente;
     }
 
+    public int getIdSolicitud() {
+        return idSolicitud;
+    }
+
     public TipoTarjeta getTipoTarjeta() {
         return tipoTarjeta;
     }
+
     public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
         SolicitudTarjetaCredito.tipoTarjeta = tipoTarjeta;
     }
+
     public Solicitud getStatus() {
         return status;
+    }
+
+    public void setStatus(Solicitud status) {
+        this.status = status;
     }
 
     public LocalDateTime getFechaDeSolicitud() {

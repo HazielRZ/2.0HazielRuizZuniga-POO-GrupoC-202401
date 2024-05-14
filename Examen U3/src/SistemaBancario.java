@@ -1,63 +1,87 @@
 import Roles.*;
-import utils.ControlAcceso;
 import Sucursales.Sucursales;
-import Sucursales.SucursalAcueducto;
-import Sucursales.SucursalMadero;
+import utils.ControlAcceso;
 import utils.FileManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import static utils.FileManager.EMPLEADOS_FILE;
 import static utils.FileManager.INVERSIONISTAS_FILE;
+import static utils.FileManager.CLIENTES_FILE;
 
 public class SistemaBancario {
     private static final Scanner scanner = new Scanner(System.in);
     private static List<Empleado> empleados;
     private static List<Inversionista> inversionistas;
-    private static Sucursales sucursal;
+    private static List<Cliente>clientes;
+    private static Sucursales sucursales;
 
     public static void main(String[] args) {
-        sucursal = seleccionarSucursal();
-        if (sucursal == null) {
+        cargarDatos(); // Cargar datos al inicio del programa
+        sucursales = seleccionarSucursal();
+        if (sucursales == null) {
             System.out.println("No se pudo seleccionar una sucursal. Saliendo del programa.");
             return;
         }
-        cargarDatos(); // Cargar datos al inicio del programa
+
         if (empleados.isEmpty()) {
-            Empleado empleadoPrueba = new Empleado(1, Roles.GERENTE, "Nombre", "Apellido", "Otro", "Info", "123456", "correo@example.com", "123", 1233,"123","123");
+            Empleado empleadoPrueba = new Empleado(1, Roles.GERENTE, "Nombre", "Apellido", "Otro", "Info", "123456", "correo@example.com", "123", 1233, "123", "123");
             empleados.add(empleadoPrueba);
         }
         if (!FileManager.existeArchivo(EMPLEADOS_FILE) || !FileManager.existeArchivo(INVERSIONISTAS_FILE)) {
             ControlAcceso.inicializarCredenciales(empleados);
         }
-        ControlAcceso.inicializarCredenciales (empleados); // Llama a inicializarCredenciales después de cargar los datos
+        ControlAcceso.inicializarCredenciales(empleados); // Llama a inicializarCredenciales después de cargar los datos
         mostrarMenuInicio();
         guardarDatos(); // Guardar datos al finalizar el programa
 
 
     }
-    private static void cargarDatos() {
-        if (!FileManager.existeArchivo(FileManager.EMPLEADOS_FILE)) {
-            // Crea el archivo de empleados si no existe
-            FileManager.guardarLista(new ArrayList<>(), FileManager.EMPLEADOS_FILE);
-        }
-        if (!FileManager.existeArchivo(FileManager.INVERSIONISTAS_FILE)) {
-            // Crea el archivo de inversionistas si no existe
-            FileManager.guardarLista(new ArrayList<>(), FileManager.INVERSIONISTAS_FILE);
-        }
-        // Cargar datos como de costumbre
-        empleados = FileManager.cargarLista(FileManager.EMPLEADOS_FILE, Empleado.class);
-        inversionistas = FileManager.cargarLista(FileManager.INVERSIONISTAS_FILE, Inversionista.class);
-    }
 
+    private static void cargarDatos() {
+        // Verificar si existe el archivo de empleados
+        if (!FileManager.existeArchivo(FileManager.EMPLEADOS_FILE)) {
+            // Si no existe, crear el archivo de empleados y agregar un gerente por defecto
+            Empleado gerentePorDefecto = new Empleado(1, Roles.GERENTE, "Nombre", "Apellido", "Otro", "Info", "123456", "correo@example.com", "123", 1233, "123", "123");
+            empleados = new ArrayList<>();
+            empleados.add(gerentePorDefecto);
+            FileManager.guardarLista(empleados, FileManager.EMPLEADOS_FILE);
+        }
+
+        // Cargar empleados y clientes como de costumbre
+        try {
+            empleados = FileManager.cargarLista(FileManager.EMPLEADOS_FILE, Empleado.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            inversionistas = FileManager.cargarLista(FileManager.INVERSIONISTAS_FILE, Inversionista.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            clientes = FileManager.cargarLista(FileManager.CLIENTES_FILE, Cliente.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static void guardarDatos() {
         FileManager.guardarLista(empleados, EMPLEADOS_FILE);
         FileManager.guardarLista(inversionistas, INVERSIONISTAS_FILE);
+        FileManager.guardarLista(clientes, CLIENTES_FILE);
     }
+
     private static Sucursales seleccionarSucursal() {
+        // Crear las sucursales directamente
+        Sucursales sucursalAcueducto = Sucursales.crearSucursalAcueducto();
+        Sucursales sucursalMadero = Sucursales.crearSucursalMadero();
+
         System.out.println("Por favor, seleccione una sucursal:");
         System.out.println("1. Sucursal Acueducto");
         System.out.println("2. Sucursal Madero");
@@ -68,11 +92,9 @@ public class SistemaBancario {
 
         switch (opcion) {
             case 1:
-                Gerente gerente1 = new Gerente(1, Roles.GERENTE,"JUAN", "", "","","","","1",23423423,"", "123" );
-                return new SucursalAcueducto(1, "Acueducto", "123456789", "44324234", gerente1);
+                return sucursalAcueducto;
             case 2:
-                Gerente gerente2 = new Gerente(2,Roles.GERENTE, "EDER", "", "", "","","","2",2348723,"", "123");
-                return new SucursalMadero(2, "MAdero", "987654321", "234234324", gerente2);
+                return sucursalMadero;
             default:
                 System.out.println("Opción inválida.");
                 return null; // Devuelve null en caso de opción inválida

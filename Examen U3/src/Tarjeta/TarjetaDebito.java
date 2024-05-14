@@ -3,10 +3,9 @@ package Tarjeta;
 import java.util.Random;
 
 public class TarjetaDebito {
+    private static final Random random = new Random();
     private String numeroTarjeta;
     private String clabeInterbancaria;
-
-    private static final Random random = new Random();
 
     public TarjetaDebito() {
         generarTarjetaDebito();
