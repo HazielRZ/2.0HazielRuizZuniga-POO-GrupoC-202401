@@ -109,7 +109,7 @@ public class Empleado {
         this.RFC = RFC;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

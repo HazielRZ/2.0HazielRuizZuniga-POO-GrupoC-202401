@@ -248,7 +248,7 @@ public class Menu {
                     eliminarCliente();
                     break;
                 case 4:
-                    GestorUsuarios.buscarClientePorID();
+                    GestorUsuarios.buscarClientePorID(cliente.getId());
                     break;
                 case 5:
                     SolicitudTarjetaCredito.solicitarTarjetaCredito(cliente, tipoTarjeta);

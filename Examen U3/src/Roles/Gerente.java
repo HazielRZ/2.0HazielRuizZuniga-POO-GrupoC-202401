@@ -1,9 +1,6 @@
 package Roles;
 
-import utils.IDManager;
-
 import java.util.Date;
-import java.util.Random;
 import java.util.Scanner;
 
 
@@ -67,7 +64,7 @@ import java.util.Scanner;
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

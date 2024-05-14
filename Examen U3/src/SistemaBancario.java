@@ -3,9 +3,14 @@ import utils.ControlAcceso;
 import Sucursales.Sucursales;
 import Sucursales.SucursalAcueducto;
 import Sucursales.SucursalMadero;
+import utils.FileManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static utils.FileManager.EMPLEADOS_FILE;
+import static utils.FileManager.INVERSIONISTAS_FILE;
 
 public class SistemaBancario {
     private static final Scanner scanner = new Scanner(System.in);
@@ -19,8 +24,38 @@ public class SistemaBancario {
             System.out.println("No se pudo seleccionar una sucursal. Saliendo del programa.");
             return;
         }
+        cargarDatos(); // Cargar datos al inicio del programa
+        if (empleados.isEmpty()) {
+            Empleado empleadoPrueba = new Empleado(1, Roles.GERENTE, "Nombre", "Apellido", "Otro", "Info", "123456", "correo@example.com", "123", 1233,"123","123");
+            empleados.add(empleadoPrueba);
+        }
+        if (!FileManager.existeArchivo(EMPLEADOS_FILE) || !FileManager.existeArchivo(INVERSIONISTAS_FILE)) {
+            ControlAcceso.inicializarCredenciales(empleados);
+        }
+        ControlAcceso.inicializarCredenciales (empleados); // Llama a inicializarCredenciales después de cargar los datos
         mostrarMenuInicio();
-        ControlAcceso.inicializarCredenciales();
+        guardarDatos(); // Guardar datos al finalizar el programa
+
+
+    }
+    private static void cargarDatos() {
+        if (!FileManager.existeArchivo(FileManager.EMPLEADOS_FILE)) {
+            // Crea el archivo de empleados si no existe
+            FileManager.guardarLista(new ArrayList<>(), FileManager.EMPLEADOS_FILE);
+        }
+        if (!FileManager.existeArchivo(FileManager.INVERSIONISTAS_FILE)) {
+            // Crea el archivo de inversionistas si no existe
+            FileManager.guardarLista(new ArrayList<>(), FileManager.INVERSIONISTAS_FILE);
+        }
+        // Cargar datos como de costumbre
+        empleados = FileManager.cargarLista(FileManager.EMPLEADOS_FILE, Empleado.class);
+        inversionistas = FileManager.cargarLista(FileManager.INVERSIONISTAS_FILE, Inversionista.class);
+    }
+
+
+    private static void guardarDatos() {
+        FileManager.guardarLista(empleados, EMPLEADOS_FILE);
+        FileManager.guardarLista(inversionistas, INVERSIONISTAS_FILE);
     }
     private static Sucursales seleccionarSucursal() {
         System.out.println("Por favor, seleccione una sucursal:");
@@ -99,15 +134,16 @@ public class SistemaBancario {
         System.out.println("Iniciar sesión como cliente");
         System.out.print("Ingrese su ID: ");
         int idCliente = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea
+
         System.out.print("Ingrese su contraseña: ");
-        String contraseña = scanner.nextLine();
+        String contraseña = scanner.nextLine().trim(); // Eliminar espacios en blanco adicionales
 
         if (ControlAcceso.autenticarCliente(idCliente, contraseña)) {
             Cliente cliente = GestorUsuarios.buscarClientePorID(idCliente);
             if (cliente != null) {
                 System.out.println("Inicio de sesión exitoso.");
-
-                Menu.mostrarMenuCliente();
+                // Aquí puedes mostrar el menú del cliente o realizar otras operaciones necesarias
             } else {
                 System.out.println("No se encontró al cliente. Por favor, inténtelo de nuevo.");
             }

@@ -1,6 +1,8 @@
 import Roles.Cliente;
 import Roles.Empleado;
 import Roles.Inversionista;
+
+import javax.crypto.spec.PSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +13,10 @@ public class GestorUsuarios {
     private  List<Inversionista> inversionistas;
 
     // Constructor para inicializar las listas
-    public GestorUsuarios() {
+  public GestorUsuarios() {
+        clientes = new ArrayList<>();
         empleados = new ArrayList<>();
-    }
-
-    public static void buscarClientePorID() {
+        inversionistas = new ArrayList<>();
     }
 
     // Métodos para agregar usuarios
@@ -47,7 +48,8 @@ public class GestorUsuarios {
                 return empleado;
             }
         }
-        return null; // Si no se encuentra el empleado
+        return null ;
+        // Si no se encuentra el empleado
     }
 
     public Inversionista buscarInversionistaPorId(int id) {
