@@ -1,7 +1,5 @@
 package Banco;
 
-import Roles.Cliente;
-
 import java.time.LocalDate;
 import java.util.Random;
 
@@ -13,7 +11,7 @@ public class Credito {
                    LocalDate fechaDeVencimiento, LocalDate fechaDeCreacion, TipoTarjeta tipoTarjeta) {
     }
 
-    public static Credito crearTarjetaCredito(TipoTarjeta tipoTarjeta, Cliente usuario) {
+    public static Credito crearTarjetaCredito(TipoTarjetaDeCredito tipoTarjeta, Cliente usuario) {
         Random random = new Random();
         String numeroTarjeta = generarNumeroAleatorio(16, random);
         String clabeInterbancaria = generarNumeroAleatorio(18, random);

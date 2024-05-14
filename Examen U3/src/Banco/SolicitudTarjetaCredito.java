@@ -36,7 +36,7 @@ public class SolicitudTarjetaCredito {
     }
 
     public static void setSolicitarTarjetaCredito(Cliente solicitarTarjetaCredito) {
-        Cliente.solicitarTarjeta = solicitarTarjetaCredito;
+        Cliente.solicitarTarjetaCredito() = solicitarTarjetaCredito;
     }
 
     public static Cliente solicitarTarjetaCredito(Cliente cliente, TipoTarjeta tipoTarjeta) {
@@ -49,12 +49,13 @@ public class SolicitudTarjetaCredito {
         return idSolicitud;
     }
 
+
     public TipoTarjetaDeCredito getTipoTarjeta() {
         return tipoTarjeta;
     }
 
     public void setTipoTarjeta(TipoTarjetaDeCredito tipoTarjeta) {
-        SolicitudTarjetaCredito.tipoTarjeta = tipoTarjeta;
+        this.tipoTarjeta = tipoTarjeta;
     }
 
     public Solicitud getStatus() {

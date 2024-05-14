@@ -6,6 +6,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Banco.Menu.inversionista;
+
 public class Inversionista extends Usuario {
     private double fondoInversion;
     private static String llaveSeguridad = null;
@@ -62,7 +64,7 @@ public class Inversionista extends Usuario {
         String RFCInversionista = leer.nextLine().toUpperCase(); // Solicitar RFC al usuario
 
         System.out.print("Salario: ");
-        Double salary = leer.nextDouble();
+        double salary = leer.nextDouble();
 
         System.out.print("Ingrese el fondo de inversión: ");
         double fondo = leer.nextDouble();
@@ -101,18 +103,18 @@ public class Inversionista extends Usuario {
         System.out.println("Inversores: ");
         try {
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                for (Usuario usuario : Sistema.usuariosMadero.get(Roles.INVERSIONISTA)) {
-                    if (usuario.getRoles() == Roles.INVERSIONISTA) {
+                for (Usuario usuario : Sistema.usuariosMadero.get(Banco.Roles.INVERSIONISTA)) {
+                    if (usuario.getRoles() == Banco.Roles.INVERSIONISTA) {
                         Inversionista newInversionista = (Inversionista) usuario;
-                        System.out.println(newInversionista.toString());
+                        System.out.println(newInversionista);
                     }
                 }
             }
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA)) {
-                    if (usuario.getRoles() == Roles.INVERSIONISTA) {
+                for (Usuario usuario : Sistema.usuariosAcueducto.get(Banco.Roles.INVERSIONISTA)) {
+                    if (usuario.getRoles() == Banco.Roles.INVERSIONISTA) {
                         Inversionista newInversionista = (Inversionista) usuario;
-                        System.out.println(newInversionista.toString());
+                        System.out.println(newInversionista);
                     }
                 }
             }
@@ -130,9 +132,9 @@ public class Inversionista extends Usuario {
         boolean encontrado = false;
 
         if (usuario.getSucursales().equals(Sucursales.MADERO)) {
-            encontrado = modificarInversionistaEnSucursales(Sistema.usuariosMadero.get(Roles.INVERSIONISTA), modificarRFC);
+            encontrado = modificarInversionistaEnSucursales(Sistema.usuariosMadero.get(Banco.Roles.INVERSIONISTA), modificarRFC);
         } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            encontrado = modificarInversionistaEnSucursales(Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA), modificarRFC);
+            encontrado = modificarInversionistaEnSucursales(Sistema.usuariosAcueducto.get(Banco.Roles.INVERSIONISTA), modificarRFC);
         }
 
         if (!encontrado) {
@@ -152,7 +154,7 @@ public class Inversionista extends Usuario {
             if (usuario.getRFC().equals(modificarRFC)) {
                 encontrado = true;
                 Inversionista inversionista = (Inversionista) usuario;
-                modificarDatos(inversionista, modificarRFC);
+                modificarDatos(inversionista);
                 break;
             }
         }
@@ -160,7 +162,7 @@ public class Inversionista extends Usuario {
         return encontrado;
     }
 
-    private static void modificarDatos(Inversionista inversionista, String modificarRFC) {
+    private static void modificarDatos(Inversionista inversionista) {
         Scanner leer = new Scanner(System.in);
         int opcionModificar;
 
@@ -243,7 +245,7 @@ public class Inversionista extends Usuario {
 
                 case 11:
                     System.out.println("Ingrese su nuevo fondo de inversión: ");
-                    Double newFondo = leer.nextDouble();
+                    double newFondo = leer.nextDouble();
                     inversionista.setFondoInversion(newFondo);
                     break;
 
@@ -263,7 +265,7 @@ public class Inversionista extends Usuario {
         String buscarRFC = leer.nextLine();
 
         if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            ArrayList<Usuario> inversionistasAcueducto = Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA);
+            ArrayList<Usuario> inversionistasAcueducto = Sistema.usuariosAcueducto.get(Banco.Roles.INVERSIONISTA);
             for (Usuario inversionista : inversionistasAcueducto) {
                 if (inversionista.getRFC().equals(buscarRFC)) {
                     inversionistasAcueducto.remove(inversionista);
@@ -272,7 +274,7 @@ public class Inversionista extends Usuario {
                 }
             }
         } else if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-            ArrayList<Usuario> inversionistasMadero = Sistema.usuariosMadero.get(Roles.INVERSIONISTA);
+            ArrayList<Usuario> inversionistasMadero = Sistema.usuariosMadero.get(Banco.Roles.INVERSIONISTA);
             for (Usuario inversionista : inversionistasMadero) {
                 if (inversionista.getRFC().equals(buscarRFC)) {
                     inversionistasMadero.remove(inversionista);
@@ -284,13 +286,11 @@ public class Inversionista extends Usuario {
         System.out.println("Banco.Usuario no encontrado.");
     }
 
-    //*************Inversión****************
+
     public static void realizarInversion() {
         Scanner leer = new Scanner(System.in);
-        int opcion = 0;
+        int opcion;
 
-        if (usuarioActual instanceof Inversionista) {
-            Inversionista inversionista = (Inversionista) usuarioActual;
 
             do {
                 System.out.println("\n***Inversión en Sucursales***");
@@ -350,11 +350,9 @@ public class Inversionista extends Usuario {
                 }
             } while (opcion != 3);
 
-        } else {
-            System.out.println("Acceso no autorizado. No eres inversionista para realizar esta operación.");
         }
 
-    }
+
 
     public void agregarInversionPropia(Inversion inversion) {
         inversionesPropias.add(inversion);

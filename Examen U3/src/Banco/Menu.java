@@ -6,16 +6,18 @@ import java.util.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static Banco.Inversionista.registrarInversionista;
 import static Banco.Sistema.eliminarEjecutivo;
+import static Banco.Sistema.mostrarEjecutivos;
 import static Banco.SolicitudTarjetaCredito.solicitarTarjetaCredito;
 
 public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
-    public static HashMap<Sucursales, ArrayList<Cliente>> listaClientes = new HashMap<Sucursales, ArrayList<Cliente>>();
+    public static HashMap<Sucursales, ArrayList<Cliente>> listaClientes = new HashMap<>();
     static TipoTarjeta tipoTarjeta;
     private static Cliente cliente;
     private static Usuario usuario;
-    private static Inversionista inversionista;
+    public static Inversionista inversionista;
     Scanner leer = new Scanner(System.in);
     Sistema sistema = new Sistema();
 
@@ -40,7 +42,7 @@ public class Menu {
                     System.out.println("No disponible por el momento");
                     break;
                 case 3:
-                    solicitarTarjetaCredito();
+                    solicitarTarjetaCredito((Cliente) usuario,TipoTarjeta.CREDITO);
                     break;
                 case 0:
                     System.out.println("Saliendo del menú cliente.");
@@ -59,7 +61,7 @@ public class Menu {
 
     public static void mostrarMenuEmpleado() {
         Roles Roles = usuario.getRoles();
-        String menu = Roles.getMenuForRoles(Roles);
+        String menu = menu(Roles);
         if (menu != null) {
             System.out.println("Mostrando menú para: " + Roles);
             System.out.println(menu);
@@ -179,7 +181,7 @@ public class Menu {
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el apellido del ejecutivo de cuenta: ");
         String apellido = scanner.nextLine();
-        EjecutivoCuenta ejecutivo = buscarEjecutivo(nombre, apellido);
+        EjecutivoCuenta ejecutivo = mostrarEjecutivos();
         if (ejecutivo != null) {
             System.out.println("Ejecutivo de cuenta encontrado: " + ejecutivo);
         } else {
@@ -341,7 +343,7 @@ public class Menu {
     }
 
     private static void registrarNuevoInversionista() {
-        Inversionista.registrarNuevoInversionista();
+        registrarInversionista(Usuario, usuarioActual);
     }
 
     private static void modificarDatosInversionista() {
@@ -441,7 +443,6 @@ public class Menu {
                 menuGerente(usuario.getSucursales());
                 break;
 
-            /*" -> funciones landa  */
         }
     }
 

@@ -37,7 +37,6 @@ public class Cliente extends Usuario {
             Usuario.validarRFC(RFCClient);
             Cliente newCliente = new Cliente(nameClient, fatherLastNameClient, motherLastNameClient,
                     fechaDeNacimiento, cityClient, estadoCliente, CURPClient, direccionClient, RFCClient, Roles.CLIENTE, usuarioActual.getSucursales(), sexoClient, usuarioClient, passwordClient);
-
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
                 Sistema.registrarClienteEnSucursal(Roles.CLIENTE, newCliente, Sucursales.MADERO);
                 System.out.println("\nCliente registrado con éxito. Su RFC es: " + RFCClient + " y su CURP es: " + CURPClient);
@@ -46,11 +45,10 @@ public class Cliente extends Usuario {
                 Sistema.registrarClienteEnSucursal(Roles.CLIENTE, newCliente, Sucursales.ACUEDUCTO);
                 System.out.println("\nCliente registrado con éxito. Su RFC es: " + RFCClient + " y su CURP es: " + CURPClient);
             }
-            return newCliente;
-        } else {
-            System.out.println("\nInténtelo de nuevo.");
-            return null;
         }
+    }
+    public static Cliente solicitarTarjeta() {
+        return null;
     }
 
     public String verTarjeta() {
@@ -64,7 +62,7 @@ public class Cliente extends Usuario {
         try {
             if (usuarioActual.getSucursales().equals(utils.Sucursales.MADERO)) {
                 for (Usuario usuario : Sistema.usuariosMadero.get(Roles.CLIENTE)) {
-                    if (usuario.getRol() == Roles.CLIENTE) {
+                    if (usuario.getRoles() == Roles.CLIENTE) {
                         Cliente cliente = (Cliente) usuario;
                         System.out.println(cliente.toString());
                     }
@@ -72,7 +70,7 @@ public class Cliente extends Usuario {
             }
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
                 for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.CLIENTE)) {
-                    if (usuario.getRol() == Roles.CLIENTE) {
+                    if (usuario.getRoles() == Roles.CLIENTE) {
                         Cliente cliente = (Cliente) usuario;
                         System.out.println(cliente.toString());
                     }
@@ -273,7 +271,11 @@ public class Cliente extends Usuario {
             System.out.println("Tienes solicitudes pendientes.");
         }
     }
-
+    public static Cliente solicitarTarjetaCredito(Cliente cliente, TipoTarjetaDeCredito tipoTarjeta) {
+        SolicitudTarjetaCredito nuevaSolicitud = new SolicitudTarjetaCredito(cliente, tipoTarjeta, Solicitud.PENDIENTE, LocalDateTime.now());
+        listaSolicitudes.add(nuevaSolicitud);
+        return cliente;
+    }
     public static boolean validarRequisitosParaSolicitud(TipoTarjetaDeCredito tipoTarjetaASolicitar, Cliente cliente) {
         if (cliente.getTarjetaDebito().getSaldo() >= tipoTarjetaASolicitar.getSaldoMinimo()){
             return true;
@@ -281,7 +283,7 @@ public class Cliente extends Usuario {
         return false;
     }
 
-    public boolean validarSolicitudesPendientes(Cliente clienteActual) {
+    public static boolean validarSolicitudesPendientes(Cliente clienteActual) {
         for (SolicitudTarjetaCredito solicitudBuscar : listaSolicitudes) {
             if (solicitudBuscar.getClienteSolicitante().equals(clienteActual) && solicitudBuscar.getStatus().equals(Solicitud.PENDIENTE)) {
                 return false;
