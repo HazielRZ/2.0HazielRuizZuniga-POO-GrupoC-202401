@@ -35,11 +35,11 @@ public class ControlAcceso {
     }
 
     public static void asignarSucursalEmpleado(int idEmpleado, String sucursal) {
-        sucursalesEmpleados.put(Integer.valueOf(idEmpleado), sucursal);
+        sucursalesEmpleados.put(idEmpleado, sucursal);
     }
 
     public static void asignarSucursalCliente(int idCliente, String sucursal) {
-        sucursalesClientes.put(Integer.valueOf(idCliente), sucursal);
+        sucursalesClientes.put(idCliente, sucursal);
     }
 
     public static String obtenerContraseñaEmpleado(int idEmpleado) {
@@ -47,10 +47,10 @@ public class ControlAcceso {
     }
 
     public static String obtenerSucursalEmpleado(int idEmpleado) {
-        return sucursalesEmpleados.get(String.valueOf(idEmpleado));
+        return sucursalesEmpleados.get(idEmpleado);
     }
 
     public static String obtenerSucursalCliente(int idCliente) {
-        return sucursalesClientes.get(String.valueOf(idCliente));
+        return sucursalesClientes.get(idCliente);
     }
 }

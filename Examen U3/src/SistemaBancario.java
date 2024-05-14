@@ -2,6 +2,7 @@ import Roles.*;
 import Sucursales.Sucursales;
 import utils.ControlAcceso;
 import utils.FileManager;
+import utils.IDManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,9 +28,12 @@ public class SistemaBancario {
             return;
         }
 
-        if (empleados.isEmpty()) {
-            Empleado empleadoPrueba = new Empleado(1, Roles.GERENTE, "Nombre", "Apellido", "Otro", "Info", "123456", "correo@example.com", "123", 1233, "123", "123");
-            empleados.add(empleadoPrueba);
+        if (GestorUsuarios.getEmpleados().isEmpty()) {
+            registrarGerente();
+        }
+
+        if (!FileManager.existeArchivo(EMPLEADOS_FILE) || !FileManager.existeArchivo(INVERSIONISTAS_FILE)) {
+            ControlAcceso.inicializarCredenciales(empleados);
         }
         if (!FileManager.existeArchivo(EMPLEADOS_FILE) || !FileManager.existeArchivo(INVERSIONISTAS_FILE)) {
             ControlAcceso.inicializarCredenciales(empleados);
@@ -44,10 +48,7 @@ public class SistemaBancario {
     private static void cargarDatos() {
         // Verificar si existe el archivo de empleados
         if (!FileManager.existeArchivo(FileManager.EMPLEADOS_FILE)) {
-            // Si no existe, crear el archivo de empleados y agregar un gerente por defecto
-            Empleado gerentePorDefecto = new Empleado(1, Roles.GERENTE, "Nombre", "Apellido", "Otro", "Info", "123456", "correo@example.com", "123", 1233, "123", "123");
             empleados = new ArrayList<>();
-            empleados.add(gerentePorDefecto);
             FileManager.guardarLista(empleados, FileManager.EMPLEADOS_FILE);
         }
 
@@ -173,4 +174,51 @@ public class SistemaBancario {
             System.out.println("Error: Credenciales incorrectas.");
         }
     }
-}
+    private static void registrarGerente() {
+        System.out.println("Registraremos un nuevo gerente:");
+
+        System.out.println("Ingrese el nombre: ");
+        String nombreGerente = scanner.nextLine();
+
+        System.out.println("Ingrese el apellido: ");
+        String apellido = scanner.nextLine();
+
+        System.out.println("Ingrese el año de nacimiento: ");
+        String añoNacimiento = scanner.nextLine();
+
+        System.out.println("Ingrese la ciudad de nacimiento: ");
+        String ciudad = scanner.nextLine();
+
+        System.out.println("Ingrese el Estado en el que nació: ");
+        String estado = scanner.nextLine();
+
+        System.out.println("Ingrese su dirección: ");
+        String direccion = scanner.nextLine();
+
+        System.out.println("Ingrese la sucursal a la que pertenece: ");
+        String sucursal = scanner.nextLine();
+
+        System.out.println("Ingrese su salario: ");
+        double salario = scanner.nextDouble();
+        scanner.nextLine(); // Consumir el salto de línea pendiente
+
+        System.out.println("Ingrese su RFC: ");
+        String RFC = scanner.nextLine();
+
+        System.out.println("Ingrese su contraseña: ");
+        String contraseña = scanner.nextLine();
+
+        // Crear una instancia de Gerente con los datos ingresados
+        Gerente nuevoGerente = new Gerente(IDManager.generarIDEmpleado(), Roles.GERENTE, nombreGerente, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC, contraseña);
+
+        // Agregar el nuevo gerente a la lista de empleados
+        GestorUsuarios.agregarEmpleado(nuevoGerente);
+
+        // Actualizar las credenciales después de agregar un nuevo empleado
+        ControlAcceso.inicializarCredenciales(empleados);
+
+        System.out.println("Gerente registrado exitosamente.");
+    }
+
+    }
+
