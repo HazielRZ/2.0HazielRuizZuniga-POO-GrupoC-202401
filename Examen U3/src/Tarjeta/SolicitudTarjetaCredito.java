@@ -1,7 +1,7 @@
 package Tarjeta;
 
 import Roles.Cliente;
-import Sucursales.Sucursales;
+import utils.Sucursales;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -4,7 +4,7 @@ public class IDManager {
     private static int ultimoIDEmpleado = 0;
     private static int ultimoIDCliente = 0;
     private static int ultimoIDInversionista = 0;
-    private static int ultimoIDSucursal = 0;
+    private static int ultimoIDSucursales = 0;
 
     public static int generarIDEmpleado() {
         return ++ultimoIDEmpleado;
@@ -18,7 +18,7 @@ public class IDManager {
         return ++ultimoIDInversionista;
     }
 
-    public static int generarIDSucursal() {
-        return ++ultimoIDSucursal;
+    public static int generarIDSucursales() {
+        return ++ultimoIDSucursales;
     }
 }

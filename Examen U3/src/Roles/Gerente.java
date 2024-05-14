@@ -1,54 +1,82 @@
 package Roles;
 
-import utils.IDManager;
-
-import java.util.Date;
+import utils.Sucursales;
+import SistemaBancario;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Gerente extends Empleado {
-    private static Date fecha = new Date();
-    private static Scanner scanner = new Scanner(System.in);
-    private Date fechaCreacion = new Date();
+public class Gerente extends Usuario {
 
-    public Gerente(int id, Roles Rol, String nombre, String apellido, String añoNacimiento, String ciudad, String estado,
-                   String direccion, String sucursal, double salario, String RFC, String contraseña) {
-        super(id, Rol, nombre, apellido, añoNacimiento, ciudad, estado, direccion, sucursal, salario, RFC, contraseña);
+    String userName;
+    String contaseña;
+
+    public Gerente(String userName, String contrasena, String nombre, String apellidoMaterno, String apellidoPaterno,
+                   String fechaDeNacimiento, String ciudad, String estado, String curp, String direccion, String RFC,
+                   double salario, Roles Roles, utils.Sucursales Sucursales, String sexo) {
+        super(nombre, apellidoMaterno, apellidoPaterno, fechaDeNacimiento, ciudad, estado, curp, direccion, RFC,
+                salario, Roles, Sucursales, sexo, userName, contrasena);
+        this.userName = userName;
+        this.contrasena = contrasena;
     }
 
+    public static void generarClaveSeguridad(Usuario usuarioActual) {
+        Scanner leer = new Scanner(System.in);
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+        if (usuarioActual.getRoles() != Roles.GERENTE) {
+            System.out.println("Acceso no autorizado. Debes ser gerente para generar una clave de seguridad");
+            return;
+        } else {
+            System.out.println("\nGenerar llave de seguridad para inversionista");
+            System.out.println("Ingrese el RFC del inversionista:");
+            String buscarRFC = leer.nextLine();
+
+            if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
+                ArrayList<Usuario> inversionistasAcueducto = SistemaBancario.usuariosAcueducto.get(Roles.INVERSIONISTA);
+                for (Usuario inversionista : inversionistasAcueducto) {
+                    if (inversionista.getRFC().equals(buscarRFC)) {
+                        System.out.println("\nIngrese la clave de seguridad:");
+                        String nuevaClave = leer.nextLine();
+
+                        Inversionista newInversionista = (Inversionista) inversionista;
+                        newInversionista.setLlaveSeguridad(nuevaClave);
+
+                        System.out.println("Se ha asignado llave de seguridad");
+                        return;
+                    }
+                }
+            } else if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
+                ArrayList<Usuario> inversionistasMadero = SistemaBancario.usuariosMadero.get(Roles.INVERSIONISTA);
+                for (Usuario inversionista : inversionistasMadero) {
+                    if (inversionista.getRFC().equals(buscarRFC)) {
+                        System.out.println("\nIngrese la clave de seguridad:");
+                        String nuevaClave = leer.nextLine();
+
+                        Inversionista newInversionista = (Inversionista) inversionista;
+                        newInversionista.setLlaveSeguridad(nuevaClave);
+
+                        System.out.println("Se ha asignado llave de seguridad");
+                        return;
+                    }
+                }
+            }
+            System.out.println("\nUsuario no encontrado.");
+        }
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public String getUserName() {
+        return userName;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setFecha(Date fecha) {
-        Gerente.fecha = fecha;
+    public String getContraseña() {
+        return contaseña;
     }
 
-    public Scanner getScanner() {
-        return scanner;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
-
-    public void setScanner(Scanner scanner) {
-        Gerente.scanner = scanner;
-    }
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
 }
