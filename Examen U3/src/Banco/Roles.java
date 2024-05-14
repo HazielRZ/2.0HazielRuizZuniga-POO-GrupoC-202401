@@ -1,3 +1,5 @@
+package Banco;
+
 public enum Roles {
     GERENTE,
     CLIENTE,

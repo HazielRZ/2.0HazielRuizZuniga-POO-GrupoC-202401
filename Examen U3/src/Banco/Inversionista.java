@@ -1,3 +1,5 @@
+package Banco;
+
 import utils.Inversion;
 import utils.Sucursales;
 import java.util.Scanner;
@@ -16,7 +18,7 @@ public class Inversionista extends Usuario {
         super(nombre
         );
         this.fondoInversion = fondoInversion;
-        this.llaveSeguridad = llaveSeguridad;
+        Inversionista.llaveSeguridad = llaveSeguridad;
         this.inversionesPropias = new ArrayList<>();
     }
 
@@ -25,7 +27,7 @@ public class Inversionista extends Usuario {
     }
 
     public void setLlaveSeguridad(String llaveSeguridad) {
-        this.llaveSeguridad = llaveSeguridad;
+        Inversionista.llaveSeguridad = llaveSeguridad;
     }
 
     public double getFondoInversion() {
@@ -40,16 +42,12 @@ public class Inversionista extends Usuario {
         return inversionesPropias;
     }
 
-    public void setInversionesPropias(List<Inversion> inversionesPropias) {
-        this.inversionesPropias = inversionesPropias;
-    }
-
     // Método para registrar un nuevo inversionista
     public static void registrarInversionista(Usuario usuarioActual) {
         Scanner leer = new Scanner(System.in);
 
         System.out.println("\nHagamos el Registro");
-        ArrayList<String> datosComun = Usuario.registerUser(Roles.INVERSIONISTA);
+        ArrayList<String> datosComun = Usuario.registerUser(Banco.Roles.INVERSIONISTA);
         String nameInversionista = datosComun.get(0);
         String fatherLastNameInversionista = datosComun.get(1);
         String motherLastNameInversionista = datosComun.get(2);
@@ -71,22 +69,22 @@ public class Inversionista extends Usuario {
 
         if (RFCInversionista != null) {
             Inversionista newInversionista = new Inversionista(nameInversionista, fatherLastNameInversionista, motherLastNameInversionista,
-                    fechaDeNacimiento, cityInversionista, estadoIinversionista, direccionInversionista, salary, Roles.INVERSIONISTA,
+                    fechaDeNacimiento, cityInversionista, estadoIinversionista, direccionInversionista, salary, Banco.Roles.INVERSIONISTA,
                     usuarioActual.getSucursales(), sexoInversionista, usuarioCInversionista, passwordIinversionista, fondo, null);
 
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                if (!Sistema.usuariosMadero.containsKey(Roles.INVERSIONISTA)) {
-                    Sistema.usuariosMadero.put(Roles.INVERSIONISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosMadero.containsKey(Banco.Roles.INVERSIONISTA)) {
+                    Sistema.usuariosMadero.put(Banco.Roles.INVERSIONISTA, new ArrayList<>());
                 }
-                Sistema.usuariosMadero.get(Roles.INVERSIONISTA).add(newInversionista);
-                System.out.println("Inversionista registrado con éxito.");
+                Sistema.usuariosMadero.get(Banco.Roles.INVERSIONISTA).add(newInversionista);
+                System.out.println("Banco.Inversionista registrado con éxito.");
 
             } else {
-                if (!Sistema.usuariosAcueducto.containsKey(Roles.INVERSIONISTA)) {
-                    Sistema.usuariosAcueducto.put(Roles.INVERSIONISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosAcueducto.containsKey(Banco.Roles.INVERSIONISTA)) {
+                    Sistema.usuariosAcueducto.put(Banco.Roles.INVERSIONISTA, new ArrayList<>());
                 }
-                Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA).add(newInversionista);
-                System.out.println("Inversionista registrado con éxito.");
+                Sistema.usuariosAcueducto.get(Banco.Roles.INVERSIONISTA).add(newInversionista);
+                System.out.println("Banco.Inversionista registrado con éxito.");
 
             }
         } else {
@@ -138,7 +136,7 @@ public class Inversionista extends Usuario {
         }
 
         if (!encontrado) {
-            System.out.println("Inversionista no encontrado.");
+            System.out.println("Banco.Inversionista no encontrado.");
             if (usuario.getSucursales().equals(Sucursales.MADERO)) {
                 Menu.menuGerente(Sucursales.MADERO);
             } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
@@ -167,17 +165,7 @@ public class Inversionista extends Usuario {
         int opcionModificar;
 
         do {
-            System.out.println("¿Qué desea modificar?");
-            System.out.println("1. Nombre.");
-            System.out.println("2. Apellido paterno.");
-            System.out.println("3. Apellido materno.");
-            System.out.println("4. Fecha de Nacimiento.");
-            System.out.println("5. Ciudad.");
-            System.out.println("6. Estado.");
-            System.out.println("7. Domicilio.");
-            System.out.println("8. Salario.");
-            System.out.println("9. Usuario.");
-            System.out.println("10. Contraseña.");
+            Capturista.Modificar();
             System.out.println("11. Fondo de inversión.");
             System.out.println("12. Salir.");
 
@@ -279,7 +267,7 @@ public class Inversionista extends Usuario {
             for (Usuario inversionista : inversionistasAcueducto) {
                 if (inversionista.getRFC().equals(buscarRFC)) {
                     inversionistasAcueducto.remove(inversionista);
-                    System.out.println("\nInversionista eliminado");
+                    System.out.println("\nBanco.Inversionista eliminado");
                     return;
                 }
             }
@@ -288,16 +276,16 @@ public class Inversionista extends Usuario {
             for (Usuario inversionista : inversionistasMadero) {
                 if (inversionista.getRFC().equals(buscarRFC)) {
                     inversionistasMadero.remove(inversionista);
-                    System.out.println("\nInversionista eliminado");
+                    System.out.println("\nBanco.Inversionista eliminado");
                     return;
                 }
             }
         }
-        System.out.println("Usuario no encontrado.");
+        System.out.println("Banco.Usuario no encontrado.");
     }
 
     //*************Inversión****************
-    public static void realizarInversion(Usuario usuarioActual) {
+    public static void realizarInversion() {
         Scanner leer = new Scanner(System.in);
         int opcion = 0;
 
@@ -394,7 +382,7 @@ public class Inversionista extends Usuario {
         } else {
             System.out.println("\n***Lista de inversiones***");
             for (Inversion inversion : inversiones) {
-                System.out.println("\nFecha: " + inversion.getFecha() + "\nInversionista: " + inversion.getNombreInversionista() + "\nCantidad: " + inversion.getCantidad());
+                System.out.println("\nFecha: " + inversion.getFecha() + "\nBanco.Inversionista: " + inversion.getNombreInversionista() + "\nCantidad: " + inversion.getCantidad());
             }
         }
     }
@@ -413,7 +401,7 @@ public class Inversionista extends Usuario {
         System.out.println("RFC: %s" + inversionista.getRFC());
         System.out.println("Fondo de inversión: " + inversionista.getFondoInversion());
         System.out.println("Salario: " + inversionista.getSalario());
-        System.out.println("Usuario: " + inversionista.getUserName());
+        System.out.println("Banco.Usuario: " + inversionista.getUserName());
         System.out.println("Contraseña:" + inversionista.getPassword());
         System.out.println("Llave de seguridad: " + inversionista.getLlaveSeguridad());
 

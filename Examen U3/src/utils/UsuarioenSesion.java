@@ -1,6 +1,6 @@
 package utils;
 
-import Usuario;
+import Banco.Usuario;
 
 public class UsuarioenSesion {
     private static UsuarioenSesion instancia;

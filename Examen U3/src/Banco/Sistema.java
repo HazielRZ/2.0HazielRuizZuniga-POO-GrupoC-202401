@@ -1,14 +1,13 @@
+package Banco;
 import utils.Sucursales;
-
 import java.util.*;
 
-import static SolicitudTarjetaCredito.mostrarListaSolicitudes;
 
 public class Sistema {
     Scanner leer = new Scanner(System.in);
-    public static HashMap<Sucursales, Gerente> listaGerentes = new HashMap<Sucursales, Gerente>();
-    public static HashMap<Roles, ArrayList<Usuario>> usuariosMadero = new HashMap<Roles, ArrayList<Usuario>>();
-    public static HashMap<Roles, ArrayList<Usuario>> usuariosAcueducto = new HashMap<Roles, ArrayList<Usuario>>();
+    public static HashMap<Sucursales, Gerente> listaGerentes = new HashMap<>();
+    public static HashMap<Roles, ArrayList<Usuario>> usuariosMadero = new HashMap<>();
+    public static HashMap<Roles, ArrayList<Usuario>> usuariosAcueducto = new HashMap<>();
     public static ArrayList <Tarjeta> listaTarjetas = new ArrayList<>();
     public static ArrayList <SolicitudTarjetaCredito> listaSolicitudes = new ArrayList<>();
 
@@ -17,13 +16,13 @@ public class Sistema {
 
     public Sistema() {
         if (!listaGerentes.containsKey(Sucursales.ACUEDUCTO)) {
-            usuariosAcueducto.put(Roles.GERENTE, new ArrayList<Usuario>());
+            usuariosAcueducto.put(Roles.GERENTE, new ArrayList<>());
             usuariosAcueducto.get(Roles.GERENTE).add(gerenteAcueducto);
             listaGerentes.put(Sucursales.ACUEDUCTO, gerenteAcueducto);
         }
         if (!listaGerentes.containsKey(Sucursales.MADERO)) {
             listaGerentes.put(Sucursales.MADERO, gerenteMadero);
-            usuariosMadero.put(Roles.GERENTE, new ArrayList<Usuario>());
+            usuariosMadero.put(Roles.GERENTE, new ArrayList<>());
             usuariosMadero.get(Roles.GERENTE).add(gerenteMadero);
 
         }
@@ -31,7 +30,7 @@ public class Sistema {
     }
 
     public static Usuario verificarInicioSesion(Sucursales Sucursales, String nombreUsuario, String contrasena) {
-        HashMap<Roles, ArrayList<Usuario>> usuariosPorSucursales = Sucursales.equals(Sucursales.ACUEDUCTO) ? usuariosAcueducto : usuariosMadero;
+        HashMap<Roles, ArrayList<Usuario>> usuariosPorSucursales = Sucursales.equals(utils.Sucursales.ACUEDUCTO) ? usuariosAcueducto : usuariosMadero;
         Collection<ArrayList<Usuario>> usuarios = usuariosPorSucursales.values();
 
         if (usuarios != null) {
@@ -60,7 +59,7 @@ public class Sistema {
     }
 
     public static void registrarInversionista(Usuario usuarioActual) {
-        Inversionista.registarInversionista(usuarioActual);
+        Inversionista.registrarInversionista(usuarioActual);
     }
 
     // Métodos de visualización
@@ -125,7 +124,7 @@ public class Sistema {
     }
 
     public static void mostrarSolicitudes(){
-        mostrarListaSolicitudes();
+        SolicitudTarjetaCredito.mostrarListaSolicitudes();
     }
 
     public static void realizarCompra(){

@@ -1,33 +1,29 @@
-import Roles.Cliente;
-import utils.Sucursales;
+package Banco;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SolicitudTarjetaCredito {
-    static Cliente cliente;
-    static ArrayList<SolicitudTarjetaCredito> listaSolicitudes;
-    private static Cliente solicitarTarjetaCredito;
-    private static TipoTarjeta tipoTarjeta;
-    private static int ID_SOLICITUD;
-    LocalDateTime fechaDeSolicitud;
-    int idSolicitud;
+    private Cliente clienteSolicitante;
+    private static TipoTarjetaDeCredito tipoTarjeta;
+    private int idSolicitud;
+    private static int ID_SOLICITUD = 1;
+    private LocalDateTime fechaDeSolicitud;
     private Solicitud status;
+    private static final ArrayList<SolicitudTarjetaCredito> listaSolicitudes = new ArrayList<>();
 
-
-    public SolicitudTarjetaCredito(Cliente clienteSolicitando, TipoTarjeta tipoTarjeta, Solicitud status, LocalDateTime fechaDeSolicitud) {
-        solicitarTarjetaCredito = clienteSolicitando;
-        SolicitudTarjetaCredito.tipoTarjeta = tipoTarjeta;
+    public SolicitudTarjetaCredito(Cliente clienteSolicitante, TipoTarjetaDeCredito tipoTarjeta, Solicitud status, LocalDateTime fechaDeSolicitud) {
+        this.clienteSolicitante = clienteSolicitante;
+        this.tipoTarjeta = tipoTarjeta;
         this.status = status;
         this.fechaDeSolicitud = fechaDeSolicitud;
-        this.idSolicitud = ID_SOLICITUD;
-        ID_SOLICITUD++;
+        this.idSolicitud = ID_SOLICITUD++;
+        listaSolicitudes.add(this);
     }
-
     public static void mostrarListaSolicitudes() {
-        for (SolicitudTarjetaCredito solicitud : Sucursales.listaSolicitudes) {
+        for (SolicitudTarjetaCredito solicitud : listaSolicitudes) {
             System.out.println("\nID de Solicitud: " + solicitud.getIdSolicitud());
-            System.out.println("Usuario: " + solicitarTarjetaCredito(cliente, tipoTarjeta).getNombre());
+            System.out.println("Usuario: " + solicitud.getClienteSolicitante().getNombre());
             System.out.println("Tipo de Tarjeta: " + solicitud.getTipoTarjeta());
             System.out.println("Estado: " + solicitud.getStatus());
             System.out.println("Fecha de Solicitud: " + solicitud.getFechaDeSolicitud());
@@ -36,11 +32,11 @@ public class SolicitudTarjetaCredito {
     }
 
     public static Cliente getSolicitarTarjetaCredito() {
-        return solicitarTarjetaCredito;
+        return Cliente.solicitarTarjeta();
     }
 
     public static void setSolicitarTarjetaCredito(Cliente solicitarTarjetaCredito) {
-        SolicitudTarjetaCredito.solicitarTarjetaCredito = solicitarTarjetaCredito;
+        Cliente.solicitarTarjeta = solicitarTarjetaCredito;
     }
 
     public static Cliente solicitarTarjetaCredito(Cliente cliente, TipoTarjeta tipoTarjeta) {
@@ -53,11 +49,11 @@ public class SolicitudTarjetaCredito {
         return idSolicitud;
     }
 
-    public TipoTarjeta getTipoTarjeta() {
+    public TipoTarjetaDeCredito getTipoTarjeta() {
         return tipoTarjeta;
     }
 
-    public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
+    public void setTipoTarjeta(TipoTarjetaDeCredito tipoTarjeta) {
         SolicitudTarjetaCredito.tipoTarjeta = tipoTarjeta;
     }
 
@@ -71,6 +67,9 @@ public class SolicitudTarjetaCredito {
 
     public LocalDateTime getFechaDeSolicitud() {
         return fechaDeSolicitud;
+    }
+    public Cliente getClienteSolicitante() {
+        return clienteSolicitante;
     }
 
 }

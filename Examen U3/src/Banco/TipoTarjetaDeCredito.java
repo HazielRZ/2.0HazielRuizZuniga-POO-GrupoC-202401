@@ -1,3 +1,5 @@
+package Banco;
+
 public enum TipoTarjetaDeCredito {
     SIMPLICITY(0, 60000),
     PLATINUM(60001, 150000),

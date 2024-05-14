@@ -1,3 +1,5 @@
+package Banco;
+
 import utils.Sucursales;
 
 import java.util.ArrayList;
@@ -9,7 +11,6 @@ public class Capturista extends Usuario {
         super(nombre, apellidoMaterno, apellidoPaterno, fechaDeNacimiento, ciudad, estado, curp, direccion, RFC, salario, Roles, Sucursales, sexo, userName, password);
     }
 
-    //***********************Registro************************************
 
     public static void registerCapturista(Usuario usuarioActual) {
         Scanner leer = new Scanner(System.in);
@@ -42,35 +43,35 @@ public class Capturista extends Usuario {
         String direccionCapturista = leer.nextLine().toUpperCase();
 
         System.out.print("Salario: ");
-        Double salaryCapturista = leer.nextDouble();
+        double salaryCapturista = leer.nextDouble();
 
         leer.nextLine(); // Consumir la nueva línea pendiente
 
-        System.out.print("Usuario: ");
+        System.out.print("Banco.Usuario: ");
         String usuarioCapturista = leer.nextLine();
 
         System.out.print("Contraseña: ");
         String passwordCapturista = leer.nextLine();
 
-        if (RFCCapturista != null && CURPCapturista != null) {
+        if (CURPCapturista != null) {
             RFCList.add(RFCCapturista);
             Usuario.validarRFC(RFCCapturista);
             Capturista newCapturista = new Capturista(nameCapturista, fatherLastNameCapturista, motherLastNameCapturista,
-                    fechaDeNacimiento, cityCapturista, estadoCapturista, CURPCapturista, direccionCapturista, RFCCapturista, salaryCapturista, Roles.CAPTURISTA, usuarioActual.getSucursales(), "N/A", usuarioCapturista, passwordCapturista);
+                    fechaDeNacimiento, cityCapturista, estadoCapturista, CURPCapturista, direccionCapturista, RFCCapturista, salaryCapturista, Banco.Roles.CAPTURISTA, usuarioActual.getSucursales(), "N/A", usuarioCapturista, passwordCapturista);
 
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                if (!Sistema.usuariosMadero.containsKey(Roles.CAPTURISTA)) {
-                    Sistema.usuariosMadero.put(Roles.CAPTURISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosMadero.containsKey(Banco.Roles.CAPTURISTA)) {
+                    Sistema.usuariosMadero.put(Banco.Roles.CAPTURISTA, new ArrayList<>());
                 }
-                Sistema.usuariosMadero.get(Roles.CAPTURISTA).add(newCapturista);
-                System.out.println("* Capturista registrado con éxito. Su RFC es: " + RFCCapturista + " y su CURP es: " + CURPCapturista);
+                Sistema.usuariosMadero.get(Banco.Roles.CAPTURISTA).add(newCapturista);
+                System.out.println("* Banco.Capturista registrado con éxito. Su RFC es: " + RFCCapturista + " y su CURP es: " + CURPCapturista);
 
             } else {
-                if (!Sistema.usuariosAcueducto.containsKey(Roles.CAPTURISTA)) {
-                    Sistema.usuariosAcueducto.put(Roles.CAPTURISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosAcueducto.containsKey(Banco.Roles.CAPTURISTA)) {
+                    Sistema.usuariosAcueducto.put(Banco.Roles.CAPTURISTA, new ArrayList<>());
                 }
-                Sistema.usuariosAcueducto.get(Roles.CAPTURISTA).add(newCapturista);
-                System.out.println("* Capturista registrado con éxito. Su RFC es: " + RFCCapturista + " y su CURP es: " + CURPCapturista);
+                Sistema.usuariosAcueducto.get(Banco.Roles.CAPTURISTA).add(newCapturista);
+                System.out.println("* Banco.Capturista registrado con éxito. Su RFC es: " + RFCCapturista + " y su CURP es: " + CURPCapturista);
             }
         } else {
             System.out.println("* Inténtelo de nuevo.");
@@ -86,14 +87,13 @@ public class Capturista extends Usuario {
         boolean encontrado = false;
 
         if (usuario.getSucursales().equals(Sucursales.MADERO)) {
-            encontrado = modificarCapturistaEnSucursales(Sistema.usuariosMadero.get(Roles.CAPTURISTA), modificarRFC);
+            encontrado = modificarCapturistaEnSucursales(Sistema.usuariosMadero.get(Banco.Roles.CAPTURISTA), modificarRFC);
         } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            encontrado = modificarCapturistaEnSucursales(Sistema.usuariosAcueducto.get(Roles.CAPTURISTA), modificarRFC);
+            encontrado = modificarCapturistaEnSucursales(Sistema.usuariosAcueducto.get(Banco.Roles.CAPTURISTA), modificarRFC);
         }
 
         if (!encontrado) {
-            System.out.println("* Capturista no encontrado.");
-            return;
+            System.out.println("* Banco.Capturista no encontrado.");
 
         }
     }
@@ -118,28 +118,14 @@ public class Capturista extends Usuario {
         int opcionModificar;
 
         do {
-            System.out.println("¿Qué desea modificar?");
-            System.out.println("1. Nombre.");
-            System.out.println("2. Apellido paterno.");
-            System.out.println("3. Apellido materno.");
-            System.out.println("4. Fecha de Nacimiento.");
-            System.out.println("5. Ciudad.");
-            System.out.println("6. Estado.");
-            System.out.println("7. Domicilio.");
-            System.out.println("8. Salario.");
-            System.out.println("9. Usuario.");
-            System.out.println("10. Contraseña.");
-            System.out.println("11. Salir.");
-
-            opcionModificar = leer.nextInt();
-            leer.nextLine();
+            opcionModificar = getOpcionModificar(leer);
             switch (opcionModificar) {
                 case 1:
                     System.out.print("Ingrese el nuevo nombre: ");
                     String newName = leer.nextLine().toUpperCase();
                     capturista.setNombre(newName);
                     capturista.setRFC(Usuario.generateRFC(newName, capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento()));
-                    capturista.setCurp(Usuario.generarCurp(newName, capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento(), capturista.getEstado(), capturista.getSexo()));
+                    capturista.setCurp(Usuario.generarCurp(newName, capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento(), capturista.getEstado()));
                     break;
 
                 case 2:
@@ -147,7 +133,7 @@ public class Capturista extends Usuario {
                     String newFatherLastName = leer.nextLine().toUpperCase();
                     capturista.setApellidoPaterno(newFatherLastName);
                     capturista.setRFC(Usuario.generateRFC(capturista.getNombre(), newFatherLastName, capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento()));
-                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), newFatherLastName, capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento(), capturista.getEstado(), capturista.getSexo()));
+                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), newFatherLastName, capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento(), capturista.getEstado()));
                     break;
 
                 case 3:
@@ -155,7 +141,7 @@ public class Capturista extends Usuario {
                     String newMotherLastName = leer.nextLine().toUpperCase();
                     capturista.setApellidoMaterno(newMotherLastName);
                     capturista.setRFC(Usuario.generateRFC(capturista.getNombre(), capturista.getApellidoPaterno(), newMotherLastName, capturista.getFechaDeNacimiento()));
-                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), capturista.getApellidoPaterno(), newMotherLastName, capturista.getFechaDeNacimiento(), capturista.getEstado(), capturista.getSexo()));
+                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), capturista.getApellidoPaterno(), newMotherLastName, capturista.getFechaDeNacimiento(), capturista.getEstado()));
                     break;
 
                 case 4:
@@ -163,7 +149,7 @@ public class Capturista extends Usuario {
                     String newFechaDeNacimiento = leer.nextLine().toUpperCase();
                     capturista.setFechaDeNacimiento(newFechaDeNacimiento);
                     capturista.setRFC(Usuario.generateRFC(capturista.getNombre(), capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), newFechaDeNacimiento));
-                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), newFechaDeNacimiento, capturista.getEstado(), capturista.getSexo()));
+                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), newFechaDeNacimiento, capturista.getEstado()));
                     break;
 
                 case 5:
@@ -176,7 +162,7 @@ public class Capturista extends Usuario {
                     System.out.println("Ingrese el estado: ");
                     String newEstado = leer.nextLine().toUpperCase();
                     capturista.setEstado(newEstado);
-                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento(), newEstado, capturista.getSexo()));
+                    capturista.setCurp(Usuario.generarCurp(capturista.getNombre(), capturista.getApellidoPaterno(), capturista.getApellidoMaterno(), capturista.getFechaDeNacimiento(), newEstado));
                     break;
 
                 case 7:
@@ -213,17 +199,37 @@ public class Capturista extends Usuario {
         } while (opcionModificar != 11);
     }
 
-    public static void modificarDatos(Capturista.EjecutivoCuenta ejecutivo, String nuevoNombre, String nuevoApellido, String nuevoCorreo) {
+    static int getOpcionModificar(Scanner leer) {
+        int opcionModificar;
+        Modificar();
+        System.out.println("11. Salir.");
+
+        opcionModificar = leer.nextInt();
+        leer.nextLine();
+        return opcionModificar;
     }
 
-    //***************Mostrar info*******************
+    static void Modificar() {
+        System.out.println("¿Qué desea modificar?");
+        System.out.println("1. Nombre.");
+        System.out.println("2. Apellido paterno.");
+        System.out.println("3. Apellido materno.");
+        System.out.println("4. Fecha de Nacimiento.");
+        System.out.println("5. Ciudad.");
+        System.out.println("6. Estado.");
+        System.out.println("7. Domicilio.");
+        System.out.println("8. Salario.");
+        System.out.println("9. Banco.Usuario.");
+        System.out.println("10. Contraseña.");
+    }
+
+
     @Override
     public String toString() {
         return String.format("%s \nSalario: %.4f \nFecha de registro: %s", super.toString(), salario, super.fechaRegistro);
     }
 
 
-    //**********************Eliminación*********************************************
 
     public static void eliminarCapturista(Usuario usuarioActual) {
         Scanner leer = new Scanner(System.in);
@@ -232,45 +238,44 @@ public class Capturista extends Usuario {
         String buscarRFC = leer.nextLine().toUpperCase();
 
         if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            ArrayList<Usuario> capturistaAcueducto = Sistema.usuariosAcueducto.get(Roles.CAPTURISTA);
+            ArrayList<Usuario> capturistaAcueducto = Sistema.usuariosAcueducto.get(Banco.Roles.CAPTURISTA);
             for (Usuario capturista : capturistaAcueducto) {
                 if (capturista.getRFC().equals(buscarRFC)) {
                     capturistaAcueducto.remove(capturista);
-                    System.out.println("\n* Capturista eliminado");
+                    System.out.println("\n* Banco.Capturista eliminado");
                     return;
                 }
             }
         } else if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-            ArrayList<Usuario> capturistaMadero = Sistema.usuariosMadero.get(Roles.CAPTURISTA);
+            ArrayList<Usuario> capturistaMadero = Sistema.usuariosMadero.get(Banco.Roles.CAPTURISTA);
             for (Usuario capturista : capturistaMadero) {
                 if (capturista.getRFC().equals(buscarRFC)) {
                     capturistaMadero.remove(capturista);
-                    System.out.println("\n* Capturista eliminado");
+                    System.out.println("\n* Banco.Capturista eliminado");
                     return;
                 }
             }
         }
-        System.out.println("* Usuario no encontrado.");
+        System.out.println("* Banco.Usuario no encontrado.");
     }
 
 
-    //****************************Mostrar listas*******************************************
     public static void mostrarCapturista(Usuario usuarioActual) {
         System.out.println("\n**Lista de Capturistas**");
         try {
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                for (Usuario usuario : Sistema.usuariosMadero.get(Roles.CAPTURISTA)) {
-                    if (usuario.getRoles() == Roles.CAPTURISTA) {
+                for (Usuario usuario : Sistema.usuariosMadero.get(Banco.Roles.CAPTURISTA)) {
+                    if (usuario.getRoles() == Banco.Roles.CAPTURISTA) {
                         Capturista capturista = (Capturista) usuario;
-                        System.out.println(capturista.toString());
+                        System.out.println(capturista);
                     }
                 }
             }
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.CAPTURISTA)) {
-                    if (usuario.getRoles() == Roles.CAPTURISTA) {
+                for (Usuario usuario : Sistema.usuariosAcueducto.get(Banco.Roles.CAPTURISTA)) {
+                    if (usuario.getRoles() == Banco.Roles.CAPTURISTA) {
                         Capturista capturista = (Capturista) usuario;
-                        System.out.println(capturista.toString());
+                        System.out.println(capturista);
                     }
                 }
             }

@@ -1,10 +1,9 @@
+package Banco;
 import utils.Sucursales;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-
 
 public class Usuario {
         private String nombre;
@@ -20,7 +19,7 @@ public class Usuario {
         private String userName;
         private String password;
         protected double salario;
-        private static Roles Roles;
+        protected static Roles Roles;
         protected LocalDate fechaRegistro;
         private Sucursales Sucursales;
         static ArrayList<String> RFCList = new ArrayList<>();
@@ -33,7 +32,7 @@ public class Usuario {
             this.apellidoPaterno = apellidoPaterno;
             this.fechaDeNacimiento = fechaDeNacimiento;
             this.ciudad = ciudad;
-            this.estado = estado;
+            Usuario.estado = estado;
             this.curp = curp;
             this.direccion = direccion;
             this.sexo = sexo;
@@ -41,7 +40,7 @@ public class Usuario {
             this.password = password;
             this.RFC = RFC;
             this.salario = salario;
-            this.Roles = Roles;
+            Usuario.Roles = Roles;
             this.Sucursales = Sucursales;
             this.fechaRegistro = LocalDate.now();
         }
@@ -54,14 +53,14 @@ public class Usuario {
             this.apellidoPaterno = apellidoPaterno;
             this.fechaDeNacimiento = fechaDeNacimiento;
             this.ciudad = ciudad;
-            this.estado = estado;
+            Usuario.estado = estado;
             this.curp = curp;
             this.direccion = direccion;
             this.sexo = sexo;
             this.userName = userName;
             this.password = password;
             this.RFC = RFC;
-            this.Roles = Roles;
+            Usuario.Roles = Roles;
             this.Sucursales = Sucursales;
             this.fechaRegistro = LocalDate.now();
         }
@@ -74,11 +73,25 @@ public class Usuario {
         return nameCapturista;
     }
 
+    protected static void validarRFC(String rfcCapturista) {
+    }
+
 
     @Override
         public String toString() {
-            return String.format("\nNombre completo: %s %s %s \nRoles: %s \nFecha de nacimiento: %s \nEstado: %s " +
-                            "\nCiudad: %s \nDirección: %s \nCurp: %s \nRFC: %s \nNombre de usuario: %s \nContraseña: %s",
+            return String.format("""
+
+                            Nombre completo: %s %s %s\s
+                            Banco.Roles: %s\s
+                            Fecha de nacimiento: %s\s
+                            Estado: %s \
+
+                            Ciudad: %s\s
+                            Dirección: %s\s
+                            Curp: %s\s
+                            RFC: %s\s
+                            Nombre de usuario: %s\s
+                            Contraseña: %s""",
                     nombre, apellidoPaterno, apellidoMaterno, Roles, fechaDeNacimiento, estado, ciudad, direccion, curp,
                     RFC.toUpperCase(), userName, password);
         }
@@ -96,7 +109,6 @@ public class Usuario {
 
         public static ArrayList<String> registerUser(Roles userRoles) {
             Scanner leer = new Scanner(System.in);
-            ArrayList<String> datosComun = new ArrayList<String>();
             System.out.println("\n\tESCRIBIR TODO CON MAYÚSCULAS");
             System.out.print("Ingrese el nombre: ");
             String name = leer.nextLine().toUpperCase();
@@ -115,13 +127,12 @@ public class Usuario {
             String curp = generarCurp(name, fatherLastName, motherLastName, fechaNacimiento, sexo);
             System.out.print("Domicilio: ");
             String direccion = leer.nextLine();
-            System.out.print("Nombre de Usuario: ");
+            System.out.print("Nombre de Banco.Usuario: ");
             String userName = leer.nextLine();
             System.out.print("Contrasena: ");
             String password = leer.nextLine();
-            datosComun.addAll(Arrays.asList(name, fatherLastName, motherLastName, fechaNacimiento, city, estado, curp,
+            return new ArrayList<>(Arrays.asList(name, fatherLastName, motherLastName, fechaNacimiento, city, estado, curp,
                     direccion, sexo, userName, password));
-            return datosComun;
         }
 
         protected static String generarCurp(String name, String fatherLastName, String motherLastName,
@@ -148,9 +159,9 @@ public class Usuario {
 
 
 
-    //+++++++++++++Solicitud De Tarjetas.+++++++++++
+    //+++++++++++++Banco.Solicitud De Tarjetas.+++++++++++
     private static boolean esAutorizado(Usuario usuarioActual){
-        if (usuarioActual.getRoles().equals(Roles.GERENTE) || usuarioActual.getRoles().equals(Roles.EJECUTIVODECUENTA)){
+        if (usuarioActual.getRoles().equals(Banco.Roles.GERENTE) || usuarioActual.getRoles().equals(Banco.Roles.EJECUTIVODECUENTA)){
             return true;
         } else {
             return false;
@@ -170,12 +181,12 @@ public class Usuario {
                 int opcionStatus = leer.nextInt();
 
                 if (opcionStatus == 1) {
-                    buscarSolicitud.setStatus(EstadoSolicitud.APROBADA);
-                    Credito.crearTarjetaCredito(buscarSolicitud.getTipoTarjeta(), buscarSolicitud.getClienteSolicitando());
+                    buscarSolicitud.setStatus(Solicitud.APROBADA);
+                    Credito.crearTarjetaCredito(buscarSolicitud.getTipoTarjeta(), buscarSolicitud.getClienteSolicitante());
                     Sistema.listaSolicitudes.remove(buscarSolicitud);
                     System.out.println("La solicitud ha sido aprobada y la tarjeta de crédito ha sido creada.");
                 } else if (opcionStatus == 2) {
-                    buscarSolicitud.setStatus(EstadoSolicitud.RECHAZADA);
+                    buscarSolicitud.setStatus(Solicitud.RECHAZADA);
                     Sistema.listaSolicitudes.remove(buscarSolicitud);
                     System.out.println("La solicitud ha sido rechazada.");
                 } else {
@@ -270,7 +281,7 @@ public class Usuario {
     }
 
     public void setRoles(Roles Roles) {
-        this.Roles = Roles;
+        Usuario.Roles = Roles;
     }
 
     public LocalDate getFechaRegistro() {

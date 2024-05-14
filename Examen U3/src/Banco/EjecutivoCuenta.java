@@ -1,6 +1,9 @@
+package Banco;
+
 import utils.Sucursales;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EjecutivoCuenta extends Usuario {
 
@@ -13,7 +16,7 @@ public class EjecutivoCuenta extends Usuario {
     public static void registerEjecutivo(Usuario usuarioActual) {
         System.out.println("\nRegistro de ejecutivo de ventas");
         Scanner leer = new Scanner(System.in);
-        ArrayList<String> datosComun = Usuario.registerUser(Roles.EJECUTIVODECUENTA);
+        ArrayList<String> datosComun = Usuario.registerUser(Banco.Roles.EJECUTIVODECUENTA);
         String nameEjecutivo = datosComun.get(0);
         String fatherLastNameEjecutivo = datosComun.get(1);
         String motherLastNameEjecutivo = datosComun.get(2);
@@ -28,25 +31,25 @@ public class EjecutivoCuenta extends Usuario {
         String passwordEjecutivo = datosComun.get(10);
 
         System.out.print("Salario: ");
-        Double salaryEjecutivo = leer.nextDouble();
+        double salaryEjecutivo = leer.nextDouble();
 
         if (RFCEjecutivo != null) {
             RFCList.add(RFCEjecutivo);
             Usuario.validarRFC(RFCEjecutivo);
             EjecutivoCuenta newEjecutivoDeCuenta = new EjecutivoCuenta(nameEjecutivo, fatherLastNameEjecutivo, motherLastNameEjecutivo,
                     fechaDeNacimiento, cityEjecutivo, estadoEjecutivo, CURPEjecutivo, direccionEjecutivo, RFCEjecutivo,
-                    salaryEjecutivo, Roles.EJECUTIVODECUENTA, usuarioActual.getSucursales(), sexoEjecutivo, usuarioEjecutivo, passwordEjecutivo);
+                    salaryEjecutivo, Banco.Roles.EJECUTIVODECUENTA, usuarioActual.getSucursales(), sexoEjecutivo, usuarioEjecutivo, passwordEjecutivo);
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                if (!Sistema.usuariosMadero.containsKey(Roles.EJECUTIVODECUENTA)) {
-                    Sistema.usuariosMadero.put(Roles.EJECUTIVODECUENTA, new ArrayList<>());
+                if (!Sistema.usuariosMadero.containsKey(Banco.Roles.EJECUTIVODECUENTA)) {
+                    Sistema.usuariosMadero.put(Banco.Roles.EJECUTIVODECUENTA, new ArrayList<>());
                 }
-                Sistema.usuariosMadero.get(Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
+                Sistema.usuariosMadero.get(Banco.Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
                 System.out.println("Ejecutivo de venta registrado con éxito. Su RFC es: " + RFCEjecutivo + " su CURP es: " + CURPEjecutivo);
             } else {
-                if (!Sistema.usuariosAcueducto.containsKey(Roles.EJECUTIVODECUENTA)) {
-                    Sistema.usuariosAcueducto.put(Roles.EJECUTIVODECUENTA, new ArrayList<>());
+                if (!Sistema.usuariosAcueducto.containsKey(Banco.Roles.EJECUTIVODECUENTA)) {
+                    Sistema.usuariosAcueducto.put(Banco.Roles.EJECUTIVODECUENTA, new ArrayList<>());
                 }
-                Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
+                Sistema.usuariosAcueducto.get(Banco.Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
                 System.out.println("Ejecutivo de venta registrado con éxito. Su RFC es: " + RFCEjecutivo + " su CURP es: " + CURPEjecutivo);
             }
         } else {
@@ -63,9 +66,9 @@ public class EjecutivoCuenta extends Usuario {
         boolean encontrado = false;
 
         if (usuario.getSucursales().equals(Sucursales.MADERO)) {
-            encontrado = modificarEjecutivoEnSucursales(Sistema.usuariosMadero.get(Roles.EJECUTIVODECUENTA), modificarRFC);
+            encontrado = modificarEjecutivoEnSucursales(Sistema.usuariosMadero.get(Banco.Roles.EJECUTIVODECUENTA), modificarRFC);
         } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            encontrado = modificarEjecutivoEnSucursales(Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA), modificarRFC);
+            encontrado = modificarEjecutivoEnSucursales(Sistema.usuariosAcueducto.get(Banco.Roles.EJECUTIVODECUENTA), modificarRFC);
         }
 
         if (!encontrado) {
@@ -88,26 +91,12 @@ public class EjecutivoCuenta extends Usuario {
         return encontrado;
     }
 
-    private static void modificarDatos(EjecutivoCuenta ejecutivo, String modificarRFC) {
+    protected static void modificarDatos(EjecutivoCuenta ejecutivo, String modificarRFC) {
         Scanner leer = new Scanner(System.in);
         int opcionModificar;
 
         do {
-            System.out.println("¿Qué desea modificar?");
-            System.out.println("1. Nombre.");
-            System.out.println("2. Apellido paterno.");
-            System.out.println("3. Apellido materno.");
-            System.out.println("4. Fecha de Nacimiento.");
-            System.out.println("5. Ciudad.");
-            System.out.println("6. Estado.");
-            System.out.println("7. Domicilio.");
-            System.out.println("8. Salario.");
-            System.out.println("9. Usuario.");
-            System.out.println("10. Contraseña.");
-            System.out.println("11. Salir.");
-
-            opcionModificar = leer.nextInt();
-            leer.nextLine();
+            opcionModificar = Capturista.getOpcionModificar(leer);
             switch (opcionModificar) {
                 // Opciones de modificación aquí...
             }
@@ -121,7 +110,7 @@ public class EjecutivoCuenta extends Usuario {
         String buscarRFC = leer.nextLine();
 
         if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            ArrayList<Usuario> ejecutivoAcueducto = Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA);
+            ArrayList<Usuario> ejecutivoAcueducto = Sistema.usuariosAcueducto.get(Banco.Roles.EJECUTIVODECUENTA);
             for (Usuario ejecutivo : ejecutivoAcueducto) {
                 if (ejecutivo.getRFC().equals(buscarRFC)) {
                     ejecutivoAcueducto.remove(ejecutivo);
@@ -139,7 +128,7 @@ public class EjecutivoCuenta extends Usuario {
                 }
             }
         }
-        System.out.println("Usuario no encontrado.");
+        System.out.println("Banco.Usuario no encontrado.");
     }
 
     public static void mostrarEjecutivo(Usuario usuarioActual) {
@@ -148,7 +137,7 @@ public class EjecutivoCuenta extends Usuario {
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
                 for (Usuario usuario : Sistema.usuariosMadero.get(Roles.EJECUTIVODECUENTA)) {
                     if (usuario.getRoles() == Roles.EJECUTIVODECUENTA) {
-                        EjecutivoCuenta ejecutivo = (EjecutivoDeVentas) usuario;
+                        EjecutivoCuenta ejecutivo = (EjecutivoCuenta) usuario;
                         System.out.println(ejecutivo.toString());
                     }
                 }
@@ -156,7 +145,7 @@ public class EjecutivoCuenta extends Usuario {
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
                 for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA)) {
                     if (usuario.getRoles() == Roles.EJECUTIVODECUENTA) {
-                        EjecutivoDeVentas ejecutivo = (EjecutivoDeVentas) usuario;
+                        EjecutivoCuenta ejecutivo = (EjecutivoCuenta) usuario;
                         System.out.println(ejecutivo.toString());
                     }
                 }

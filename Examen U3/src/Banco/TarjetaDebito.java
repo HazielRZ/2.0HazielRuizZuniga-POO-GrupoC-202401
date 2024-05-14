@@ -1,15 +1,17 @@
+package Banco;
+
 import java.util.Random;
 
 public class TarjetaDebito {
     private static final Random random = new Random();
-    private String numeroTarjeta;
-    private String clabeInterbancaria;
+    private static String numeroTarjeta;
+    private static String clabeInterbancaria;
 
     public TarjetaDebito() {
         generarTarjetaDebito();
     }
 
-    private void generarTarjetaDebito() {
+    public static TarjetaDebito generarTarjetaDebito() {
         StringBuilder numerosAleatorios = new StringBuilder();
         // Generar 16 números aleatorios para la tarjeta
         for (int i = 0; i < 16; i++) {
@@ -25,6 +27,7 @@ public class TarjetaDebito {
             numerosAleatorios.append(inter);
         }
         clabeInterbancaria = numerosAleatorios.toString();
+        return null;
     }
 
     // Getters

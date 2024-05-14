@@ -1,9 +1,15 @@
+package Banco;
+
+import utils.Sucursales;
 import utils.UsuarioenSesion;
 import java.util.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public static class Menu {
+import static Banco.Sistema.eliminarEjecutivo;
+import static Banco.SolicitudTarjetaCredito.solicitarTarjetaCredito;
+
+public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
     public static HashMap<Sucursales, ArrayList<Cliente>> listaClientes = new HashMap<Sucursales, ArrayList<Cliente>>();
     static TipoTarjeta tipoTarjeta;
@@ -15,7 +21,7 @@ public static class Menu {
 
     public static void mostrarMenuCliente() {
         while (true) {
-            System.out.println("Cliente");
+            System.out.println("Banco.Cliente");
             System.out.println("1. Ver tarjetas");
             if (puedeSolicitarTarjeta(cliente)) {
                 System.out.println("2. Solicitar tarjeta de débito");
@@ -34,7 +40,7 @@ public static class Menu {
                     System.out.println("No disponible por el momento");
                     break;
                 case 3:
-                    Cliente.solicitarTarjetaCredito();
+                    solicitarTarjetaCredito();
                     break;
                 case 0:
                     System.out.println("Saliendo del menú cliente.");
@@ -52,19 +58,19 @@ public static class Menu {
     }
 
     public static void mostrarMenuEmpleado() {
-        Roles Roles = usuario.getRolese();
-        String menu = Roles.getMenuForRolese(Roles);
+        Roles Roles = usuario.getRoles();
+        String menu = Roles.getMenuForRoles(Roles);
         if (menu != null) {
             System.out.println("Mostrando menú para: " + Roles);
             System.out.println(menu);
         } else {
-            System.out.println("Roles de empleado no reconocido.");
+            System.out.println("Banco.Roles de empleado no reconocido.");
         }
     }
 
     private static void mostrarMenuGerente(Gerente gerente) {
         while (true) {
-            System.out.println("Menú de Gerente");
+            System.out.println("Menú de Banco.Gerente");
             System.out.println("1. Realizar operaciones con clientes");
             System.out.println("2. Realizar operaciones con empleados");
             System.out.println("3. Realizar operaciones con inversionistas");
@@ -84,7 +90,7 @@ public static class Menu {
                     mostrarMenuOperacionesInversionistas();
                     break;
                 case 0:
-                    System.out.println("Saliendo del menú de Gerente.");
+                    System.out.println("Saliendo del menú de Banco.Gerente.");
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
@@ -134,7 +140,7 @@ public static class Menu {
 
     private static void mostrarMenuCapturista() {
         while (true) {
-            System.out.println("=== Menú para Capturista ===");
+            System.out.println("=== Menú para Banco.Capturista ===");
             System.out.println("1. Registrar nuevo ejecutivo de cuenta");
             System.out.println("2. Modificar datos de un ejecutivo de cuenta");
             System.out.println("3. Eliminar ejecutivo de cuenta");
@@ -158,7 +164,7 @@ public static class Menu {
                     buscarEjecutivoCuenta();
                     break;
                 case 5:
-                    System.out.println("Saliendo del menú para Capturista.");
+                    System.out.println("Saliendo del menú para Banco.Capturista.");
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
@@ -173,7 +179,7 @@ public static class Menu {
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el apellido del ejecutivo de cuenta: ");
         String apellido = scanner.nextLine();
-        Capturista.EjecutivoCuenta ejecutivo = Capturista.buscarEjecutivo(nombre, apellido);
+        EjecutivoCuenta ejecutivo = buscarEjecutivo(nombre, apellido);
         if (ejecutivo != null) {
             System.out.println("Ejecutivo de cuenta encontrado: " + ejecutivo);
         } else {
@@ -187,9 +193,9 @@ public static class Menu {
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el apellido del ejecutivo de cuenta: ");
         String apellido = scanner.nextLine();
-        Capturista.EjecutivoCuenta ejecutivo = Capturista.buscarEjecutivo(nombre, apellido);
+        EjecutivoCuenta ejecutivo = buscarEjecutivo(nombre, apellido);
         if (ejecutivo != null) {
-            Capturista.eliminarEjecutivo(ejecutivo);
+            eliminarEjecutivo(ejecutivo);
         } else {
             System.out.println("No se encontró ningún ejecutivo de cuenta con ese nombre y apellido.");
         }
@@ -201,7 +207,7 @@ public static class Menu {
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el apellido del ejecutivo de cuenta que desea modificar: ");
         String apellido = scanner.nextLine();
-        Capturista.EjecutivoCuenta ejecutivo = Capturista.buscarEjecutivo(nombre, apellido);
+        EjecutivoCuenta ejecutivo = buscarEjecutivo(nombre, apellido);
         if (ejecutivo != null) {
             System.out.print("Ingrese el nuevo nombre del ejecutivo de cuenta: ");
             String nuevoNombre = scanner.nextLine();
@@ -209,7 +215,7 @@ public static class Menu {
             String nuevoApellido = scanner.nextLine();
             System.out.print("Ingrese el nuevo correo del ejecutivo de cuenta: ");
             String nuevoCorreo = scanner.nextLine();
-            Capturista.modificarDatos(ejecutivo, nuevoNombre, nuevoApellido, nuevoCorreo);
+            EjecutivoCuenta.modificarDatos(ejecutivo, nuevoNombre);
         } else {
             System.out.println("No se encontró ningún ejecutivo de cuenta con ese nombre y apellido.");
         }
@@ -223,7 +229,7 @@ public static class Menu {
         String apellido = scanner.nextLine();
         System.out.print("Ingrese el correo del nuevo ejecutivo de cuenta: ");
         String correo = scanner.nextLine();
-        Capturista.agregarEjecutivo(nombre, apellido, correo);
+        EjecutivoCuenta.registerEjecutivo(usuario);
     }
 
     private static void mostrarMenuEjecutivoCuenta() {
@@ -253,7 +259,7 @@ public static class Menu {
                     UsuarioenSesion.buscarClientePorID(cliente.getId());
                     break;
                 case 5:
-                    SolicitudTarjetaCredito.solicitarTarjetaCredito(cliente, tipoTarjeta);
+                    solicitarTarjetaCredito(cliente, tipoTarjeta);
                     break;
                 case 6:
                     System.out.println("Saliendo del menú para Ejecutivo de Cuenta.");
@@ -305,7 +311,7 @@ public static class Menu {
     }
 
     private static void registrarNuevoCliente() {
-        Cliente cliente = Cliente.registrarCliente();
+        Cliente cliente = Cliente.registerClient(usuario);
 
     }
 
@@ -328,7 +334,7 @@ public static class Menu {
         Cliente clienteAEliminar = UsuarioenSesion.buscarClientePorID(id);
         if (clienteAEliminar != null) {
             UsuarioenSesion.getClientes().remove(clienteAEliminar);
-            System.out.println("Cliente eliminado correctamente.");
+            System.out.println("Banco.Cliente eliminado correctamente.");
         } else {
             System.out.println("No se encontró ningún cliente con el ID proporcionado.");
         }
@@ -348,7 +354,7 @@ public static class Menu {
     }
 
     private static void invertir() {
-        Sucursales.invertir();
+        Inversionista.realizarInversion();
     }
 
     private static int leerOpcion() {
@@ -372,7 +378,7 @@ public static class Menu {
         boolean datosCorrectos = false;
         Scanner leer = new Scanner(System.in);
         do {
-            System.out.println("\n\tBIENVENIDO AL SISTEMA Sistema ");
+            System.out.println("\n\tBIENVENIDO AL SISTEMA Banco.Sistema ");
 
             System.out.println("Pulsa enter para iniciar sesion: ");
             leer.nextLine();
@@ -444,7 +450,7 @@ public static class Menu {
         Scanner leer = new Scanner(System.in);
         int opcion;
         do {
-            System.out.println("\n\nGerente");
+            System.out.println("\n\nBanco.Gerente");
             System.out.println("1) Registrar cliente.");
             System.out.println("2) Mostrar lista de clientes");
             System.out.println("3) Modificar clientes");
@@ -516,7 +522,7 @@ public static class Menu {
                     break;
 
                 case 12:
-                    Sistema.eliminarEjecutivo(usuario);
+                    eliminarEjecutivo(usuario);
                     break;
 
                 case 13:
@@ -593,7 +599,7 @@ public static class Menu {
                     break;
 
                 case 4:
-                    Sistema.eliminarEjecutivo(usuario);
+                    eliminarEjecutivo(usuario);
                     break;
 
                 case 5:
@@ -613,7 +619,7 @@ public static class Menu {
         Usuario usuario = UsuarioenSesion.obtenerInstancia().getUsuarioActual();
         int opcion;
         do {
-            System.out.println("\nMenu de ejecutivo de cuenta");
+            System.out.println("\nBanco.Menu de ejecutivo de cuenta");
             System.out.println("1) Registrar cliente.");
             System.out.println("2) Mostrar lista de clientes");
             System.out.println("3) Modificar clientes");
@@ -666,7 +672,7 @@ public static class Menu {
         Cliente user = (Cliente) usuario;
         int opcion;
         do {
-            System.out.println("\n\t***Menu de cliente****");
+            System.out.println("\n\t***Banco.Menu de cliente****");
             System.out.println("1) Ver información.");
             System.out.println("2) Ver fondos");
             System.out.println("3) Solicitar tarjeta");
@@ -742,7 +748,7 @@ public static class Menu {
         int opcion;
 
         do {
-            System.out.println("\n\t***Menu de inversionista****");
+            System.out.println("\n\t***Banco.Menu de inversionista****");
             System.out.println("1) Ver información.");
             System.out.println("2) Ver fondos de inversión");
             System.out.println("3) Realizar fondo de inversión");
@@ -761,7 +767,7 @@ public static class Menu {
                     break;
 
                 case 3:
-                    Inversionista.realizarInversion(usuario);
+                    Inversionista.realizarInversion();
                     break;
 
                 case 4:

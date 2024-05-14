@@ -1,6 +1,6 @@
 package utils;
 
-import Inversionista;
+import Banco.Inversionista;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,3 +1,5 @@
+package Banco;
+
 import utils.Sucursales;
 
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 public class Gerente extends Usuario {
 
     String userName;
-    String contaseña;
+    String contraseña;
 
     public Gerente(String userName, String contrasena, String nombre, String apellidoMaterno, String apellidoPaterno,
                    String fechaDeNacimiento, String ciudad, String estado, String curp, String direccion, String RFC,
@@ -15,7 +17,7 @@ public class Gerente extends Usuario {
         super(nombre, apellidoMaterno, apellidoPaterno, fechaDeNacimiento, ciudad, estado, curp, direccion, RFC,
                 salario, Roles, Sucursales, sexo, userName, contrasena);
         this.userName = userName;
-        this.contrasena = contrasena;
+        this.contraseña = contrasena;
     }
 
     public static void generarClaveSeguridad(Usuario usuarioActual) {
@@ -30,7 +32,7 @@ public class Gerente extends Usuario {
             String buscarRFC = leer.nextLine();
 
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                ArrayList<Usuario> inversionistasAcueducto = Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA);
+                ArrayList<Usuario> inversionistasAcueducto = Sistema.usuariosAcueducto.get(Banco.Roles.INVERSIONISTA);
                 for (Usuario inversionista : inversionistasAcueducto) {
                     if (inversionista.getRFC().equals(buscarRFC)) {
                         System.out.println("\nIngrese la clave de seguridad:");
@@ -58,7 +60,7 @@ public class Gerente extends Usuario {
                     }
                 }
             }
-            System.out.println("\nUsuario no encontrado.");
+            System.out.println("\nBanco.Usuario no encontrado.");
         }
     }
 
@@ -71,7 +73,7 @@ public class Gerente extends Usuario {
     }
 
     public String getContraseña() {
-        return contaseña;
+        return contraseña;
     }
 
     public void setContraseña(String contraseña) {
