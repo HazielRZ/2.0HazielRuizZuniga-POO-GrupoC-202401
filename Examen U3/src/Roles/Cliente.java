@@ -1,7 +1,7 @@
 package Roles;
 
-import Tarjeta.TarjetaDebito;
-import utils.IDManager;
+import Tarjeta.*;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -305,7 +305,7 @@ public class Cliente extends Usuario {
         return true;
     }
 
-    public  Debito getTarjetaDebito() {
+    public  TarjetaDebito getTarjetaDebito() {
         return tarjetaDebito;
     }
 

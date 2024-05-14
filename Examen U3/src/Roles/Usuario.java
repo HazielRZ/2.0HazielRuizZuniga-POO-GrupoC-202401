@@ -1,5 +1,6 @@
 package Roles;
 import Tarjeta.Credito;
+import Tarjeta.SolicitudTarjetaCredito;
 import utils.Sucursales;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class Usuario {
         private String userName;
         private String password;
         protected double salario;
-        private Roles Roles;
+        private static Roles Roles;
         protected LocalDate fechaRegistro;
         private Sucursales Sucursales;
         static ArrayList<String> RFCList = new ArrayList<>();

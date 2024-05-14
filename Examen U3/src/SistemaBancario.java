@@ -1,7 +1,10 @@
 import Roles.*;
+import Tarjeta.SolicitudTarjetaCredito;
 import utils.Sucursales;
-
+import Tarjeta.Tarjeta;
 import java.util.*;
+
+import static Tarjeta.SolicitudTarjetaCredito.mostrarListaSolicitudes;
 
 public class SistemaBancario {
     Scanner leer = new Scanner(System.in);
