@@ -1,5 +1,3 @@
-package Roles;
-
 import utils.Sucursales;
 
 import java.util.ArrayList;
@@ -39,16 +37,16 @@ public class EjecutivoCuenta extends Usuario {
                     fechaDeNacimiento, cityEjecutivo, estadoEjecutivo, CURPEjecutivo, direccionEjecutivo, RFCEjecutivo,
                     salaryEjecutivo, Roles.EJECUTIVODECUENTA, usuarioActual.getSucursales(), sexoEjecutivo, usuarioEjecutivo, passwordEjecutivo);
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                if (!SistemaBancario.usuariosMadero.containsKey(Roles.EJECUTIVODECUENTA)) {
-                    SistemaBancario.usuariosMadero.put(Roles.EJECUTIVODECUENTA, new ArrayList<>());
+                if (!Sistema.usuariosMadero.containsKey(Roles.EJECUTIVODECUENTA)) {
+                    Sistema.usuariosMadero.put(Roles.EJECUTIVODECUENTA, new ArrayList<>());
                 }
-                SistemaBancario.usuariosMadero.get(Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
+                Sistema.usuariosMadero.get(Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
                 System.out.println("Ejecutivo de venta registrado con éxito. Su RFC es: " + RFCEjecutivo + " su CURP es: " + CURPEjecutivo);
             } else {
-                if (!SistemaBancario.usuariosAcueducto.containsKey(Roles.EJECUTIVODECUENTA)) {
-                    SistemaBancario.usuariosAcueducto.put(Roles.EJECUTIVODECUENTA, new ArrayList<>());
+                if (!Sistema.usuariosAcueducto.containsKey(Roles.EJECUTIVODECUENTA)) {
+                    Sistema.usuariosAcueducto.put(Roles.EJECUTIVODECUENTA, new ArrayList<>());
                 }
-                SistemaBancario.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
+                Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA).add(newEjecutivoDeCuenta);
                 System.out.println("Ejecutivo de venta registrado con éxito. Su RFC es: " + RFCEjecutivo + " su CURP es: " + CURPEjecutivo);
             }
         } else {
@@ -65,9 +63,9 @@ public class EjecutivoCuenta extends Usuario {
         boolean encontrado = false;
 
         if (usuario.getSucursales().equals(Sucursales.MADERO)) {
-            encontrado = modificarEjecutivoEnSucursales(SistemaBancario.usuariosMadero.get(Roles.EJECUTIVODECUENTA), modificarRFC);
+            encontrado = modificarEjecutivoEnSucursales(Sistema.usuariosMadero.get(Roles.EJECUTIVODECUENTA), modificarRFC);
         } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            encontrado = modificarEjecutivoEnSucursales(SistemaBancario.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA), modificarRFC);
+            encontrado = modificarEjecutivoEnSucursales(Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA), modificarRFC);
         }
 
         if (!encontrado) {
@@ -123,7 +121,7 @@ public class EjecutivoCuenta extends Usuario {
         String buscarRFC = leer.nextLine();
 
         if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            ArrayList<Usuario> ejecutivoAcueducto = SistemaBancario.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA);
+            ArrayList<Usuario> ejecutivoAcueducto = Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA);
             for (Usuario ejecutivo : ejecutivoAcueducto) {
                 if (ejecutivo.getRFC().equals(buscarRFC)) {
                     ejecutivoAcueducto.remove(ejecutivo);
@@ -132,7 +130,7 @@ public class EjecutivoCuenta extends Usuario {
                 }
             }
         } else if (usuarioActual.getSucursales().equals(utils.Sucursales.MADERO)) {
-            ArrayList<Usuario> ejecutivoMadero = SistemaBancario.usuariosMadero.get(Roles.EJECUTIVODECUENTA);
+            ArrayList<Usuario> ejecutivoMadero = Sistema.usuariosMadero.get(Roles.EJECUTIVODECUENTA);
             for (Usuario ejecutivo : ejecutivoMadero) {
                 if (ejecutivo.getRFC().equals(buscarRFC)) {
                     ejecutivoMadero.remove(ejecutivo);
@@ -148,7 +146,7 @@ public class EjecutivoCuenta extends Usuario {
         System.out.println("\nLista de Ejecutivos de Venta");
         try {
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                for (Usuario usuario : SistemaBancario.usuariosMadero.get(Roles.EJECUTIVODECUENTA)) {
+                for (Usuario usuario : Sistema.usuariosMadero.get(Roles.EJECUTIVODECUENTA)) {
                     if (usuario.getRoles() == Roles.EJECUTIVODECUENTA) {
                         EjecutivoCuenta ejecutivo = (EjecutivoDeVentas) usuario;
                         System.out.println(ejecutivo.toString());
@@ -156,7 +154,7 @@ public class EjecutivoCuenta extends Usuario {
                 }
             }
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                for (Usuario usuario : SistemaBancario.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA)) {
+                for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.EJECUTIVODECUENTA)) {
                     if (usuario.getRoles() == Roles.EJECUTIVODECUENTA) {
                         EjecutivoDeVentas ejecutivo = (EjecutivoDeVentas) usuario;
                         System.out.println(ejecutivo.toString());

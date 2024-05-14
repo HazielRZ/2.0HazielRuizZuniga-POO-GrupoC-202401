@@ -1,7 +1,5 @@
-package Roles;
-
 import utils.Sucursales;
-import SistemaBancario;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,7 +30,7 @@ public class Gerente extends Usuario {
             String buscarRFC = leer.nextLine();
 
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                ArrayList<Usuario> inversionistasAcueducto = SistemaBancario.usuariosAcueducto.get(Roles.INVERSIONISTA);
+                ArrayList<Usuario> inversionistasAcueducto = Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA);
                 for (Usuario inversionista : inversionistasAcueducto) {
                     if (inversionista.getRFC().equals(buscarRFC)) {
                         System.out.println("\nIngrese la clave de seguridad:");
@@ -46,7 +44,7 @@ public class Gerente extends Usuario {
                     }
                 }
             } else if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                ArrayList<Usuario> inversionistasMadero = SistemaBancario.usuariosMadero.get(Roles.INVERSIONISTA);
+                ArrayList<Usuario> inversionistasMadero = Sistema.usuariosMadero.get(Roles.INVERSIONISTA);
                 for (Usuario inversionista : inversionistasMadero) {
                     if (inversionista.getRFC().equals(buscarRFC)) {
                         System.out.println("\nIngrese la clave de seguridad:");

@@ -1,5 +1,3 @@
-package Roles;
-
 public enum Roles {
     GERENTE,
     CLIENTE,

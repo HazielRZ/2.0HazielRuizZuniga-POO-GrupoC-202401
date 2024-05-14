@@ -1,6 +1,6 @@
 package utils;
 
-import Roles.Usuario;
+import Usuario;
 
 public class UsuarioenSesion {
     private static UsuarioenSesion instancia;

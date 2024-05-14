@@ -1,5 +1,3 @@
-package Tarjeta;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -97,7 +95,7 @@ public abstract class Tarjeta
         Scanner leer = new Scanner(System.in);
         System.out.println("Ingresar el número de tarjeta: ");
         String numeroTarjeta = leer.nextLine();
-        for (Tarjeta buscarTarjeta : SistemaBancario.listaTarjetas) {
+        for (Tarjeta buscarTarjeta : Sistema.listaTarjetas) {
             if (buscarTarjeta.getNumeroDeCuenta().equals(numeroTarjeta)) {
                 System.out.println("Ingrese el monto de la compra: ");
                 double montoCompra = leer.nextDouble();
@@ -118,7 +116,7 @@ public abstract class Tarjeta
         System.out.println("Realizar abono.");
         System.out.println("Ingresar el número de tarjeta: ");
         String numeroTarjeta = leer.nextLine();
-        for (Tarjeta buscarTarjeta : SistemaBancario.listaTarjetas) {
+        for (Tarjeta buscarTarjeta : Sistema.listaTarjetas) {
             if (buscarTarjeta.getNumeroDeCuenta().equals(numeroTarjeta)) {
                 System.out.println("Ingrese el monto a abonar: ");
                 double abono = leer.nextDouble();

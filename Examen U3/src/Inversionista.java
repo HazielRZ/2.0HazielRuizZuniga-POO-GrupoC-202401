@@ -1,14 +1,8 @@
-package Roles;
-
-import utils.IDManager;
-
-import java.util.Date;
-import java.util.Objects;
+import utils.Inversion;
+import utils.Sucursales;
 import java.util.Scanner;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Inversionista extends Usuario {
     private double fondoInversion;
@@ -17,10 +11,10 @@ public class Inversionista extends Usuario {
 
     public Inversionista(String nombre, String apellidoPaterno, String apellidoMaterno, String fechaDeNacimiento,
                          String ciudad, String estado, String direccion, double salario, Roles Roles,
-                         Sucursales Sucursales, String sexo, String userName, String password,
+                         utils.Sucursales Sucursales, String sexo, String userName, String password,
                          double fondoInversion, String llaveSeguridad) {
-        super(nombre, apellidoMaterno, apellidoPaterno, fechaDeNacimiento, ciudad, estado, direccion,
-                salario, Roles, Sucursales, sexo, userName, password);
+        super(nombre
+        );
         this.fondoInversion = fondoInversion;
         this.llaveSeguridad = llaveSeguridad;
         this.inversionesPropias = new ArrayList<>();
@@ -54,7 +48,7 @@ public class Inversionista extends Usuario {
     public static void registrarInversionista(Usuario usuarioActual) {
         Scanner leer = new Scanner(System.in);
 
-        System.out.println("\n***Registro de inversionista***");
+        System.out.println("\nHagamos el Registro");
         ArrayList<String> datosComun = Usuario.registerUser(Roles.INVERSIONISTA);
         String nameInversionista = datosComun.get(0);
         String fatherLastNameInversionista = datosComun.get(1);
@@ -81,17 +75,17 @@ public class Inversionista extends Usuario {
                     usuarioActual.getSucursales(), sexoInversionista, usuarioCInversionista, passwordIinversionista, fondo, null);
 
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                if (!SistemaBancario.usuariosMadero.containsKey(Roles.INVERSIONISTA)) {
-                    SistemaBancario.usuariosMadero.put(Roles.INVERSIONISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosMadero.containsKey(Roles.INVERSIONISTA)) {
+                    Sistema.usuariosMadero.put(Roles.INVERSIONISTA, new ArrayList<Usuario>());
                 }
-                SistemaBancario.usuariosMadero.get(Roles.INVERSIONISTA).add(newInversionista);
+                Sistema.usuariosMadero.get(Roles.INVERSIONISTA).add(newInversionista);
                 System.out.println("Inversionista registrado con éxito.");
 
             } else {
-                if (!SistemaBancario.usuariosAcueducto.containsKey(Roles.INVERSIONISTA)) {
-                    SistemaBancario.usuariosAcueducto.put(Roles.INVERSIONISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosAcueducto.containsKey(Roles.INVERSIONISTA)) {
+                    Sistema.usuariosAcueducto.put(Roles.INVERSIONISTA, new ArrayList<Usuario>());
                 }
-                SistemaBancario.usuariosAcueducto.get(Roles.INVERSIONISTA).add(newInversionista);
+                Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA).add(newInversionista);
                 System.out.println("Inversionista registrado con éxito.");
 
             }
@@ -102,15 +96,14 @@ public class Inversionista extends Usuario {
 
     @Override
     public String toString() {
-        return String.format("%s \nSalario: %.4f \nFondo de inversion: %.4f \nLlave de seguridad: %s \nFecha de registro: %s", super.toString(), salario, fondoInversion, llaveSeguridad, super.fechaRegistro);
+        return String.format("%s \nSalario: %.4f \nFondo de inversion: %.4f \nkey: %s \nFecha de registro: %s", super.toString(), salario, fondoInversion, llaveSeguridad, super.fechaRegistro);
     }
 
-    //*************************Mostrar listas**********************************
     public static void mostrarInversionista(Usuario usuarioActual) {
-        System.out.println("\n**Lista de Inversionistas**");
+        System.out.println("Inversores: ");
         try {
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                for (Usuario usuario : SistemaBancario.usuariosMadero.get(Roles.INVERSIONISTA)) {
+                for (Usuario usuario : Sistema.usuariosMadero.get(Roles.INVERSIONISTA)) {
                     if (usuario.getRoles() == Roles.INVERSIONISTA) {
                         Inversionista newInversionista = (Inversionista) usuario;
                         System.out.println(newInversionista.toString());
@@ -118,7 +111,7 @@ public class Inversionista extends Usuario {
                 }
             }
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                for (Usuario usuario : SistemaBancario.usuariosAcueducto.get(Roles.INVERSIONISTA)) {
+                for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA)) {
                     if (usuario.getRoles() == Roles.INVERSIONISTA) {
                         Inversionista newInversionista = (Inversionista) usuario;
                         System.out.println(newInversionista.toString());
@@ -139,9 +132,9 @@ public class Inversionista extends Usuario {
         boolean encontrado = false;
 
         if (usuario.getSucursales().equals(Sucursales.MADERO)) {
-            encontrado = modificarInversionistaEnSucursales(SistemaBancario.usuariosMadero.get(Roles.INVERSIONISTA), modificarRFC);
+            encontrado = modificarInversionistaEnSucursales(Sistema.usuariosMadero.get(Roles.INVERSIONISTA), modificarRFC);
         } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            encontrado = modificarInversionistaEnSucursales(SistemaBancario.usuariosAcueducto.get(Roles.INVERSIONISTA), modificarRFC);
+            encontrado = modificarInversionistaEnSucursales(Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA), modificarRFC);
         }
 
         if (!encontrado) {
@@ -196,7 +189,7 @@ public class Inversionista extends Usuario {
                     String newName = leer.nextLine().toUpperCase();
                     inversionista.setNombre(newName);
                     inversionista.setRFC(Usuario.generateRFC(newName, inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento()));
-                    inversionista.setCurp(Usuario.generarCurp(newName, inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento(), inversionista.getEstado(), inversionista.getSexo()));
+                    inversionista.setCurp(Usuario.generarCurp(newName, inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento(), inversionista.getEstado()));
                     break;
 
                 case 2:
@@ -204,7 +197,7 @@ public class Inversionista extends Usuario {
                     String newFatherLastName = leer.nextLine().toUpperCase();
                     inversionista.setApellidoPaterno(newFatherLastName);
                     inversionista.setRFC(Usuario.generateRFC(inversionista.getNombre(), newFatherLastName, inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento()));
-                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), newFatherLastName, inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento(), inversionista.getEstado(), inversionista.getSexo()));
+                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), newFatherLastName, inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento(), inversionista.getEstado()));
                     break;
 
                 case 3:
@@ -212,7 +205,7 @@ public class Inversionista extends Usuario {
                     String newMotherLastName = leer.nextLine().toUpperCase();
                     inversionista.setApellidoMaterno(newMotherLastName);
                     inversionista.setRFC(Usuario.generateRFC(inversionista.getNombre(), inversionista.getApellidoPaterno(), newMotherLastName, inversionista.getFechaDeNacimiento()));
-                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), inversionista.getApellidoPaterno(), newMotherLastName, inversionista.getFechaDeNacimiento(), inversionista.getEstado(), inversionista.getSexo()));
+                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), inversionista.getApellidoPaterno(), newMotherLastName, inversionista.getFechaDeNacimiento(), inversionista.getEstado()));
                     break;
 
                 case 4:
@@ -220,7 +213,7 @@ public class Inversionista extends Usuario {
                     String newFechaDeNacimiento = leer.nextLine().toUpperCase();
                     inversionista.setFechaDeNacimiento(newFechaDeNacimiento);
                     inversionista.setRFC(Usuario.generateRFC(inversionista.getNombre(), inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), newFechaDeNacimiento));
-                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), newFechaDeNacimiento, inversionista.getEstado(), inversionista.getSexo()));
+                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), newFechaDeNacimiento, inversionista.getEstado()));
                     break;
 
                 case 5:
@@ -233,7 +226,7 @@ public class Inversionista extends Usuario {
                     System.out.println("Ingrese el estado: ");
                     String newEstado = leer.nextLine().toUpperCase();
                     inversionista.setEstado(newEstado);
-                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento(), newEstado, inversionista.getSexo()));
+                    inversionista.setCurp(Usuario.generarCurp(inversionista.getNombre(), inversionista.getApellidoPaterno(), inversionista.getApellidoMaterno(), inversionista.getFechaDeNacimiento(), newEstado));
                     break;
 
                 case 7:
@@ -282,7 +275,7 @@ public class Inversionista extends Usuario {
         String buscarRFC = leer.nextLine();
 
         if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            ArrayList<Usuario> inversionistasAcueducto = SistemaBancario.usuariosAcueducto.get(Roles.INVERSIONISTA);
+            ArrayList<Usuario> inversionistasAcueducto = Sistema.usuariosAcueducto.get(Roles.INVERSIONISTA);
             for (Usuario inversionista : inversionistasAcueducto) {
                 if (inversionista.getRFC().equals(buscarRFC)) {
                     inversionistasAcueducto.remove(inversionista);
@@ -291,7 +284,7 @@ public class Inversionista extends Usuario {
                 }
             }
         } else if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-            ArrayList<Usuario> inversionistasMadero = SistemaBancario.usuariosMadero.get(Roles.INVERSIONISTA);
+            ArrayList<Usuario> inversionistasMadero = Sistema.usuariosMadero.get(Roles.INVERSIONISTA);
             for (Usuario inversionista : inversionistasMadero) {
                 if (inversionista.getRFC().equals(buscarRFC)) {
                     inversionistasMadero.remove(inversionista);

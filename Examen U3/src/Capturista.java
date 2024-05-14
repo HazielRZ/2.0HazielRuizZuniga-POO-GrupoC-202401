@@ -1,5 +1,3 @@
-package Roles;
-
 import utils.Sucursales;
 
 import java.util.ArrayList;
@@ -61,17 +59,17 @@ public class Capturista extends Usuario {
                     fechaDeNacimiento, cityCapturista, estadoCapturista, CURPCapturista, direccionCapturista, RFCCapturista, salaryCapturista, Roles.CAPTURISTA, usuarioActual.getSucursales(), "N/A", usuarioCapturista, passwordCapturista);
 
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                if (!SistemaBancario.usuariosMadero.containsKey(Roles.CAPTURISTA)) {
-                    SistemaBancario.usuariosMadero.put(Roles.CAPTURISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosMadero.containsKey(Roles.CAPTURISTA)) {
+                    Sistema.usuariosMadero.put(Roles.CAPTURISTA, new ArrayList<Usuario>());
                 }
-                SistemaBancario.usuariosMadero.get(Roles.CAPTURISTA).add(newCapturista);
+                Sistema.usuariosMadero.get(Roles.CAPTURISTA).add(newCapturista);
                 System.out.println("* Capturista registrado con éxito. Su RFC es: " + RFCCapturista + " y su CURP es: " + CURPCapturista);
 
             } else {
-                if (!SistemaBancario.usuariosAcueducto.containsKey(Roles.CAPTURISTA)) {
-                    SistemaBancario.usuariosAcueducto.put(Roles.CAPTURISTA, new ArrayList<Usuario>());
+                if (!Sistema.usuariosAcueducto.containsKey(Roles.CAPTURISTA)) {
+                    Sistema.usuariosAcueducto.put(Roles.CAPTURISTA, new ArrayList<Usuario>());
                 }
-                SistemaBancario.usuariosAcueducto.get(Roles.CAPTURISTA).add(newCapturista);
+                Sistema.usuariosAcueducto.get(Roles.CAPTURISTA).add(newCapturista);
                 System.out.println("* Capturista registrado con éxito. Su RFC es: " + RFCCapturista + " y su CURP es: " + CURPCapturista);
             }
         } else {
@@ -88,9 +86,9 @@ public class Capturista extends Usuario {
         boolean encontrado = false;
 
         if (usuario.getSucursales().equals(Sucursales.MADERO)) {
-            encontrado = modificarCapturistaEnSucursales(SistemaBancario.usuariosMadero.get(Roles.CAPTURISTA), modificarRFC);
+            encontrado = modificarCapturistaEnSucursales(Sistema.usuariosMadero.get(Roles.CAPTURISTA), modificarRFC);
         } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            encontrado = modificarCapturistaEnSucursales(SistemaBancario.usuariosAcueducto.get(Roles.CAPTURISTA), modificarRFC);
+            encontrado = modificarCapturistaEnSucursales(Sistema.usuariosAcueducto.get(Roles.CAPTURISTA), modificarRFC);
         }
 
         if (!encontrado) {
@@ -234,7 +232,7 @@ public class Capturista extends Usuario {
         String buscarRFC = leer.nextLine().toUpperCase();
 
         if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            ArrayList<Usuario> capturistaAcueducto = SistemaBancario.usuariosAcueducto.get(Roles.CAPTURISTA);
+            ArrayList<Usuario> capturistaAcueducto = Sistema.usuariosAcueducto.get(Roles.CAPTURISTA);
             for (Usuario capturista : capturistaAcueducto) {
                 if (capturista.getRFC().equals(buscarRFC)) {
                     capturistaAcueducto.remove(capturista);
@@ -243,7 +241,7 @@ public class Capturista extends Usuario {
                 }
             }
         } else if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-            ArrayList<Usuario> capturistaMadero = SistemaBancario.usuariosMadero.get(Roles.CAPTURISTA);
+            ArrayList<Usuario> capturistaMadero = Sistema.usuariosMadero.get(Roles.CAPTURISTA);
             for (Usuario capturista : capturistaMadero) {
                 if (capturista.getRFC().equals(buscarRFC)) {
                     capturistaMadero.remove(capturista);
@@ -261,7 +259,7 @@ public class Capturista extends Usuario {
         System.out.println("\n**Lista de Capturistas**");
         try {
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                for (Usuario usuario : SistemaBancario.usuariosMadero.get(Roles.CAPTURISTA)) {
+                for (Usuario usuario : Sistema.usuariosMadero.get(Roles.CAPTURISTA)) {
                     if (usuario.getRoles() == Roles.CAPTURISTA) {
                         Capturista capturista = (Capturista) usuario;
                         System.out.println(capturista.toString());
@@ -269,7 +267,7 @@ public class Capturista extends Usuario {
                 }
             }
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                for (Usuario usuario : SistemaBancario.usuariosAcueducto.get(Roles.CAPTURISTA)) {
+                for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.CAPTURISTA)) {
                     if (usuario.getRoles() == Roles.CAPTURISTA) {
                         Capturista capturista = (Capturista) usuario;
                         System.out.println(capturista.toString());

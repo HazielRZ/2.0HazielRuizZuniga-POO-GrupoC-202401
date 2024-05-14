@@ -1,5 +1,3 @@
-package Tarjeta;
-
 import java.util.Random;
 
 public class TarjetaDebito {

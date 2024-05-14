@@ -1,8 +1,3 @@
-import Roles.*;
-
-import Tarjeta.SolicitudTarjetaCredito;
-import Tarjeta.Tarjeta;
-import Tarjeta.TipoTarjeta;
 import utils.UsuarioenSesion;
 import java.util.*;
 import java.util.InputMismatchException;
@@ -16,7 +11,7 @@ public static class Menu {
     private static Usuario usuario;
     private static Inversionista inversionista;
     Scanner leer = new Scanner(System.in);
-    SistemaBancario sistema = new SistemaBancario();
+    Sistema sistema = new Sistema();
 
     public static void mostrarMenuCliente() {
         while (true) {
@@ -377,7 +372,7 @@ public static class Menu {
         boolean datosCorrectos = false;
         Scanner leer = new Scanner(System.in);
         do {
-            System.out.println("\n\tBIENVENIDO AL SISTEMA SistemaBancario ");
+            System.out.println("\n\tBIENVENIDO AL SISTEMA Sistema ");
 
             System.out.println("Pulsa enter para iniciar sesion: ");
             leer.nextLine();
@@ -401,9 +396,9 @@ public static class Menu {
 
             Usuario usuarioActual = null;
             if (SucursalesActual == 1)
-                usuarioActual = SistemaBancario.verificarInicioSesion(Sucursales.ACUEDUCTO, usuario, contrasena);
+                usuarioActual = Sistema.verificarInicioSesion(Sucursales.ACUEDUCTO, usuario, contrasena);
             else if (SucursalesActual == 2) {
-                usuarioActual = SistemaBancario.verificarInicioSesion(Sucursales.MADERO, usuario, contrasena);
+                usuarioActual = Sistema.verificarInicioSesion(Sucursales.MADERO, usuario, contrasena);
             }
 
 
@@ -477,75 +472,75 @@ public static class Menu {
 
             switch (opcion) {
                 case 1:
-                    SistemaBancario.registrarCliente(usuario);
+                    Sistema.registrarCliente(usuario);
                     break;
 
                 case 2:
-                    SistemaBancario.mostrarClientes(usuario);
+                    Sistema.mostrarClientes(usuario);
                     break;
 
                 case 3:
-                    SistemaBancario.modificarCliente(usuario);
+                    Sistema.modificarCliente(usuario);
                     break;
 
                 case 4:
-                    SistemaBancario.eliminarCliente(usuario);
+                    Sistema.eliminarCliente(usuario);
                     break;
 
                 case 5:
-                    SistemaBancario.registrarCapturista(usuario);
+                    Sistema.registrarCapturista(usuario);
                     break;
 
                 case 6:
-                    SistemaBancario.mostrarCapturista(usuario);
+                    Sistema.mostrarCapturista(usuario);
                     break;
 
                 case 7:
-                    SistemaBancario.modificarCapturista(usuario);
+                    Sistema.modificarCapturista(usuario);
                     break;
 
                 case 8:
-                    SistemaBancario.eliminarCapturista(usuario);
+                    Sistema.eliminarCapturista(usuario);
                     break;
 
                 case 9:
-                    SistemaBancario.registrarEjecutivo(usuario);
+                    Sistema.registrarEjecutivo(usuario);
                     break;
 
                 case 10:
-                    SistemaBancario.mostrarEjecutivos(usuario);
+                    Sistema.mostrarEjecutivos(usuario);
                     break;
 
                 case 11:
-                    SistemaBancario.modificarEjecutivo(usuario);
+                    Sistema.modificarEjecutivo(usuario);
                     break;
 
                 case 12:
-                    SistemaBancario.eliminarEjecutivo(usuario);
+                    Sistema.eliminarEjecutivo(usuario);
                     break;
 
                 case 13:
-                    SistemaBancario.registrarInversionista(usuario);
+                    Sistema.registrarInversionista(usuario);
                     break;
 
                 case 14:
-                    SistemaBancario.mostrarInversionista(usuario);
+                    Sistema.mostrarInversionista(usuario);
                     break;
 
                 case 15:
-                    SistemaBancario.modificarInversionista(usuario);
+                    Sistema.modificarInversionista(usuario);
                     break;
 
                 case 16:
-                    SistemaBancario.eliminarInversionista(usuario);
+                    Sistema.eliminarInversionista(usuario);
                     break;
 
                 case 17:
-                    SistemaBancario.mostrarSolicitudes();
+                    Sistema.mostrarSolicitudes();
                     break;
 
                 case 18:
-                    SistemaBancario.autorizarSolicitud(usuario);
+                    Sistema.autorizarSolicitud(usuario);
                     break;
 
                 case 19:
@@ -553,7 +548,7 @@ public static class Menu {
                     break;
 
                 case 20:
-                    SistemaBancario.mostrarInversiones(usuario, Sucursales);
+                    Sistema.mostrarInversiones(usuario, Sucursales);
                     break;
 
                 case 21:
@@ -586,19 +581,19 @@ public static class Menu {
             switch (opcion) {
 
                 case 1:
-                    SistemaBancario.registrarInversionista(usuario);
+                    Sistema.registrarInversionista(usuario);
                     break;
 
                 case 2:
-                    SistemaBancario.mostrarEjecutivos(usuario);
+                    Sistema.mostrarEjecutivos(usuario);
                     break;
 
                 case 3:
-                    SistemaBancario.modificarEjecutivo(usuario);
+                    Sistema.modificarEjecutivo(usuario);
                     break;
 
                 case 4:
-                    SistemaBancario.eliminarEjecutivo(usuario);
+                    Sistema.eliminarEjecutivo(usuario);
                     break;
 
                 case 5:
@@ -631,26 +626,26 @@ public static class Menu {
             opcion = leer.nextInt();
             switch (opcion) {
                 case 1:
-                    SistemaBancario.registrarCliente(usuario);
+                    Sistema.registrarCliente(usuario);
                     break;
 
                 case 2:
-                    SistemaBancario.mostrarClientes(usuario);
+                    Sistema.mostrarClientes(usuario);
                     break;
 
                 case 3:
-                    SistemaBancario.modificarCliente(usuario);
+                    Sistema.modificarCliente(usuario);
                     break;
 
                 case 4:
-                    SistemaBancario.eliminarCliente(usuario);
+                    Sistema.eliminarCliente(usuario);
                     break;
                 case 5:
-                    SistemaBancario.mostrarSolicitudes();
+                    Sistema.mostrarSolicitudes();
                     break;
 
                 case 6:
-                    SistemaBancario.autorizarSolicitud(usuario);
+                    Sistema.autorizarSolicitud(usuario);
                     break;
 
                 case 7:
@@ -693,7 +688,7 @@ public static class Menu {
                     break;
 
                 case 3:
-                    SistemaBancario.solicitarTarjetaCredito(usuario);
+                    Sistema.solicitarTarjetaCredito(usuario);
                     break;
 
                 case 4:

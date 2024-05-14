@@ -1,6 +1,3 @@
-package Roles;
-import Tarjeta.Credito;
-import Tarjeta.SolicitudTarjetaCredito;
 import utils.Sucursales;
 
 import java.time.LocalDate;
@@ -165,7 +162,7 @@ public class Usuario {
         System.out.println("Ingrese el ID de la solicitud: ");
         int idSolicitud = leer.nextInt();
 
-        for (SolicitudTarjetaCredito buscarSolicitud : SistemaBancario.listaSolicitudes) {
+        for (SolicitudTarjetaCredito buscarSolicitud : Sistema.listaSolicitudes) {
             if (buscarSolicitud.getIdSolicitud() == idSolicitud) {
                 System.out.println("1. Aprobar tarjeta ");
                 System.out.println("2. Rechazar tarjeta");
@@ -175,11 +172,11 @@ public class Usuario {
                 if (opcionStatus == 1) {
                     buscarSolicitud.setStatus(EstadoSolicitud.APROBADA);
                     Credito.crearTarjetaCredito(buscarSolicitud.getTipoTarjeta(), buscarSolicitud.getClienteSolicitando());
-                    SistemaBancario.listaSolicitudes.remove(buscarSolicitud);
+                    Sistema.listaSolicitudes.remove(buscarSolicitud);
                     System.out.println("La solicitud ha sido aprobada y la tarjeta de crédito ha sido creada.");
                 } else if (opcionStatus == 2) {
                     buscarSolicitud.setStatus(EstadoSolicitud.RECHAZADA);
-                    SistemaBancario.listaSolicitudes.remove(buscarSolicitud);
+                    Sistema.listaSolicitudes.remove(buscarSolicitud);
                     System.out.println("La solicitud ha sido rechazada.");
                 } else {
                     System.out.println("Opción inválida. La solicitud permanece sin cambios.");

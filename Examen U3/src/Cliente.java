@@ -1,21 +1,17 @@
-package Roles;
 
-import Tarjeta.*;
-
-
+import utils.Sucursales;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cliente extends Usuario {
     private TarjetaDebito tarjetaDebito = new TarjetaDebito();
-    private ArrayList<Tarjeta> listaTarjetaCredito;
     private ArrayList<SolicitudTarjetaCredito> listaSolicitudes;
 
     public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String fechaDeNacimiento, String ciudad, String estado, String curp, String direccion, String RFC, Roles rol, Sucursales Sucursales, String sexo, String userName, String password) {
         super(nombre, apellidoMaterno, apellidoPaterno, fechaDeNacimiento, ciudad, estado, curp, direccion, RFC, Roles, Sucursales, sexo, userName, password);
         this.tarjetaDebito = TarjetaDebito.crearTarjeta();
-        this.listaTarjetaCredito = new ArrayList<>();
+        ArrayList<Tarjeta.Tarjeta> listaTarjetaCredito = new ArrayList<>();
         this.listaSolicitudes = new ArrayList<>();
     }
 
@@ -42,18 +38,18 @@ public class Cliente extends Usuario {
                     fechaDeNacimiento, cityClient, estadoCliente, CURPClient, direccionClient, RFCClient, Roles.CLIENTE, usuarioActual.getSucursales(), sexoClient, usuarioClient, passwordClient);
 
             if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                if (!SistemaBancario.usuariosMadero.containsKey(Roles.CLIENTE)) {
-                    SistemaBancario.usuariosMadero.put(Roles.CLIENTE, new ArrayList<>());
+                if (!Sistema.usuariosMadero.containsKey(Roles.CLIENTE)) {
+                    Sistema.usuariosMadero.put(Roles.CLIENTE, new ArrayList<>());
                 }
-                SistemaBancario.usuariosMadero.get(Roles.CLIENTE).add(newCliente);
+                Sistema.usuariosMadero.get(Roles.CLIENTE).add(newCliente);
                 System.out.println("\nCliente registrado con éxito. Su rfc es:" + RFCClient + " su CURP es: " + CURPClient);
                 System.out.print("Su tarjeta de debito es: "+ newCliente.verTarjeta());
 
             } else {
-                if (!SistemaBancario.usuariosAcueducto.containsKey(Roles.CLIENTE)) {
-                    SistemaBancario.usuariosAcueducto.put(Roles.CLIENTE, new ArrayList<>());
+                if (!Sistema.usuariosAcueducto.containsKey(Roles.CLIENTE)) {
+                    Sistema.usuariosAcueducto.put(Roles.CLIENTE, new ArrayList<>());
                 }
-                SistemaBancario.usuariosAcueducto.get(Roles.CLIENTE).add(newCliente);
+                Sistema.usuariosAcueducto.get(Roles.CLIENTE).add(newCliente);
                 System.out.println("\nCliente registrado con éxito. Su rfc es:" + RFCClient + " su CURP es: " + CURPClient);
 
             }
@@ -81,8 +77,8 @@ public class Cliente extends Usuario {
     public static void mostrarCliente(Usuario usuarioActual) {
         System.out.println("\n***Lista de clientes***");
         try {
-            if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-                for (Usuario usuario : SistemaBancario.usuariosMadero.get(Roles.CLIENTE)) {
+            if (usuarioActual.getSucursales().equals(utils.Sucursales.MADERO)) {
+                for (Usuario usuario : Sistema.usuariosMadero.get(Roles.CLIENTE)) {
                     if (usuario.getRoles() == Roles.CLIENTE) {
                         Cliente cliente = (Cliente) usuario;
                         System.out.println(cliente.toString());
@@ -90,7 +86,7 @@ public class Cliente extends Usuario {
                 }
             }
             if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-                for (Usuario usuario : SistemaBancario.usuariosAcueducto.get(Roles.CLIENTE)) {
+                for (Usuario usuario : Sistema.usuariosAcueducto.get(Roles.CLIENTE)) {
                     if (usuario.getRoles() == Roles.CLIENTE) {
                         Cliente cliente = (Cliente) usuario;
                         System.out.println(cliente.toString());
@@ -111,9 +107,9 @@ public class Cliente extends Usuario {
         boolean encontrado = false;
 
         if (usuario.getSucursales().equals(Sucursales.MADERO)) {
-            encontrado = modificarClienteEnSucursales(SistemaBancario.usuariosMadero.get(Roles.CLIENTE), modificarRFC);
+            encontrado = modificarClienteEnSucursales(Sistema.usuariosMadero.get(Roles.CLIENTE), modificarRFC);
         } else if (usuario.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            encontrado = modificarClienteEnSucursales(SistemaBancario.usuariosAcueducto.get(Roles.CLIENTE), modificarRFC);
+            encontrado = modificarClienteEnSucursales(Sistema.usuariosAcueducto.get(Roles.CLIENTE), modificarRFC);
         }
 
         if (!encontrado) {
@@ -238,7 +234,7 @@ public class Cliente extends Usuario {
         String buscarRFC = leer.nextLine();
 
         if (usuarioActual.getSucursales().equals(Sucursales.ACUEDUCTO)) {
-            ArrayList<Usuario> clienteAcueducto = SistemaBancario.usuariosAcueducto.get(Roles.CLIENTE);
+            ArrayList<Usuario> clienteAcueducto = Sistema.usuariosAcueducto.get(Roles.CLIENTE);
             for (Usuario cliente : clienteAcueducto) {
                 System.out.println(cliente);
                 if (cliente.getRFC().equals(buscarRFC)) {
@@ -248,7 +244,7 @@ public class Cliente extends Usuario {
                 }
             }
         } else if (usuarioActual.getSucursales().equals(Sucursales.MADERO)) {
-            ArrayList<Usuario> clienteMadero = SistemaBancario.usuariosMadero.get(Roles.CLIENTE);
+            ArrayList<Usuario> clienteMadero = Sistema.usuariosMadero.get(Roles.CLIENTE);
             for (Usuario cliente : clienteMadero) {
                 if (cliente.getRFC().equals(buscarRFC)) {
                     clienteMadero.remove(cliente);
@@ -286,7 +282,7 @@ public class Cliente extends Usuario {
             if (validarRequisitosParaSolicitud(tipoTarjetaSolicitar, clienteSolicitar)) {
                 SolicitudTarjetaCredito nuevaSolicitud = new SolicitudTarjetaCredito(clienteSolicitar, tipoTarjetaSolicitar, estado, LocalDateTime.now());
                 listaSolicitudes.add(nuevaSolicitud);
-                SistemaBancario.listaSolicitudes.add(nuevaSolicitud);
+                Sistema.listaSolicitudes.add(nuevaSolicitud);
             } else {
                 System.out.println("No cuentas con el saldo requerido para este tipo de tarjeta.");
             }

@@ -1,6 +1,6 @@
 package utils;
 
-import Roles.Inversionista;
+import Inversionista;
 
 import java.util.ArrayList;
 import java.util.List;

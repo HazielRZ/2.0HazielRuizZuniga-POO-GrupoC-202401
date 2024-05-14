@@ -1,12 +1,10 @@
-import Roles.*;
-import Tarjeta.SolicitudTarjetaCredito;
 import utils.Sucursales;
-import Tarjeta.Tarjeta;
+
 import java.util.*;
 
-import static Tarjeta.SolicitudTarjetaCredito.mostrarListaSolicitudes;
+import static SolicitudTarjetaCredito.mostrarListaSolicitudes;
 
-public class SistemaBancario {
+public class Sistema {
     Scanner leer = new Scanner(System.in);
     public static HashMap<Sucursales, Gerente> listaGerentes = new HashMap<Sucursales, Gerente>();
     public static HashMap<Roles, ArrayList<Usuario>> usuariosMadero = new HashMap<Roles, ArrayList<Usuario>>();
@@ -17,7 +15,7 @@ public class SistemaBancario {
     Gerente gerenteMadero = new Gerente("Gerente1", "1", "", "1", "1", "2000-30-01", "Morelia", "Michoacan", "Mujer", "Obrera", "", 10000.90, Roles.GERENTE, Sucursales.MADERO, "mujer");
     Gerente gerenteAcueducto = new Gerente("Gerente2", "1", "", "1", "1", "2003-22-10", "Morelia", "", "Hombre", "Av. Morelos", "", 5000.90, Roles.GERENTE, Sucursales.ACUEDUCTO, "hombre");
 
-    public SistemaBancario() {
+    public Sistema() {
         if (!listaGerentes.containsKey(Sucursales.ACUEDUCTO)) {
             usuariosAcueducto.put(Roles.GERENTE, new ArrayList<Usuario>());
             usuariosAcueducto.get(Roles.GERENTE).add(gerenteAcueducto);
