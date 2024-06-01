@@ -6,7 +6,7 @@ import Menu.*;
 import java.util.ArrayList;
 
 public class MenuCoordinador {
-    private Coordinador coordinador;
+    private final Coordinador coordinador;
 
     public MenuCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;

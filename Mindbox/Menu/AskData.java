@@ -3,7 +3,7 @@ package Menu;
 import java.util.Scanner;
 
 public class AskData {
-    private static Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
 
     public static String inputString(String prompt) {
         System.out.print(prompt + ": ");

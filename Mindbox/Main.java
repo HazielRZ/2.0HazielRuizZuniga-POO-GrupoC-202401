@@ -1,6 +1,7 @@
 
 import Modelo.Carrera;
 import Modelo.Coordinador;
+import MenusEspecificos.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        // ... (cargar carreras desde JSON)
+        //  (cargar carreras desde JSON)
         List<Carrera> carreras = new ArrayList<>();
 
         // Cargar carreras desde JSON si el archivo existe
@@ -22,7 +23,7 @@ public class Main {
                 System.err.println("Error al cargar carreras desde JSON: " + e.getMessage());
             }
         } else {
-            // Crear carreras iniciales si el archivo no existe
+            // Crear carreras
             carreras.add(new Carrera("Ingeniería en Sistemas Computacionales", null)); // Coordinador se asignará después
             carreras.add(new Carrera("Ingeniería en Materiales", null));
             carreras.add(new Carrera("Ingeniería Electrónica", null));
@@ -37,7 +38,7 @@ public class Main {
 
         List<Coordinador> coordinadores = new ArrayList<>();
 
-        // Crear coordinadores de ejemplo
+        // Crear coordinadores
         Coordinador coordinadorISC = new Coordinador(
                 "José Manuel", "Cuin Jacuinde", "19/05/2012", "M", "Morelia", "MICHOACÁN",
                 "Av. Tecnológico 1500", "19/03/1988",50000.0, carreras.get(0) // ISC
@@ -58,6 +59,8 @@ public class Main {
         // Guardar coordinadores en JSON
         Coordinador.guardarCoordinadores(coordinadores, "coordinadores.json");
 
-        // ... (resto del programa)
+        // inicio de sesion
+        MenuPrincipal menuPrincipal = new MenuPrincipal();
+        menuPrincipal.mostrarMenu();
     }
 }

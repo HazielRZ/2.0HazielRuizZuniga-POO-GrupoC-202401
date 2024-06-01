@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuAlumno {
-    private Alumno alumno;
+    private final Alumno alumno;
 
     public MenuAlumno(Alumno alumno) {
         this.alumno = alumno;
@@ -31,7 +31,12 @@ public class MenuAlumno {
         int opcion;
         do {
             menuAlumno.display("\nMenú Alumno", alumno.getRol());
-            opcion = AskData.inputInteger("Opción: ", new IntegerValidator(0, menuAlumno.getMenuItems().size() - 1)); // Validación de opciones
+            opcion = AskData.inputInteger("Opción: ", new IntegerValidator() {
+                @Override
+                public boolean integerValidator(int value) {
+                    return false;
+                }
+            }); // Validación de opciones
         } while (opcion != 0); // Repetir hasta que el usuario elija salir
     }
 

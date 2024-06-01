@@ -35,7 +35,7 @@ public class Menu {
         }
 
     }
-    void addMenuItem(int key, MenuItem menuItem) {
+    public void addMenuItem(int key, MenuItem menuItem) {
         menuItems.put(key, menuItem);
     }
 

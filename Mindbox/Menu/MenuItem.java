@@ -32,7 +32,7 @@ public class MenuItem {
     public MenuItem(String text, Controller controller, ArrayList<Permission> permissions) {
         this.text = text;
         this.controller = controller;
-        this.permission = permissions;
+        permission = permissions;
     }
 
     public static ArrayList<Permission> getPermission() {
@@ -40,7 +40,7 @@ public class MenuItem {
     }
 
     public void setPermission(ArrayList<Permission> permission) {
-        this.permission = permission;
+        MenuItem.permission = permission;
     }
 
 
