@@ -2,7 +2,6 @@ package Modelo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import utils.GestorId;
 import utils.ValidadorRFC; // Clase para validar y generar RFC
 
 import java.io.IOException;
@@ -12,12 +11,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Profesor extends Empleado {
+
     // Constructor
     public Profesor(String nombre, String apellidos, String fechaNacimiento, String sexo, String ciudad, String estado,
-                    String direccion,String fechaREgistro, double sueldo) {
-        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaREgistro, "Profesor", sueldo);
-        GestorId gestorId = GestorId.getInstancia();
-        this.idUsuario = gestorId.generarIdProfesor();
+                    String direccion, String fechaRegistro, double sueldo, List<Materia> materiasSeleccionadas, String nombreUsuario, String contrasena) {
+        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaRegistro, "Profesor", sueldo, nombreUsuario,contrasena);
+
+        this.rfc = ValidadorRFC.generarRFC(this); // Generar RFC para el profesor
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
 
     }
 
@@ -84,5 +86,14 @@ public class Profesor extends Empleado {
         materiasImpartidas.remove(materia);
     }
 
+    @Override
+    public void setMateriasImpartidas(List<Materia> materiasImpartidas) {
+        super.setMateriasImpartidas(materiasImpartidas);
+    }
+
+    @Override
+    public List<Materia> getMateriasImpartidas() {
+        return super.getMateriasImpartidas();
+    }
     // ... (otros métodos para asignar/modificar calificaciones, etc.)
 }

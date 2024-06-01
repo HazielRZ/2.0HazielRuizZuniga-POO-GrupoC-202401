@@ -14,13 +14,13 @@ public class Usuario {
     String curp;
     private String direccion;
     private String fechaRegistro; // Cambiado a LocalDate
-    private String nombreUsuario; // Para el inicio de sesión
-    private String contrasena; // Para el inicio de sesión
+    protected String nombreUsuario; // Para el inicio de sesión
+    protected String contrasena; // Para el inicio de sesión
     private String rol; // "Alumno", "Profesor" o "Coordinador"
 
     // Constructor
     public Usuario(String nombre, String apellidos, String fechaNacimiento, String sexo, String ciudad,
-                   String estado, String direccion, String fechaRegistro, String rol) {
+                   String estado, String direccion, String fechaRegistro, String rol,String nombreUsuario, String contrasena) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -31,6 +31,8 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
         this.rol = rol;
         this.curp = ValidadorCURP.generarCURP(this); // Generar CURP automáticamente
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
     }
 
     public int getIdUsuario() {

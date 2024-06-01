@@ -10,15 +10,15 @@ public class Empleado extends Usuario {
     protected List<Materia> materiasImpartidas;
     protected double sueldo;
 
-    // Constructor
+    //constructor
     public Empleado(String nombre, String apellidos, String fechaNacimiento, String sexo, String ciudad, String estado,
-                    String direccion, String fechaRegistro, String rol, double sueldo) {
-        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaRegistro, rol);
+                    String direccion, String fechaRegistro, String rol, double sueldo,String nombreUsuario, String contrasena) {
+        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaRegistro, rol, nombreUsuario,contrasena);
         this.sueldo = sueldo;
-        this.materiasImpartidas = new ArrayList<>();
         this.rfc = ValidadorRFC.generarRFC(this);
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
     }
-
 
     public String getRfc() {
         return rfc;

@@ -10,12 +10,12 @@ public class Menu {
         menuItems = new HashMap<>();
     }
 
-    public void display(String prompt, String rolUsuario) {
+    public void display(String prompt) {
         System.out.println(prompt);
         for (Map.Entry<Integer, MenuItem> entry : menuItems.entrySet()) {
             MenuItem item = entry.getValue();
-            // Verificar permisos usando la clase Permission (enum)
-            if (MenuItem.getPermission().contains(Permission.valueOf(rolUsuario.toUpperCase()))) {
+
+            if (MenuItem.getPermission().contains(Permission.valueOf(rolUsuario))) {
                 System.out.println(entry.getKey() + " - " + item.getText());
             }
         }

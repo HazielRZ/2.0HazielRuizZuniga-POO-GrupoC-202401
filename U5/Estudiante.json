@@ -1,0 +1,26 @@
+{
+  "Estudiantes": [
+    {
+      "nombre": "Juan",
+      "apellido": "RIVERA",
+      "id": 21
+    },
+    {
+      "nombre": "Pedro",
+      "apellido": "cisneros",
+      "id": 2
+    }
+  ],
+  "Trabajadores": [
+    {
+      "nombre": "Gualo",
+      "apellido": "Ruiz",
+      "id": 1
+    },
+    {
+      "nombre": "Liz",
+      "apellido": "Perez",
+      "id": 2
+    }
+  ]
+}

@@ -16,11 +16,13 @@ public class Coordinador extends Empleado {
 
     // Constructor
     public Coordinador(String nombre, String apellidos, String fechaNacimiento, String sexo, String ciudad, String estado,
-                       String direccion,String fechaRegistro, double sueldo, Carrera carrera) {
-        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaRegistro, "Coordinador", sueldo);
+                       String direccion,String fechaRegistro, double sueldo, Carrera carrera,String nombreUsuario, String contrasena) {
+        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaRegistro, "Coordinador", sueldo, nombreUsuario,contrasena);
         GestorId gestorId = GestorId.getInstancia();
         this.idUsuario = gestorId.generarIdProfesor();
         this.carrera = carrera;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
     }
 
     // Getters y Setters

@@ -41,15 +41,15 @@ public class Main {
         // Crear coordinadores
         Coordinador coordinadorISC = new Coordinador(
                 "José Manuel", "Cuin Jacuinde", "19/05/2012", "M", "Morelia", "MICHOACÁN",
-                "Av. Tecnológico 1500", "19/03/1988",50000.0, carreras.get(0) // ISC
+                "Av. Tecnológico 1500", "19/03/1988",50000.0, carreras.get(0),"jmcuin","123" // ISC
         );
         Coordinador coordinadorELC = new Coordinador(
                 "Eder", "Rivera Cisneros", "19/05/2012", "M", "Morelia", "MICHOACÁN",
-                "Calle Revolución 320", "19/05/2012",48000.0, carreras.get(1) // ELC
+                "Calle Revolución 320", "19/05/2012",48000.0, carreras.get(1) ,"eder","123"// ELC
         );
         Coordinador coordinadorIMAT = new Coordinador(
-                "Juvenal", "Maldonado Pérez", "19/05/2012", "M", "Morelia", "MICHOACÁN",
-                "Blvd. García de León 789","19/05/2012", 52000.0, carreras.get(2) // IMAT
+                "J.", "Ramos Diaz", "19/05/2012", "M", "Morelia", "MICHOACÁN",
+                "Blvd. García de León 789","19/05/2012", 52000.0, carreras.get(2),"gualo","123" // IMAT
         );
 
         coordinadores.add(coordinadorISC);

@@ -1,12 +1,10 @@
 package Menu;
 
+import Cruds.GrupoCrud;
 import MenusEspecificos.MenuAlumno;
 import MenusEspecificos.MenuCoordinador;
 import MenusEspecificos.MenuProfesor;
-import Modelo.Alumno;
-import Modelo.Coordinador;
-import Modelo.Profesor;
-import Modelo.Usuario;
+import Modelo.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,7 +33,7 @@ public class ControllerInicioSesion implements Controller {
             for (Usuario usuario : usuarios) {
                 if (usuario.getNombreUsuario().equals(nombreUsuario) && usuario.getContrasena().equals(contrasena)) {
                     System.out.println("Inicio de sesión exitoso. Bienvenido, " + usuario.getNombre() + "!");
-                    mostrarMenuSegunRol(usuario); // Pasar el usuario encontrado
+                    mostrarMenuSegunRol(usuario,GrupoCrud.grupos); // Pasar el usuario encontrado
                     return;
                 }
             }
@@ -46,20 +44,17 @@ public class ControllerInicioSesion implements Controller {
         }
     }
 
-    public static void mostrarMenuSegunRol(Usuario usuario) {
+    public static void mostrarMenuSegunRol(Usuario usuario, List<Grupo> grupos) {
         String rol = usuario.getRol();
         switch (rol) {
             case "Alumno":
-                MenuAlumno menuAlumno = new MenuAlumno((Alumno) usuario);
-                menuAlumno.mostrarMenu();
+                new MenuAlumno((Alumno) usuario, new GrupoCrud(grupos)).mostrarMenu();
                 break;
             case "Profesor":
-                MenuProfesor menuProfesor = new MenuProfesor((Profesor) usuario);
-                menuProfesor.mostrarMenu();
+                new MenuProfesor((Profesor) usuario).mostrarMenu();
                 break;
             case "Coordinador":
-                MenuCoordinador menuCoordinador = new MenuCoordinador((Coordinador) usuario);
-                menuCoordinador.mostrarMenu();
+                new MenuCoordinador((Coordinador) usuario).mostrarMenu();
                 break;
             default:
                 System.out.println("Rol de usuario no válido.");

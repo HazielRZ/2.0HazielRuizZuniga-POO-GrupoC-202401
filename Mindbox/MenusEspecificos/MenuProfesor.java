@@ -21,10 +21,10 @@ public class MenuProfesor {
         menuProfesor.addMenuItem(3, new MenuItem("Registrar Calificaciones", new ControllerRegistrarCalificacionesProfesor(profesor), new ArrayList<>(List.of(Permission.WRITE))));
         menuProfesor.addMenuItem(4, new MenuItem("Modificar Calificaciones", new ControllerModificarCalificacionesProfesor(profesor), new ArrayList<>(List.of(Permission.WRITE))));
         // ... (agregar más opciones al menú de profesor)
-
+        menuProfesor.addMenuItem(0, new MenuItem("Salir", new SalirController(), new ArrayList<>(List.of(Permission.READ))));
         int opcion;
         do {
-            menuProfesor.display("Menú Profesor", profesor.getRol()); // Mostrar el menú
+            menuProfesor.display("Menú Profesor"); // Mostrar el menú
             opcion = AskData.inputInteger("Opción: ", new IntegerValidator() {
                 @Override
                 public boolean integerValidator(int value) {

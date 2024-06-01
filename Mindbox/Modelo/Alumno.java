@@ -2,6 +2,7 @@ package Modelo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import utils.GestorEntidades;
 import utils.GestorId;
 import utils.ValidadorCURP;
 
@@ -12,47 +13,51 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Alumno extends Usuario {
-    private Carrera carrera;
-    private Semestre semestre;
-    private Grupo grupo;
+    private int carrera;
+    private int semestre;
+    private int grupo;
     private double promedio;
-    private String numeroControl;
+    String numeroControl = generarNumeroControl(carrera);
 
     // Constructor
     public Alumno(String nombre, String apellidos, String fechaNacimiento, String sexo, String ciudad, String estado,
-                  String direccion, String fechaRegistro, Carrera carrera, Semestre semestre, Grupo grupo) {
-        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaRegistro, "Alumno");
+                  String direccion, String fechaRegistro, int carrera, int semestre, int grupo,
+                  String nombreUsuario, String contrasena) {
+        super(nombre, apellidos, fechaNacimiento, sexo, ciudad, estado, direccion, fechaRegistro, "Alumno", nombreUsuario, contrasena);
         GestorId gestorId = GestorId.getInstancia();
         this.idUsuario = gestorId.generarIdAlumno();
         this.carrera = carrera;
         this.semestre = semestre;
         this.grupo = grupo;
         this.promedio = 0.0;
-        this.numeroControl = generarNumeroControl();
+        this.numeroControl = generarNumeroControl(carrera);
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
+
     }
 
-    public Carrera getCarrera() {
+    public int getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(Carrera carrera) {
+    public void setCarrera(int carrera) {
         this.carrera = carrera;
     }
 
-    public Semestre getSemestre() {
+    public int getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(Semestre semestre) {
+    public void setSemestre(int semestre) {
         this.semestre = semestre;
     }
 
-    public Grupo getGrupo() {
+    public int getGrupo() {
         return grupo;
     }
 
     public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
+        this.grupo = grupo.getIdGrupo();
     }
 
     public double getPromedio() {
@@ -144,10 +149,12 @@ public class Alumno extends Usuario {
     }
 
     // Generación del número de control
-    private String generarNumeroControl() {
+    private String generarNumeroControl(int carreraId) {
         String primeraLetra = this.nombre.substring(0, 1).toUpperCase();
         String anio = String.valueOf(LocalDate.now().getYear()).substring(2);
-        return "l" + primeraLetra + anio + carrera.getAbreviatura();
+        // Obtén la abreviatura de la carrera usando su ID
+        String abreviaturaCarrera = GestorEntidades.getInstancia().obtenerCarreraPorId(carreraId).getAbreviatura();
+        return "l" + primeraLetra + anio + abreviaturaCarrera;
     }
 
     // Otros métodos específicos de Alumno (calcular promedio, etc.)

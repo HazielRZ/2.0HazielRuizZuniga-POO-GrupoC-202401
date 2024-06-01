@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class Carrera {
 
-    private int idCarrera;
+    private static int idCarrera;
     private String nombre;
     private int cantidadGrupos;
     private int cantidadAlumnos;
@@ -33,7 +33,7 @@ public class Carrera {
         this.coordinador = coordinador;
     }
 
-    public int getIdCarrera() {
+    public static int getIdCarrera() {
         return idCarrera;
     }
 
