@@ -2,12 +2,9 @@ package MenuControllers;
 
 import Cruds.GrupoCrud;
 import Menu.Controller;
-import Menu.Permission;
 import Modelo.Alumno;
 import Modelo.Grupo;
 import Modelo.Materia;
-
-import java.util.ArrayList;
 
 public class ControllerVerMisGruposAlumno implements Controller {
     private Alumno alumno;
@@ -19,7 +16,7 @@ public class ControllerVerMisGruposAlumno implements Controller {
     }
 
     @Override
-    public void execute(ArrayList<Permission> permissions) {
+    public void execute() {
         verMisGrupos();
     }
 

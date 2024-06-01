@@ -1,12 +1,7 @@
 package MenuControllers;
 
 import Menu.Controller;
-import Menu.Permission;
 import Modelo.Alumno;
-import Modelo.Grupo;
-import Modelo.Materia;
-
-import java.util.ArrayList;
 
 public class ControllerVerInformacionPersonalAlumno implements Controller {
     private final Alumno alumno;
@@ -16,7 +11,7 @@ public class ControllerVerInformacionPersonalAlumno implements Controller {
     }
 
     @Override
-    public void execute(ArrayList<Permission> permissions) {
+    public void execute() {
         verInformacionPersonal();
     }
 

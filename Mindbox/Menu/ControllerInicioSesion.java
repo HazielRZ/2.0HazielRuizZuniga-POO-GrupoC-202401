@@ -11,13 +11,12 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerInicioSesion implements Controller {
 
     @Override
-    public void execute(ArrayList<Permission> permissions) {
+    public void execute() {
         iniciarSesion();
     }
 
@@ -25,23 +24,35 @@ public class ControllerInicioSesion implements Controller {
         String nombreUsuario = AskData.inputString("Nombre de usuario");
         String contrasena = AskData.inputString("Contraseña");
 
-        try {
-            Gson gson = new Gson();
-            String json = new String(Files.readAllBytes(Paths.get("usuarios.json")));
-            List<Usuario> usuarios = gson.fromJson(json, new TypeToken<List<Usuario>>() {}.getType());
+        Usuario usuario = buscarUsuarioEnArchivos(nombreUsuario, contrasena);
 
-            for (Usuario usuario : usuarios) {
-                if (usuario.getNombreUsuario().equals(nombreUsuario) && usuario.getContrasena().equals(contrasena)) {
-                    System.out.println("Inicio de sesión exitoso. Bienvenido, " + usuario.getNombre() + "!");
-                    mostrarMenuSegunRol(usuario,GrupoCrud.grupos); // Pasar el usuario encontrado
-                    return;
-                }
-            }
-
+        if (usuario != null) {
+            System.out.println("Inicio de sesión exitoso. Bienvenido, " + usuario.getNombre() + "!");
+            mostrarMenuSegunRol(usuario, GrupoCrud.grupos);
+        } else {
             System.out.println("Credenciales incorrectas. Por favor, intente de nuevo.");
-        } catch (IOException e) {
-            System.err.println("Error al cargar usuarios desde JSON: " + e.getMessage());
         }
+    }
+
+    private Usuario buscarUsuarioEnArchivos(String nombreUsuario, String contrasena) {
+        Gson gson = new Gson();
+        String[] archivosUsuarios = {"alumnos.json", "profesores.json", "coordinadores.json"};
+
+        for (String archivo : archivosUsuarios) {
+            try {
+                String json = new String(Files.readAllBytes(Paths.get(archivo)));
+                List<Usuario> usuarios = gson.fromJson(json, new TypeToken<List<Usuario>>() {}.getType());
+                for (Usuario usuario : usuarios) {
+                    if (usuario.getNombreUsuario().equals(nombreUsuario) && usuario.getContrasena().equals(contrasena)) {
+                        return usuario; // Encontramos al usuario, retornamos la instancia
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("Error al cargar usuarios desde " + archivo + ": " + e.getMessage());
+                // Puedes decidir si continuar buscando en otros archivos o no
+            }
+        }
+        return null; // No se encontró el usuario
     }
 
     public static void mostrarMenuSegunRol(Usuario usuario, List<Grupo> grupos) {

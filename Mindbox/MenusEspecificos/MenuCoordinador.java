@@ -36,7 +36,7 @@ public class MenuCoordinador {
                 }
             }); // Validación de opciones
             if (opcion != 0) {
-                menuCoordinador.getMenuItems().get(opcion).getController().execute(null);
+                menuCoordinador.getMenuItems().get(opcion).getController().execute();
             }
         } while (opcion != 0); // Repetir hasta que el usuario elija salir
     }

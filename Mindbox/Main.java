@@ -1,7 +1,9 @@
 
+import Modelo.Alumno;
 import Modelo.Carrera;
 import Modelo.Coordinador;
 import MenusEspecificos.*;
+import Modelo.Profesor;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,8 +14,9 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        //  (cargar carreras desde JSON)
+        //  (cargar desde JSON)
         List<Carrera> carreras = new ArrayList<>();
+
 
         // Cargar carreras desde JSON si el archivo existe
         if (Files.exists(Paths.get("carreras.json"))) {
@@ -56,8 +59,25 @@ public class Main {
         coordinadores.add(coordinadorELC);
         coordinadores.add(coordinadorIMAT);
 
+
+
         // Guardar coordinadores en JSON
         Coordinador.guardarCoordinadores(coordinadores, "coordinadores.json");
+        List<Alumno> alumnos = new ArrayList<>();
+        if (Files.exists(Paths.get("alumnos.json"))) {
+            alumnos = Alumno.cargarAlumnos("alumnos.json");
+        } else {
+            alumnos.add(new Alumno("Haziel", "Ruiz Zuniga", "10/01/2003", "M", "Morelia", "MICHOACÁN", "Av.PascualOrtiz", "30-05-2021", 1, 1, 1, "Hzr", "123"));
+
+            Alumno.guardarAlumnos(alumnos, "alumnos.json");
+        }
+        List<Profesor> profesores = new ArrayList<>();
+        if (Files.exists(Paths.get("profesores.json"))) {
+            profesores = Profesor.cargarProfesores("profesores.json");
+
+        } else {
+            profesores.add(new Profesor("Jaime","Zetina Guadalupe","20/02/1980","M","Morelia", "MICHOACÁN", "ElTecMorelia", "30-05-2021",50.000,null,"Zetina","123"));
+        }
 
         // inicio de sesion
         MenuPrincipal menuPrincipal = new MenuPrincipal();

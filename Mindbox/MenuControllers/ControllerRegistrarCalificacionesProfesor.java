@@ -1,10 +1,7 @@
 package MenuControllers;
 
 import Menu.Controller;
-import Menu.Permission;
 import Modelo.Profesor;
-
-import java.util.ArrayList;
 
 public class ControllerRegistrarCalificacionesProfesor implements Controller {
     private final Profesor profesor;
@@ -14,7 +11,7 @@ public class ControllerRegistrarCalificacionesProfesor implements Controller {
     }
 
     @Override
-    public void execute(ArrayList<Permission> permissions) {
+    public void execute() {
         registrarCalificaciones();
     }
 

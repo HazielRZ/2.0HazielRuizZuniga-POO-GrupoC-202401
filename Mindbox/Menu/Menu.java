@@ -13,28 +13,20 @@ public class Menu {
     public void display(String prompt) {
         System.out.println(prompt);
         for (Map.Entry<Integer, MenuItem> entry : menuItems.entrySet()) {
-            MenuItem item = entry.getValue();
-
-            if (MenuItem.getPermission().contains(Permission.valueOf(rolUsuario))) {
-                System.out.println(entry.getKey() + " - " + item.getText());
-            }
+            System.out.println(entry.getKey() + " - " + entry.getValue().getText());
         }
 
-        int opcion = AskData.inputInteger("Opción: ", new IntegerValidator() {
-            @Override
-            public boolean integerValidator(int value) {
-                return false;
-            }
-        }); // Validación con AskData
+        int opcion = AskData.inputInteger("Opción: ");
 
         MenuItem menuItem = menuItems.get(opcion);
         if (menuItem != null) {
-            menuItem.getController(); // No es necesario pasar el rol, ya se verificó antes
+            menuItem.getController().execute(); // Ejecutamos el controlador
         } else {
             System.out.println("Opción inválida.");
         }
-
     }
+
+
     public void addMenuItem(int key, MenuItem menuItem) {
         menuItems.put(key, menuItem);
     }

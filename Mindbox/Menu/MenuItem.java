@@ -1,7 +1,6 @@
 package Menu;
 
 import java.util.ArrayList;
-import java.lang.Runnable;
 
 public class MenuItem {
     private String text;
@@ -42,8 +41,6 @@ public class MenuItem {
     public void setPermission(ArrayList<Permission> permission) {
         MenuItem.permission = permission;
     }
-
-
 
 
 }

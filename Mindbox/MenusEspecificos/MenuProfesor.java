@@ -32,7 +32,7 @@ public class MenuProfesor {
                 }
             });
             if (opcion != 0) {
-                menuProfesor.getMenuItems().get(opcion).getController().execute(null);
+                menuProfesor.getMenuItems().get(opcion).getController().execute();
             }
         } while (opcion != 0); // Repetir hasta que el usuario elija salir
     }

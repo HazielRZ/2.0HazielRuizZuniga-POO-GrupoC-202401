@@ -1,7 +1,6 @@
 package Menu;
 
-import java.util.ArrayList;
-
+@FunctionalInterface
 public interface Controller {
-    void execute(ArrayList<Permission> permissions);
+    void execute();
 }

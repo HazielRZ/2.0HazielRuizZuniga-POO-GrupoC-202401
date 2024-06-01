@@ -43,7 +43,7 @@ import java.util.List;
                     }
                 }); // Validación de opciones
                 if (opcion != 0) {
-                    menuAlumno.getMenuItems().get(opcion).getController().execute(null);
+                    menuAlumno.getMenuItems().get(opcion).getController().execute();
                 }
             } while (opcion != 0); // Repetir hasta que el usuario elija salir
         }

@@ -1,10 +1,7 @@
 package MenuControllers;
 
 import Menu.Controller;
-import Menu.Permission;
 import Modelo.Coordinador;
-
-import java.util.ArrayList;
 
 public class ControllerDarAltaAlumnoCoordinador implements Controller {
     private final Coordinador coordinador;
@@ -14,7 +11,7 @@ public class ControllerDarAltaAlumnoCoordinador implements Controller {
     }
 
     @Override
-    public void execute(ArrayList<Permission> permissions) {
+    public void execute() {
         darAltaAlumno();
     }
 
